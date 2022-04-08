@@ -21,6 +21,11 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
+        debug{
+            testCoverageEnabled true
+        }
+
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -30,6 +35,19 @@ android {
         jvmTarget = '1.8'
     }
 }
+
+subprojects {
+    configurations.all {
+        resolutionStrategy {
+            eachDependency { details ->
+                if ('org.jacoco' == details.requested.group) {
+                    details.useVersion jacocoVersion
+                }
+            }
+        }
+    }
+}
+
 
 dependencies {
 

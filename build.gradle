@@ -3,8 +3,38 @@ plugins {
     id 'com.android.application' version '7.1.2' apply false
     id 'com.android.library' version '7.1.2' apply false
     id 'org.jetbrains.kotlin.android' version '1.5.30' apply false
+    id 'jacoco'
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+task jacocoTestReport (type: JacocoReport, dependsOn: [':moduleName:taskTest',':otherModuleName:taskTest']){
+    def myModule = project(':app')
+    def directoriesToCoverage = layout.files("$buildDir/tmp/kotlin-classes/debug", "$myModule.buildDir/tmp/kotlin-classes/debug")
+    def mainSources = layout.files("$project.projectDir/src/main/java", "$myModule.projectDir/src/main/java")
+
+    def executionFilesFromConnectedAndroidTest = fileTree(
+            dir: "$buildDir",
+            includes: ["outputs/code_coverage/debugAndroidTest/connected/**coverage.ec"]
+    )
+    def executionFileForUnitTestInModule = "$buildDir/outputs/unit_test_code_coverage/debugUnitTest/testDebugUnitTest.exec"
+    def executionFileForUnitTestInOtherModule = "$myModule.buildDir/jacoco/testDebugUnitTest.exec"
+
+    def executionFiles = layout.files(
+            executionFilesFromConnectedAndroidTest,
+            executionFileForUnitTestInModule,
+            executionFileForUnitTestInOtherModule
+    )
+
+    sourceDirectories.setFrom(files([mainSources]))
+    classDirectories.setFrom(files([directoriesToCoverage.asFileTree]))
+    executionData.setFrom(executionFiles.asFileTree)
+
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
+
 }
