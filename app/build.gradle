@@ -49,7 +49,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }
 
-task jacocoTestReport (type: JacocoReport, dependsOn: [':moduleName:taskTest',':otherModuleName:taskTest']){
+task jacocoTestReport (type: JacocoReport, dependsOn: [':testDebugUnitTest']){
     def myModule = project(':app')
     def directoriesToCoverage = layout.files("$buildDir/tmp/kotlin-classes/debug", "$myModule.buildDir/tmp/kotlin-classes/debug")
     def mainSources = layout.files("$project.projectDir/src/main/java", "$myModule.projectDir/src/main/java")
