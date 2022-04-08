@@ -14,14 +14,6 @@ tools {
 
 stages{
 
-
-stage('Unit Tests') {
-steps{
-echo "------------>Unit Tests<------------"
-
-}
-}
-
 stage('Static Code Analysis') {
 steps{
 echo '------------>Análisis de código estático<------------'
