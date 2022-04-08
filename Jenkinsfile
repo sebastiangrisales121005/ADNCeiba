@@ -14,22 +14,6 @@ tools {
 
 stages{
 
-stage('Static Code Analysis') {
-steps{
-echo '------------>Análisis de código estático<------------'
-withSonarQubeEnv('Sonar') {
-sh "${tool name: 'SonarScanner-Mac', type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner"
-}
-}
-}
-
-stage('Checkout') {
-steps{
-echo "------------>Checkout<------------"
-checkout scm
-}
-}
-
 stage('Compile') {
 steps {
     echo "------------>Compile<------------"
@@ -46,6 +30,26 @@ sh './gradlew test'
 sh './gradlew jacocoTestReport'
     }
 }
+
+stage('Static Code Analysis') {
+steps{
+echo '------------>Análisis de código estático<------------'
+withSonarQubeEnv('Sonar') {
+sh "${tool name: 'SonarScanner-Mac', type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner"
+}
+}
+}
+
+stage('Checkout') {
+steps{
+echo "------------>Checkout<------------"
+checkout scm
+}
+}
+
+
+
+
 
 }
 
