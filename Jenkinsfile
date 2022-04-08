@@ -64,8 +64,7 @@ stage('Static Code Analysis') {
 steps{
 	echo '------------>Análisis de código estático<------------'
 withSonarQubeEnv('Sonar') {
-sh "${tool name: 'SonarScanner-Mac',
-type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner"
+sh "${tool name: 'SonarScanner-Mac',type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner"
 }
 }
 }
@@ -79,8 +78,8 @@ echo 'This will always run'
 success {
 echo 'This will run only if successful'
       junit 'build/test-results/test/*.xml'
-    }
-    failure {
+}
+failure {
 echo 'This will run only if failed'
       mail (to: 'sebastian.grisales@ceiba.com.co',subject: "Failed Pipeline:${currentBuild.fullDisplayName}",body: "Something is wrong with ${env.BUILD_URL}")
 }
