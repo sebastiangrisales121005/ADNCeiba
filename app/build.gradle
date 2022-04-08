@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'jacoco'
 }
 
 android {
@@ -36,18 +37,6 @@ android {
     }
 }
 
-subprojects {
-    configurations.all {
-        resolutionStrategy {
-            eachDependency { details ->
-                if ('org.jacoco' == details.requested.group) {
-                    details.useVersion jacocoVersion
-                }
-            }
-        }
-    }
-}
-
 
 dependencies {
 
@@ -58,4 +47,45 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+}
+
+task jacocoTestReport (type: JacocoReport, dependsOn: [':moduleName:taskTest',':otherModuleName:taskTest']){
+    def myModule = project(':app')
+    def directoriesToCoverage = layout.files("$buildDir/tmp/kotlin-classes/debug", "$myModule.buildDir/tmp/kotlin-classes/debug")
+    def mainSources = layout.files("$project.projectDir/src/main/java", "$myModule.projectDir/src/main/java")
+
+    def executionFilesFromConnectedAndroidTest = fileTree(
+            dir: "$buildDir",
+            includes: ["outputs/code_coverage/debugAndroidTest/connected/**coverage.ec"]
+    )
+    def executionFileForUnitTestInModule = "$buildDir/outputs/unit_test_code_coverage/debugUnitTest/testDebugUnitTest.exec"
+    def executionFileForUnitTestInOtherModule = "$myModule.buildDir/jacoco/testDebugUnitTest.exec"
+
+    def executionFiles = layout.files(
+            executionFilesFromConnectedAndroidTest,
+            executionFileForUnitTestInModule,
+            executionFileForUnitTestInOtherModule
+    )
+
+    sourceDirectories.setFrom(files([mainSources]))
+    classDirectories.setFrom(files([directoriesToCoverage.asFileTree]))
+    executionData.setFrom(executionFiles.asFileTree)
+
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
+
+    subprojects {
+        configurations.all {
+            resolutionStrategy {
+                eachDependency { details ->
+                    if ('org.jacoco' == details.requested.group) {
+                        details.useVersion jacocoVersion
+                    }
+                }
+            }
+        }
+    }
+
 }
