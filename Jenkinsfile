@@ -14,11 +14,6 @@ tools {
 
 stages{
 
-stage('Compile') {
-steps {
-echo "------------>Compile<------------"
-}
-
 
 stage('Unit Tests') {
 steps{
