@@ -2,7 +2,7 @@
 \cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 HelveticaNeue;}
 {\colortbl;\red255\green255\blue255;}
 {\*\expandedcolortbl;;}
-\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\margl1440\margr1440\vieww14300\viewh8400\viewkind0
 \deftab560
 \pard\pardeftab560\slleading20\partightenfactor0
 
@@ -68,7 +68,15 @@ stage('Unit Tests') \{\
     \}\
 \'a0\}\
 \
-\
+stage('Static Code Analysis') \{\
+\'a0\'a0\'a0\'a0\'a0\'a0steps\{\
+	echo '------------>An\'e1lisis de c\'f3digo est\'e1tico<------------'\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0withSonarQubeEnv('Sonar') \{\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0sh "$\{tool name: 'SonarScanner-Mac', \
+type:'hudson.plugins.sonar.SonarRunnerInstallation'\}/bin/sonar-scanner"\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\}\
+\'a0\'a0\'a0\'a0\'a0\'a0\}\
+\'a0\}\
 \
 \}\
 \
@@ -78,10 +86,14 @@ stage('Unit Tests') \{\
 \'a0\'a0\'a0\'a0\}\
 \'a0\'a0\'a0\'a0success \{\
 \'a0\'a0\'a0\'a0\'a0\'a0echo 'This will run only if successful'\
+      junit 'build/test-results/test/*.xml'\
 \'a0\'a0\'a0\'a0\}\
 \'a0\'a0\'a0\'a0failure \{\
 \'a0\'a0\'a0\'a0\'a0\'a0echo 'This will run only if failed'\
-\'a0\'a0\'a0\'a0\}\
+\pard\pardeftab720\partightenfactor0
+\cf0       mail (to: \'91Sebastian.grisales@ceiba.com.co',subject: "Failed Pipeline:$\{currentBuild.fullDisplayName\}",body: "Something is wrong with $\{env.BUILD_URL\}")\
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 \'a0\'a0\'a0\'a0\}\
 \'a0\'a0\'a0\'a0unstable \{\
 \'a0\'a0\'a0\'a0\'a0\'a0echo 'This will run only if the run was marked as unstable'\
 \'a0\'a0\'a0\'a0\}\
