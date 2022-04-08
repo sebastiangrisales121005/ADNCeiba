@@ -40,17 +40,6 @@ sh "${tool name: 'SonarScanner-Mac', type:'hudson.plugins.sonar.SonarRunnerInsta
 }
 }
 
-stage('Checkout') {
-steps{
-echo "------------>Checkout<------------"
-checkout scm
-}
-}
-
-
-
-
-
 }
 
 post {
