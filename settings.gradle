@@ -15,3 +15,5 @@ dependencyResolutionManagement {
 rootProject.name = "ADN Ceiba"
 include ':presentation'
 include ':domain'
+include ':insfraestructure'
+include ':insfraestructure:dataAccess'
