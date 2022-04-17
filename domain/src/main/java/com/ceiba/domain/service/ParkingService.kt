@@ -5,11 +5,7 @@ import com.ceiba.domain.repository.ParkingRepository
 import javax.inject.Inject
 
 class ParkingService @Inject constructor(parkingRepository: ParkingRepository) {
-    lateinit var parkingRepository: ParkingRepository
-
-    init {
-        this.parkingRepository = parkingRepository
-    }
+    private var parkingRepository: ParkingRepository = parkingRepository
 
     fun enterVehicle(parking: Parking) {
         parkingRepository.enterVehicle(parking)
