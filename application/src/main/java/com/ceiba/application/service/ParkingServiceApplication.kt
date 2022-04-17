@@ -7,9 +7,9 @@ import javax.inject.Inject
 class ParkingServiceApplication @Inject constructor() {
 
     @Inject
-    var parkingService: ParkingService? = null
+    lateinit var parkingService: ParkingService
 
     fun enterVehicle(parking: Parking) {
-        parkingService?.enterVehicle(parking)
+        parkingService.enterVehicle(parking)
     }
 }
