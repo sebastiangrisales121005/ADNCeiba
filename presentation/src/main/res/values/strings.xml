@@ -9,4 +9,9 @@
     <string name="cilindraje">Cilindraje</string>
     <string name="ingresar">Ingresar</string>
     <string name="datos_del_vehiculo">Datos del vehículo</string>
+    <string name="ingrese_fecha_de_retiro">Ingrese fecha de retiro</string>
+    <string name="retirar">Retirar</string>
+    <string name="dias">Días:</string>
+    <string name="horas">Horas:</string>
+    <string name="cobro_total">Cobro total:</string>
 </resources>
