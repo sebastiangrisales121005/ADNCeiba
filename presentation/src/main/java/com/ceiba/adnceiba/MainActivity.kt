@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.ceiba.adnceiba.entervehicle.view.EnterVehicleActivity
+import com.ceiba.adnceiba.withdrawvehicle.view.WithDrawVehicleActivity
 import com.ceiba.application.service.ParkingServiceApplication
 import com.ceiba.domain.aggregate.Parking
 import com.ceiba.domain.entity.Vehicle
@@ -29,6 +30,10 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.button_enter_vehicle).setOnClickListener {
             startActivity(Intent(this, EnterVehicleActivity::class.java))
+        }
+
+        findViewById<Button>(R.id.button_withdraw_vehicle).setOnClickListener {
+            startActivity(Intent(this, WithDrawVehicleActivity::class.java))
         }
     }
 }
