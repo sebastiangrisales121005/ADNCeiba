@@ -73,6 +73,14 @@ class EnterVehicleActivity : AppCompatActivity() {
         return sdf.format(mCalendar.time.time)
     }
 
+    fun getDayOfWeek(): String {
+        val simpleDateFormat = SimpleDateFormat("EEEE")
+        val date = Date(mCalendar.time.time)
+
+        return simpleDateFormat.format(date)
+
+    }
+
     fun getVehicleSelected(spinner: Spinner) {
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, id: Long) {
