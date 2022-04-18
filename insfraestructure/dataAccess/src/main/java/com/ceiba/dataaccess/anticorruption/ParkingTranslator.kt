@@ -7,7 +7,7 @@ class ParkingTranslator {
     companion object {
         fun fromDomainToDto(parking: Parking): ParkingDto {
             val parkingDto = ParkingDto()
-            parkingDto.licensePlate = parking.vehicle?.licensePlate
+            parkingDto.licensePlate = parking.vehicle!!.licensePlate!!
             parkingDto.vehicleType = parking.vehicle?.vehicleType
             parkingDto.cylinderCapacity = parking.vehicle?.cylinderCapacity
 

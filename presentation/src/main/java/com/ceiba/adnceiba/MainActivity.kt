@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         val vehicle = Vehicle("ABC000", "CARRO", 0)
         val time = Time("2022-04-14", "2022-04-15", "Martes")
         val parking = Parking(vehicle, time, Payment())
-        parkingServiceApplication.enterVehicle(parking)
+        //parkingServiceApplication.enterVehicle(parking)
 
     }
 }

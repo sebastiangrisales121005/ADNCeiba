@@ -9,5 +9,5 @@ import com.ceiba.dataaccess.dto.ParkingDto
     version = 1
 )
 abstract class ParkingDbRoomImpl: RoomDatabase() {
-    abstract fun parkingDao(): ParkingDto
+    abstract fun parkingDao(): ParkingServiceRoom
 }

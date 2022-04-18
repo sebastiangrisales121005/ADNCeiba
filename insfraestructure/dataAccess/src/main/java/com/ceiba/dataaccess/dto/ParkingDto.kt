@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 class ParkingDto  {
-    @PrimaryKey var licensePlate: String? = null
+    @PrimaryKey lateinit var licensePlate: String
     var vehicleType: String? = null
     var cylinderCapacity: Int? = null
     var startDateTime: String? = null
