@@ -15,28 +15,39 @@
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_license_plate"
+            <TextView
+                android:id="@+id/tittle_enter_vehicle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="30dp"
+                android:text="@string/datos_del_vehiculo"
+                android:textSize="30sp"
+                android:textStyle="bold"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_layout_license_plate"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tittle_enter_vehicle"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="20dp"
                 android:hint="@string/placa">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_license_plate_enter_vehicle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:clickable="true"
-                    android:hint="@string/placa"
                     android:maxLength="6"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_layout_date_time"
-                android:layout_width="wrap_content"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/input_layout_license_plate"
                 app:layout_constraintStart_toStartOf="@id/input_layout_license_plate"
@@ -44,18 +55,17 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_date_enter_vehicle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:focusable="false"
                     android:clickable="true"
-                    android:drawableStart="@drawable/ic_date_range_black_24dp"
-                    android:hint="@string/ingrese_fecha_de_ingreso" />
+                    android:drawableStart="@drawable/ic_date_range_black_24dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_layout_cylinder_capacity"
-                android:layout_width="wrap_content"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/input_layout_date_time"
                 app:layout_constraintStart_toStartOf="@id/input_layout_license_plate"
@@ -63,10 +73,9 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_cylinder_capacity_enter_vehicle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:clickable="true"
-                    android:hint="@string/cilindraje"
                     android:inputType="number"/>
 
             </com.google.android.material.textfield.TextInputLayout>
