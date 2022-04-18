@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ADN Ceiba</string>
+    <string name="bienvenido_a_parking_app">Bienvenido a Parking APP!</string>
+    <string name="seleccione_una_opcion">Seleccione una opción:</string>
+    <string name="ingresar_vehiculo">Ingresar Vehiculo</string>
+    <string name="retirar_vehiculo">Retirar Vehiculo</string>
 </resources>

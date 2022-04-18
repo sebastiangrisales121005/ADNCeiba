@@ -7,12 +7,41 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/tittle_welcome_parking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="80dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/bienvenido_a_parking_app"
+        android:textSize="30sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/text_select_option"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tittle_welcome_parking"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="20dp"
+        android:textSize="20sp"
+        android:text="@string/seleccione_una_opcion"/>
+
+    <Button
+        android:id="@+id/button_enter_vehicle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/text_select_option"
+        android:layout_marginTop="30dp"
+        android:text="@string/ingresar_vehiculo"/>
+
+    <Button
+        android:id="@+id/button_withdraw_vehicle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/button_enter_vehicle"
+        android:text="@string/retirar_vehiculo"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
