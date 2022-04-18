@@ -4,8 +4,10 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.ceiba.adnceiba.R
 import com.google.android.material.textfield.TextInputEditText
+import java.text.SimpleDateFormat
 import java.util.*
 
 class EnterVehicleActivity : AppCompatActivity() {
@@ -19,6 +21,15 @@ class EnterVehicleActivity : AppCompatActivity() {
         displayTimeDialog()
     }
 
+    private val mPickerTime = TimePickerDialog.OnTimeSetListener { _, hour, minute ->
+        mCalendar.set(Calendar.HOUR_OF_DAY, hour)
+        mCalendar.set(Calendar.MINUTE, minute)
+        mCalendar.set(Calendar.SECOND, 0)
+        mCalendar.set(Calendar.MILLISECOND, 0)
+
+        Log.e("DATETIME", getDateTimeText())
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_enter_vehicle)
@@ -30,15 +41,15 @@ class EnterVehicleActivity : AppCompatActivity() {
     }
 
     private fun displayTimeDialog() {
-
-        val mTimePicker = TimePickerDialog(this, { _, hourOfDay, minute ->
-
-            mCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
-            mCalendar.set(Calendar.MINUTE, minute)
-            mCalendar.set(Calendar.SECOND, 0)
-            mCalendar.set(Calendar.MILLISECOND, 0)
-
-        }, mCalendar.get(Calendar.HOUR_OF_DAY), mCalendar.get(Calendar.MINUTE), false)
+        val mTimePicker = TimePickerDialog(this, mPickerTime, mCalendar.get(Calendar.HOUR_OF_DAY), mCalendar.get(Calendar.MINUTE),
+            false)
         mTimePicker.show()
+    }
+
+    fun getDateTimeText(): String {
+        val myFormat = "yyyy-MM-dd HH:mm:ss"
+        val sdf = SimpleDateFormat(myFormat, Locale.ENGLISH)
+
+        return sdf.format(mCalendar.time.time)
     }
 }
