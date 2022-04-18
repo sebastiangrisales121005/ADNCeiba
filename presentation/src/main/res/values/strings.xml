@@ -5,4 +5,7 @@
     <string name="ingresar_vehiculo">Ingresar Vehiculo</string>
     <string name="retirar_vehiculo">Retirar Vehiculo</string>
     <string name="ingrese_fecha_de_ingreso">Ingrese fecha de ingreso</string>
+    <string name="placa">Placa</string>
+    <string name="cilindraje">Cilindraje</string>
+    <string name="ingresar">Ingresar</string>
 </resources>

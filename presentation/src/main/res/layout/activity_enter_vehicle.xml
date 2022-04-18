@@ -22,14 +22,14 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="20dp"
-                android:hint="Placa">
+                android:hint="@string/placa">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_license_plate_enter_vehicle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:clickable="true"
-                    android:hint="Placa"
+                    android:hint="@string/placa"
                     android:maxLength="6"/>
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -59,14 +59,14 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/input_layout_date_time"
                 app:layout_constraintStart_toStartOf="@id/input_layout_license_plate"
-                android:hint="Cilindraje">
+                android:hint="@string/cilindraje">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_cylinder_capacity_enter_vehicle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:clickable="true"
-                    android:hint="Cilindraje"
+                    android:hint="@string/cilindraje"
                     android:inputType="number"/>
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -81,6 +81,14 @@
                 android:layout_marginTop="10dp"
                 app:layout_constraintStart_toStartOf="@id/input_layout_license_plate"
                 app:layout_constraintTop_toBottomOf="@id/input_layout_cylinder_capacity"/>
+
+            <Button
+                android:id="@+id/button_save_vehicle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/spinner_vehicle_type_enter"
+                android:layout_marginTop="30dp"
+                android:text="@string/ingresar"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
