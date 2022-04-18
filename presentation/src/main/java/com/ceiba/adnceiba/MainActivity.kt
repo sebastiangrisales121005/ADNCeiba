@@ -1,7 +1,10 @@
 package com.ceiba.adnceiba
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.ceiba.adnceiba.entervehicle.view.EnterVehicleActivity
 import com.ceiba.application.service.ParkingServiceApplication
 import com.ceiba.domain.aggregate.Parking
 import com.ceiba.domain.entity.Vehicle
@@ -24,5 +27,8 @@ class MainActivity : AppCompatActivity() {
         val parking = Parking(vehicle, time, Payment())
         //parkingServiceApplication.enterVehicle(parking)
 
+        findViewById<Button>(R.id.button_enter_vehicle).setOnClickListener {
+            startActivity(Intent(this, EnterVehicleActivity::class.java))
+        }
     }
 }
