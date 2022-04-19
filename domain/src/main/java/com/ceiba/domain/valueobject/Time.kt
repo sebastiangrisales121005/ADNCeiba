@@ -4,7 +4,7 @@ class Time(startDateTime: String, endDateTime: String, day: String) {
     var startDateTime: String? = null
     var endDateTime: String? = null
     var day: String? = null
-    var numberDays: Int? = null
+    var numberDays: Int? = 0
     var numberHours: Int? = null
 
     init {
