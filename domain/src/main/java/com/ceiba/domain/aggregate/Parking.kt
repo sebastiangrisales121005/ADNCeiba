@@ -26,6 +26,13 @@ class Parking(vehicle: Vehicle, time: Time) {
         return false
     }
 
+    fun calculateTotalValueParkingCar() {
+        val totalForDays = this.time?.numberDays!! * PRICE_DAY_CAR
+        val totalForHours = this.time?.numberHours!! * PRICE_HOUR_CAR
+
+        totalValueParking = totalForDays + totalForHours
+    }
+
     companion object {
         const val PRICE_HOUR_CAR = 1000
         const val PRICE_HOUR_MOTORCYCLE = 500
