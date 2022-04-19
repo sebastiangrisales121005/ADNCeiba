@@ -1,5 +1,7 @@
 package com.ceiba.domain.entity
 
+import com.ceiba.domain.exception.ParkingException
+
 class Vehicle(licensePlate: String, vehicleType: String?, cylinderCapacity: Int) {
     var licensePlate: String? = null
     var vehicleType: String? = null
@@ -20,6 +22,15 @@ class Vehicle(licensePlate: String, vehicleType: String?, cylinderCapacity: Int)
             return true
         }
         return false
+    }
+
+    fun validateAmountVehicle(amountCar: Int, amountMotorCycle: Int) {
+        if (amountCar >= 20) {
+            throw ParkingException("El parqueadero no permite más carros")
+        }
+        if (amountMotorCycle >= 10) {
+            throw ParkingException("El parqueadero no permite más motos")
+        }
     }
 
 
