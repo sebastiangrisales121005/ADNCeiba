@@ -21,7 +21,7 @@ class Time(startDateTime: String, endDateTime: String, day: String) {
         }
     }
 
-    /*fun calculateTimeParking() {
+    fun calculateTimeParking() {
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         val startDate = simpleDateFormat.parse(startDateTime!!)
         val endDate = simpleDateFormat.parse(endDateTime!!)
@@ -30,6 +30,6 @@ class Time(startDateTime: String, endDateTime: String, day: String) {
 
         this.numberDays = (timeLong/(24 * 60 * 60 * 1000)).toInt()
         this.numberHours = ((timeLong/(60 * 60 * 1000) - this.numberDays!! * 24)).toInt()
-    }*/
+    }
 
 }
