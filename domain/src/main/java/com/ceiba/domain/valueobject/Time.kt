@@ -6,8 +6,8 @@ class Time(startDateTime: String, endDateTime: String, day: String) {
     var startDateTime: String? = null
     var endDateTime: String? = null
     var day: String? = null
-    var numberDays: Long? = 0
-    var numberHours: Long? = null
+    var numberDays: Int? = 0
+    var numberHours: Int? = null
 
     init {
         this.startDateTime = startDateTime
@@ -28,8 +28,8 @@ class Time(startDateTime: String, endDateTime: String, day: String) {
 
         val timeLong = endDate!!.time - startDate!!.time
 
-        this.numberDays = timeLong/(24 * 60 * 60 * 1000)
-        this.numberHours = (timeLong/(60 * 60 * 1000) - this.numberDays!! * 24)
+        this.numberDays = (timeLong/(24 * 60 * 60 * 1000)).toInt()
+        this.numberHours = ((timeLong/(60 * 60 * 1000) - this.numberDays!! * 24)).toInt()
     }
 
 }

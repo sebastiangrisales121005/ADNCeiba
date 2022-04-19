@@ -21,4 +21,20 @@ class TimeTest {
         //Assert
         Assert.assertEquals(1, time.numberDays)
     }
+
+    @Test
+    fun time_calculateTimeParkingDays_isCorrect() {
+        //Arrange
+        val startDateTime = "2022-04-14 08:00:00"
+        val endDateTime = "2022-04-15 10:00:00"
+        val day = "martes"
+        val time = Time(startDateTime, endDateTime, day)
+
+        //Act
+        time.calculateTimeParking()
+
+        //Assert
+        Assert.assertEquals(1, time.numberDays)
+    }
+    
 }
