@@ -8,11 +8,18 @@ class Vehicle(licensePlate: String, vehicleType: String?, cylinderCapacity: Int)
     init {
         this.licensePlate = licensePlate
         this.vehicleType = vehicleType
-        if (this.vehicleType.equals("MOTO")) {
+        if (validateVehicleType(this.vehicleType)) {
             this.cylinderCapacity = cylinderCapacity
         } else {
-            //Lanzar mensaje o excepción que indique que al ser un carro no es necesario obtener el cilindraje
+            this.cylinderCapacity = 0
         }
+    }
+
+    fun validateVehicleType(vehicleType: String?): Boolean {
+        if (vehicleType.equals("MOTO")) {
+            return true
+        }
+        return false
     }
 
 
