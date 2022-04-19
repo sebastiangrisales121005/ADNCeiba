@@ -26,10 +26,17 @@ class Parking(vehicle: Vehicle, time: Time) {
         return false
     }
 
-    fun calculateTotalValueParkingCar() {
+    fun calculateTotalValueParking() {
+        val totalForDays: Int
+        val totalForHours: Int
         time?.calculateTimeParking()
-        val totalForDays = this.time?.numberDays!! * PRICE_DAY_CAR
-        val totalForHours = this.time?.numberHours!! * PRICE_HOUR_CAR
+        if (!vehicle!!.validateVehicleType()) {
+            totalForDays = this.time?.numberDays!! * PRICE_DAY_CAR
+            totalForHours = this.time?.numberHours!! * PRICE_HOUR_CAR
+        } else {
+            totalForDays = this.time?.numberDays!! * PRICE_DAY_MOTORCYCLE
+            totalForHours = this.time?.numberHours!! * PRICE_HOUR_MOTORCYCLE
+        }
 
         totalValueParking = totalForDays + totalForHours
     }

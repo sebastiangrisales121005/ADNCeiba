@@ -100,7 +100,7 @@ class ParkingTest {
         val parking = Parking(vehicle, time)
 
         //Act
-        parking.calculateTotalValueParkingCar()
+        parking.calculateTotalValueParking()
 
         //Assert
         Assert.assertEquals(24000, parking.totalValueParking)
@@ -122,7 +122,7 @@ class ParkingTest {
         val parking = Parking(vehicle, time)
 
         //Act
-        parking.calculateTotalValueParkingCar()
+        parking.calculateTotalValueParking()
 
         //Assert
         Assert.assertEquals(23000, parking.totalValueParking)
@@ -144,7 +144,7 @@ class ParkingTest {
         val parking = Parking(vehicle, time)
 
         //Act
-        parking.calculateTotalValueParkingCar()
+        parking.calculateTotalValueParking()
 
         //Assert
         Assert.assertNotEquals(24000, parking.totalValueParking)
