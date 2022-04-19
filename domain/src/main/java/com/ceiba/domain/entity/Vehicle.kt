@@ -8,15 +8,15 @@ class Vehicle(licensePlate: String, vehicleType: String?, cylinderCapacity: Int)
     init {
         this.licensePlate = licensePlate
         this.vehicleType = vehicleType
-        if (validateVehicleType(this.vehicleType)) {
+        if (validateVehicleType()) {
             this.cylinderCapacity = cylinderCapacity
         } else {
             this.cylinderCapacity = 0
         }
     }
 
-    fun validateVehicleType(vehicleType: String?): Boolean {
-        if (vehicleType.equals("MOTO")) {
+    fun validateVehicleType(): Boolean {
+        if (this.vehicleType.equals("Moto")) {
             return true
         }
         return false
