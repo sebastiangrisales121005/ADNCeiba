@@ -27,6 +27,7 @@ class Parking(vehicle: Vehicle, time: Time) {
     }
 
     fun calculateTotalValueParkingCar() {
+        time?.calculateTimeParking()
         val totalForDays = this.time?.numberDays!! * PRICE_DAY_CAR
         val totalForHours = this.time?.numberHours!! * PRICE_HOUR_CAR
 
