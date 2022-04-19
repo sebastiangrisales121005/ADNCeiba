@@ -13,4 +13,10 @@ class Time(startDateTime: String, endDateTime: String, day: String) {
         this.day = day
     }
 
+    fun calculateDaysFromHours() {
+        if (this.numberHours!! >= 9) {
+            this.numberDays = this.numberDays!! + 1
+        }
+    }
+
 }
