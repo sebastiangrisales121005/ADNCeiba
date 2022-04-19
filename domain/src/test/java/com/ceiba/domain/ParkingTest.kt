@@ -127,4 +127,27 @@ class ParkingTest {
         //Assert
         Assert.assertEquals(23000, parking.totalValueParking)
     }
+
+    @Test
+    fun parking_calculateTotalValueParkingCar_isFailure() {
+        //Arrange
+        val licensePlate = "ABC000"
+        val typeVehicle = "Carro"
+        val cylinderCapacity = 150
+        val vehicle = Vehicle(licensePlate, typeVehicle, cylinderCapacity)
+
+        val startDateTime = "2022-04-14 08:00:00"
+        val endDateTime = "2022-04-16 15:00:00"
+        val day = "martes"
+        val time = Time(startDateTime, endDateTime, day)
+
+        val parking = Parking(vehicle, time)
+
+        //Act
+        parking.calculateTotalValueParkingCar()
+
+        //Assert
+        Assert.assertNotEquals(24000, parking.totalValueParking)
+    }
+
 }
