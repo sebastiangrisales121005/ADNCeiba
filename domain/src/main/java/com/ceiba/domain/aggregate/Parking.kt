@@ -16,4 +16,16 @@ class Parking(vehicle: Vehicle, time: Time, payment: Payment) {
         this.payment = payment
     }
 
+    fun validateEnterLicensePlate(): Boolean {
+        if (this.vehicle?.licensePlate!!.startsWith("A")) {
+            if (this.time?.day.equals("domingo") || this.time?.day.equals("lunes")) {
+                return true
+            } else {
+
+            }
+        }
+
+        return false
+    }
+
 }
