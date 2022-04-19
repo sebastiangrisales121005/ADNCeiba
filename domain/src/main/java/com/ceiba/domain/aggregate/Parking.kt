@@ -2,19 +2,16 @@ package com.ceiba.domain.aggregate
 
 import com.ceiba.domain.entity.Vehicle
 import com.ceiba.domain.exception.ParkingException
-import com.ceiba.domain.valueobject.Payment
 import com.ceiba.domain.valueobject.Time
 
-class Parking(vehicle: Vehicle, time: Time, payment: Payment) {
-    var numberVehicles: Int? = null
+class Parking(vehicle: Vehicle, time: Time) {
+    var totalValueParking: Int? = null
     var vehicle: Vehicle? = null
     var time: Time? = null
-    var payment: Payment? = null
 
     init {
         this.vehicle = vehicle
         this.time = time
-        this.payment = payment
     }
 
     fun validateEnterLicensePlate(): Boolean {
@@ -27,6 +24,13 @@ class Parking(vehicle: Vehicle, time: Time, payment: Payment) {
         }
 
         return false
+    }
+
+    companion object {
+        const val PRICE_HOUR_CAR = 1000
+        const val PRICE_HOUR_MOTORCYCLE = 500
+        const val PRICE_DAY_CAR = 8000
+        const val PRICE_DAY_MOTORCYCLE = 8000
     }
 
 }

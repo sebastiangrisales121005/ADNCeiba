@@ -3,7 +3,6 @@ package com.ceiba.domain
 import com.ceiba.domain.aggregate.Parking
 import com.ceiba.domain.entity.Vehicle
 import com.ceiba.domain.exception.ParkingException
-import com.ceiba.domain.valueobject.Payment
 import com.ceiba.domain.valueobject.Time
 import org.junit.Assert
 import org.junit.Test
@@ -23,9 +22,7 @@ class ParkingTest {
         val day = "domingo"
         val time = Time(startDateTime, endDateTime, day)
 
-        val payment = Payment()
-
-        val parking = Parking(vehicle, time, payment)
+        val parking = Parking(vehicle, time)
 
         //Act
         val result = parking.validateEnterLicensePlate()
@@ -47,9 +44,7 @@ class ParkingTest {
         val day = "domingo"
         val time = Time(startDateTime, endDateTime, day)
 
-        val payment = Payment()
-
-        val parking = Parking(vehicle, time, payment)
+        val parking = Parking(vehicle, time)
 
         //Act
         val result = parking.validateEnterLicensePlate()
@@ -71,9 +66,8 @@ class ParkingTest {
         val day = "martes"
         val time = Time(startDateTime, endDateTime, day)
 
-        val payment = Payment()
 
-        val parking = Parking(vehicle, time, payment)
+        val parking = Parking(vehicle, time)
 
         val expectedMessage = "Este vehículo no está autorizado a ingresar"
 
