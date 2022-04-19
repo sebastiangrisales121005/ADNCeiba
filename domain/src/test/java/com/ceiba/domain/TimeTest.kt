@@ -51,4 +51,34 @@ class TimeTest {
         //Assert
         Assert.assertNotEquals(2, time.numberDays)
     }
+
+    @Test
+    fun time_calculateTimeParkingHours_isCorrect() {
+        //Arrange
+        val startDateTime = "2022-04-14 08:00:00"
+        val endDateTime = "2022-04-15 10:00:00"
+        val day = "martes"
+        val time = Time(startDateTime, endDateTime, day)
+
+        //Act
+        time.calculateTimeParking()
+
+        //Assert
+        Assert.assertEquals(2, time.numberHours)
+    }
+
+    @Test
+    fun time_calculateTimeParkingHours_isFailure() {
+        //Arrange
+        val startDateTime = "2022-04-14 08:00:00"
+        val endDateTime = "2022-04-15 11:00:00"
+        val day = "martes"
+        val time = Time(startDateTime, endDateTime, day)
+
+        //Act
+        time.calculateTimeParking()
+
+        //Assert
+        Assert.assertNotEquals(2, time.numberHours)
+    }
 }
