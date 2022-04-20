@@ -5,6 +5,8 @@ package com.ceiba.adnceiba.entervehicle.viewmodel
 //import androidx.hilt.lifecycle.ViewModelInject
 //import androidx.lifecycle.SavedStateHandle
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ceiba.application.service.ParkingServiceApplication
 import com.ceiba.domain.aggregate.Parking
@@ -16,10 +18,12 @@ class EnterVehicleViewModel /*@ViewModelInject constructor(parkingServiceApplica
                                                          @Assisted private val savedStateHandle: SavedStateHandle)*/ : ViewModel() {
     lateinit var parkingServiceApplication: ParkingServiceApplication
 
-    fun insertVehicle(vehicle: Vehicle, time: Time) {
+    val enterVehicleLiveData = MutableLiveData<Long>()
+
+    fun insertVehicle(vehicle: Vehicle, time: Time){
         val parking = Parking(vehicle, time)
         try {
-            parkingServiceApplication.enterVehicle(parking)
+            enterVehicleLiveData.value = parkingServiceApplication.enterVehicle(parking)
         } catch (e: ParkingException) {
             Log.e("MENSAJE_ERROR", e.message!!)
         }

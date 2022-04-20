@@ -15,6 +15,7 @@ import com.ceiba.adnceiba.R
 import com.ceiba.adnceiba.entervehicle.viewmodel.EnterVehicleViewModel
 import com.ceiba.application.service.ParkingServiceApplication
 import com.ceiba.domain.entity.Vehicle
+import com.ceiba.domain.valueobject.Time
 import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
@@ -75,6 +76,7 @@ class EnterVehicleActivity : AppCompatActivity() {
         viewModel.parkingServiceApplication = parkingServiceApplication
 
         getVehicleSelected(spinner)
+        viewModel.insertVehicle(Vehicle("", selectedVehicle, 0), Time(getDateTimeText(), null, getDayOfWeek()))
     }
 
     private fun displayTimeDialog() {

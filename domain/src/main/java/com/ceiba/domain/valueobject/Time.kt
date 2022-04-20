@@ -2,7 +2,7 @@ package com.ceiba.domain.valueobject
 
 import java.text.SimpleDateFormat
 
-class Time(startDateTime: String, endDateTime: String, day: String) {
+class Time(startDateTime: String, endDateTime: String?, day: String) {
     var startDateTime: String? = null
     var endDateTime: String? = null
     var day: String? = null
