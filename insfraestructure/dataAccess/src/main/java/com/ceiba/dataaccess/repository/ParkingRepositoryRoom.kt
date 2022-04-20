@@ -22,8 +22,10 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
         var id: Long? = null
 
         if (parking.validateEnterLicensePlate()) {
-            id = withContext(Dispatchers.IO) {
-                parkingDbRoomImpl.parkingDao().insertVehicle(parkingDto)
+            if (parkingDbRoomImpl.parkingDao().validateVehicleExist(parking.vehicle?.licensePlate!!).isNotEmpty()) {
+                id = withContext(Dispatchers.IO) {
+                    parkingDbRoomImpl.parkingDao().insertVehicle(parkingDto)
+                }
             }
         }
 

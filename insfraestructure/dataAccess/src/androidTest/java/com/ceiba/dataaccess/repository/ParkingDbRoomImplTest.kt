@@ -37,6 +37,7 @@ class ParkingDbRoomImplTest: TestCase() {
 
     @Test
     fun vehicle_enter_isCorrect() = runBlocking {
+        //Arrange
         val licensePlate = "ABC000"
         val typeVehicle = "Moto"
         val cylinderCapacity = 150
@@ -49,8 +50,33 @@ class ParkingDbRoomImplTest: TestCase() {
 
         val parkingDto = ParkingTranslator.fromDomainToDto(Parking(vehicle, time))
 
+        //Act
         val id = parkingServiceRoom.insertVehicle(parkingDto)
 
+        //Assert
         Assert.assertNotNull(id)
+    }
+
+    @Test
+    fun vehicle_enter_exist() = runBlocking {
+        //Arrange
+        val licensePlate = "ABC000"
+        val typeVehicle = "Moto"
+        val cylinderCapacity = 150
+        val vehicle = Vehicle(licensePlate, typeVehicle, cylinderCapacity)
+
+        val startDateTime = "2022-04-14 08:00:00"
+        val endDateTime = "2022-04-14 10:00:00"
+        val day = "martes"
+        val time = Time(startDateTime, endDateTime, day)
+
+        val parkingDto = ParkingTranslator.fromDomainToDto(Parking(vehicle, time))
+
+        //Act
+        val vehicles = parkingServiceRoom.validateVehicleExist(parkingDto.licensePlate).toString()
+
+        //Assert
+        Assert.assertEquals("[]", vehicles)
+
     }
 }
