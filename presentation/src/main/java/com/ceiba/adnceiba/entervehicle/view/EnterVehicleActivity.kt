@@ -6,10 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.Spinner
+import android.widget.*
 import androidx.lifecycle.ViewModelProvider
 import com.ceiba.adnceiba.R
 import com.ceiba.adnceiba.entervehicle.viewmodel.EnterVehicleViewModel
@@ -34,6 +31,8 @@ class EnterVehicleActivity : AppCompatActivity() {
 
     private var selectedVehicle: String? = null
 
+    private var viewModel: EnterVehicleViewModel? = null
+
     private val mPickerDate = DatePickerDialog.OnDateSetListener { _, year, monthYear, dayMonth ->
         mCalendar.set(Calendar.YEAR, year)
         mCalendar.set(Calendar.MONTH, monthYear)
@@ -56,6 +55,7 @@ class EnterVehicleActivity : AppCompatActivity() {
         setContentView(R.layout.activity_enter_vehicle)
 
         initializeWidgets()
+        observables()
     }
 
     private fun initializeWidgets() {
@@ -72,11 +72,26 @@ class EnterVehicleActivity : AppCompatActivity() {
         val spinner = findViewById<Spinner>(R.id.spinner_vehicle_type_enter)
         spinner.adapter = adapterSpinnerVehicle
 
-        val viewModel = ViewModelProvider(this)[EnterVehicleViewModel::class.java]
-        viewModel.parkingServiceApplication = parkingServiceApplication
+        viewModel = ViewModelProvider(this)[EnterVehicleViewModel::class.java]
+        viewModel?.parkingServiceApplication = parkingServiceApplication
 
         getVehicleSelected(spinner)
-        viewModel.insertVehicle(Vehicle("", selectedVehicle, 0), Time(getDateTimeText(), null, getDayOfWeek()))
+        findViewById<Button>(R.id.button_enter_vehicle).setOnClickListener {
+            viewModel?.insertVehicle(
+                Vehicle("", selectedVehicle, 0),
+                Time(getDateTimeText(), null, getDayOfWeek())
+            )
+        }
+    }
+
+    private fun observables() {
+        viewModel?.enterVehicleLiveData?.observe(this) {
+            if (!it.equals(0)) {
+                showToast("Vehículo ingresado correctamente!")
+            } else {
+                showToast("Error en su ingreso, por favor intente de nuevo")
+            }
+        }
     }
 
     private fun displayTimeDialog() {
@@ -111,6 +126,10 @@ class EnterVehicleActivity : AppCompatActivity() {
             }
 
         }
+    }
+
+    fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     companion object {
