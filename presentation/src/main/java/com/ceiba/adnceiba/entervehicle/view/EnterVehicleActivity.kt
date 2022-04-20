@@ -89,9 +89,9 @@ class EnterVehicleActivity : AppCompatActivity() {
 
     private fun observables() {
         viewModel?.enterVehicleLiveData?.observe(this) {
-            if (!it.equals(0)) {
+            it?.let {
                 showToast(getString(R.string.vehiculo_ingresado))
-            } else {
+            } ?: kotlin.run {
                 showToast(getString(R.string.error_ingreso_vehiculo))
             }
         }
