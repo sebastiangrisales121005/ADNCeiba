@@ -9,17 +9,28 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import androidx.lifecycle.ViewModelProvider
 import com.ceiba.adnceiba.R
 import com.ceiba.adnceiba.entervehicle.view.EnterVehicleActivity
+import com.ceiba.adnceiba.withdrawvehicle.viewmodel.WithDrawViewModel
+import com.ceiba.application.service.ParkingServiceApplication
 import com.google.android.material.textfield.TextInputEditText
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class WithDrawVehicleActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var parkingServiceApplication: ParkingServiceApplication
 
     private val mCalendar = Calendar.getInstance()
 
     private val vehicles = arrayOf(EnterVehicleActivity.CAR, EnterVehicleActivity.MOTORCYCLE)
+
+    private var viewModel: WithDrawViewModel? = null
 
     private val mPickerDate = DatePickerDialog.OnDateSetListener { _, year, monthYear, dayMonth ->
         mCalendar.set(Calendar.YEAR, year)
@@ -58,6 +69,9 @@ class WithDrawVehicleActivity : AppCompatActivity() {
 
         val spinner = findViewById<Spinner>(R.id.spinner_vehicle_type_withdraw)
         spinner.adapter = adapterSpinnerVehicle
+
+        viewModel = ViewModelProvider(this)[WithDrawViewModel::class.java]
+        viewModel?.parkingServiceApplication = parkingServiceApplication
 
         getVehicleSelected(spinner)
     }
