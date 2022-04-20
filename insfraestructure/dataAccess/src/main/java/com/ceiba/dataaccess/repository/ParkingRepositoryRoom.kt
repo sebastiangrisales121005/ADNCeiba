@@ -35,7 +35,10 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
     }
 
     override suspend fun calculateAmountParking(parking: Parking): Int? {
-        return 0
+        withContext(Dispatchers.IO) {
+            parking.calculateTotalValueParking()
+        }
+        return parking.totalValueParking
     }
 
 
