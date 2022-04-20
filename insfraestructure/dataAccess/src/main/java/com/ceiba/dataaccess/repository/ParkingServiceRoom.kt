@@ -7,5 +7,5 @@ import com.ceiba.dataaccess.dto.ParkingDto
 @Dao
 interface ParkingServiceRoom {
     @Insert
-    suspend fun insertVehicle(parkingDto: ParkingDto)
+    suspend fun insertVehicle(parkingDto: ParkingDto): Long
 }

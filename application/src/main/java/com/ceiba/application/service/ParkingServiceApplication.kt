@@ -9,7 +9,7 @@ class ParkingServiceApplication @Inject constructor() {
     @Inject
     lateinit var parkingService: ParkingService
 
-    fun enterVehicle(parking: Parking) {
-        parkingService.enterVehicle(parking)
+    fun enterVehicle(parking: Parking): Long {
+        return parkingService.enterVehicle(parking)
     }
 }

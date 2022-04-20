@@ -16,14 +16,17 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
 
     private val parkingDbRoomImpl: ParkingDbRoomImpl = Room.databaseBuilder(this.context, ParkingDbRoomImpl::class.java, DB_NAME).build()
 
-    override fun enterVehicle(parking: Parking) {
+    override fun enterVehicle(parking: Parking): Long {
         val parkingDto = ParkingTranslator.fromDomainToDto(parking)
+        var id: Long = 0
 
         CoroutineScope(Dispatchers.IO).launch {
             if (parking.validateEnterLicensePlate()) {
-                parkingDbRoomImpl.parkingDao().insertVehicle(parkingDto)
+                id = parkingDbRoomImpl.parkingDao().insertVehicle(parkingDto)
             }
         }
+
+        return id
     }
 
     companion object {

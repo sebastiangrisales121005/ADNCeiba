@@ -31,6 +31,8 @@ class EnterVehicleActivity : AppCompatActivity() {
 
     private val vehicles = arrayOf(CAR, MOTORCYCLE)
 
+    private var selectedVehicle: String? = null
+
     private val mPickerDate = DatePickerDialog.OnDateSetListener { _, year, monthYear, dayMonth ->
         mCalendar.set(Calendar.YEAR, year)
         mCalendar.set(Calendar.MONTH, monthYear)
@@ -99,7 +101,7 @@ class EnterVehicleActivity : AppCompatActivity() {
     fun getVehicleSelected(spinner: Spinner) {
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                Log.e("VEHICULO", vehicles[position])
+                selectedVehicle = vehicles[position]
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
