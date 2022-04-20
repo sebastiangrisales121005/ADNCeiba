@@ -4,13 +4,18 @@ import com.ceiba.domain.entity.Vehicle
 import com.ceiba.domain.exception.ParkingException
 import com.ceiba.domain.valueobject.Time
 
-class Parking(vehicle: Vehicle, time: Time) {
+class Parking {
     var totalValueParking: Int? = null
     var vehicle: Vehicle? = null
     var time: Time? = null
 
-    init {
+
+    constructor(vehicle: Vehicle, time: Time) {
         this.vehicle = vehicle
+        this.time = time
+    }
+
+    constructor(time: Time) {
         this.time = time
     }
 
