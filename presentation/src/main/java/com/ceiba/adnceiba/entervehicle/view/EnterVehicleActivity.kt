@@ -91,6 +91,7 @@ class EnterVehicleActivity : AppCompatActivity() {
         viewModel?.enterVehicleLiveData?.observe(this) {
             it?.let {
                 showToast(getString(R.string.vehiculo_ingresado))
+                finish()
             } ?: kotlin.run {
                 showToast(getString(R.string.error_ingreso_vehiculo))
             }

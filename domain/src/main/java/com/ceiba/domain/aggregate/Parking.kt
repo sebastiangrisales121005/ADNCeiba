@@ -30,15 +30,22 @@ class Parking(vehicle: Vehicle, time: Time) {
         val totalForDays: Int
         val totalForHours: Int
         time?.calculateTimeParking()
+
         if (!vehicle!!.validateVehicleType()) {
             totalForDays = this.time?.numberDays!! * PRICE_DAY_CAR
             totalForHours = this.time?.numberHours!! * PRICE_HOUR_CAR
+
+            totalValueParking = totalForDays + totalForHours
         } else {
             totalForDays = this.time?.numberDays!! * PRICE_DAY_MOTORCYCLE
             totalForHours = this.time?.numberHours!! * PRICE_HOUR_MOTORCYCLE
+
+            if (vehicle?.cylinderCapacity!! > 500) {
+                totalValueParking = (totalForDays + totalForHours) + 2000
+            }
         }
 
-        totalValueParking = totalForDays + totalForHours
+
     }
 
     companion object {
