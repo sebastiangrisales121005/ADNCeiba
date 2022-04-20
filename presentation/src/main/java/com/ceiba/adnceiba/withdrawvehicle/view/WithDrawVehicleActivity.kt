@@ -50,7 +50,7 @@ class WithDrawVehicleActivity : AppCompatActivity() {
         mCalendar.set(Calendar.SECOND, 0)
         mCalendar.set(Calendar.MILLISECOND, 0)
 
-        Log.e("DATETIME", getDateTimeText())
+        findViewById<TextInputEditText>(R.id.input_date_withdraw_vehicle).setText(getDateTimeText())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,8 +80,10 @@ class WithDrawVehicleActivity : AppCompatActivity() {
         getVehicleSelected(spinner)
 
         findViewById<Button>(R.id.button_delete_vehicle).setOnClickListener {
+            val valueLicensePlate = findViewById<TextInputEditText>(R.id.input_license_plate_withdraw_vehicle).text.toString()
+
             viewModel?.calculateAmount(Parking(
-                Vehicle("", "", 0),Time(null, getDateTimeText(), null)))
+                Vehicle(valueLicensePlate, null, 0),Time(null, getDateTimeText(), null)))
         }
     }
 
