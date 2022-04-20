@@ -22,6 +22,7 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
         val parkingDto = ParkingTranslator.fromDomainToDto(parking)
         var id: Long? = null
 
+        parking.vehicle?.validateAmountVehicle(getCountCar(), getCountMotorCycle())
         if (parkingDbRoomImpl.parkingDao().validateVehicleExist(parking.vehicle?.licensePlate!!).isEmpty()) {
             id = if (parking.validateEnterLicensePlate()) {
                 executeInsertVehicle(parkingDto)
@@ -31,6 +32,18 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
         }
 
         return id
+    }
+
+    private suspend fun getCountCar(): Int {
+        return withContext(Dispatchers.IO) {
+            parkingDbRoomImpl.parkingDao().getCountCar()
+        }
+    }
+
+    private suspend fun getCountMotorCycle(): Int {
+        return withContext(Dispatchers.IO) {
+            parkingDbRoomImpl.parkingDao().getCountMotorCycle()
+        }
     }
 
     private suspend fun executeInsertVehicle(parkingDto: ParkingDto): Long {

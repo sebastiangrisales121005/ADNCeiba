@@ -12,4 +12,10 @@ interface ParkingServiceRoom {
 
     @Query("SELECT * FROM ParkingDto WHERE licensePlate = :licensePlate" )
     suspend fun validateVehicleExist(licensePlate: String): List<ParkingDto>
+
+    @Query("SELECT COUNT(licensePlate) FROM ParkingDto WHERE vehicleType = 'Moto'")
+    suspend fun getCountMotorCycle(): Int
+
+    @Query("SELECT COUNT(licensePlate) FROM ParkingDto WHERE vehicleType = 'Carro'")
+    suspend fun getCountCar(): Int
 }
