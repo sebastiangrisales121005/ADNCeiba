@@ -35,7 +35,9 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
     }
 
     override suspend fun calculateAmountParking(parking: Parking): Int? {
-        withContext(Dispatchers.IO) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val parkingDto = ParkingTranslator.fromDomainToDto(parking)
+            parkingDbRoomImpl.parkingDao().update(parkingDto.licensePlate, parkingDto.endDateTime)
             parking.calculateTotalValueParking()
         }
         return parking.totalValueParking

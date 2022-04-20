@@ -3,6 +3,7 @@ package com.ceiba.dataaccess.repository
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import com.ceiba.dataaccess.dto.ParkingDto
 
 @Dao
@@ -18,4 +19,7 @@ interface ParkingServiceRoom {
 
     @Query("SELECT COUNT(licensePlate) FROM ParkingDto WHERE vehicleType = 'Carro'")
     suspend fun getCountCar(): Int
+
+    @Query("UPDATE ParkingDto SET endDateTime = :endTime WHERE licensePlate = licensePlate")
+    suspend fun update(licensePlate: String, endTime: String?)
 }
