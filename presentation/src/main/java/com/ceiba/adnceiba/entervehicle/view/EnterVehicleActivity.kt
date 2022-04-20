@@ -8,11 +8,13 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.Spinner
 import androidx.lifecycle.ViewModelProvider
 import com.ceiba.adnceiba.R
 import com.ceiba.adnceiba.entervehicle.viewmodel.EnterVehicleViewModel
 import com.ceiba.application.service.ParkingServiceApplication
+import com.ceiba.domain.entity.Vehicle
 import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat

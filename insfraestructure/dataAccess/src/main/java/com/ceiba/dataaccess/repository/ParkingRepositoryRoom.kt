@@ -20,7 +20,9 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
         val parkingDto = ParkingTranslator.fromDomainToDto(parking)
 
         CoroutineScope(Dispatchers.IO).launch {
-            parkingDbRoomImpl.parkingDao().insertVehicle(parkingDto)
+            if (parking.validateEnterLicensePlate()) {
+                parkingDbRoomImpl.parkingDao().insertVehicle(parkingDto)
+            }
         }
     }
 
