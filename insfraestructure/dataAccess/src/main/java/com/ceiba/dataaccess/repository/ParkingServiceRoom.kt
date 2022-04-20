@@ -20,6 +20,6 @@ interface ParkingServiceRoom {
     @Query("SELECT COUNT(licensePlate) FROM ParkingDto WHERE vehicleType = 'Carro'")
     suspend fun getCountCar(): Int
 
-    @Query("UPDATE ParkingDto SET endDateTime = :endTime WHERE licensePlate = licensePlate")
+    @Query("UPDATE ParkingDto SET endDateTime = :endTime WHERE licensePlate = :licensePlate")
     suspend fun update(licensePlate: String, endTime: String?)
 }

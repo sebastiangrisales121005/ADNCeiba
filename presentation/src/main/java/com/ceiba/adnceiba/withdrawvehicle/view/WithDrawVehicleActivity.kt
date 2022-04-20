@@ -8,12 +8,15 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.Spinner
 import androidx.lifecycle.ViewModelProvider
 import com.ceiba.adnceiba.R
 import com.ceiba.adnceiba.entervehicle.view.EnterVehicleActivity
 import com.ceiba.adnceiba.withdrawvehicle.viewmodel.WithDrawViewModel
 import com.ceiba.application.service.ParkingServiceApplication
+import com.ceiba.domain.aggregate.Parking
+import com.ceiba.domain.entity.Vehicle
 import com.ceiba.domain.valueobject.Time
 import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
@@ -75,6 +78,11 @@ class WithDrawVehicleActivity : AppCompatActivity() {
         viewModel?.parkingServiceApplication = parkingServiceApplication
 
         getVehicleSelected(spinner)
+
+        findViewById<Button>(R.id.button_delete_vehicle).setOnClickListener {
+            viewModel?.calculateAmount(Parking(
+                Vehicle("", "", 0),Time(null, getDateTimeText(), null)))
+        }
     }
 
     private fun displayTimeDialog() {

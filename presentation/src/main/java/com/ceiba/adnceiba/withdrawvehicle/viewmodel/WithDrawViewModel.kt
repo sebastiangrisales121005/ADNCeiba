@@ -12,9 +12,9 @@ class WithDrawViewModel: ViewModel() {
 
     lateinit var parkingServiceApplication: ParkingServiceApplication
 
-    fun calculateAmount(time: Time) {
+    fun calculateAmount(parking: Parking) {
         CoroutineScope(Dispatchers.Main).launch {
-            parkingServiceApplication.calculateAmountParking(Parking(time))
+            parkingServiceApplication.calculateAmountParking(parking)
         }
     }
 }
