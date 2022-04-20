@@ -34,6 +34,11 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
         return id
     }
 
+    override suspend fun calculateAmountParking(parking: Parking): Int? {
+        return 0
+    }
+
+
     private suspend fun getCountCar(): Int {
         return withContext(Dispatchers.IO) {
             parkingDbRoomImpl.parkingDao().getCountCar()
