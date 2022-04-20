@@ -13,6 +13,9 @@ import com.ceiba.domain.aggregate.Parking
 import com.ceiba.domain.entity.Vehicle
 import com.ceiba.domain.exception.ParkingException
 import com.ceiba.domain.valueobject.Time
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class EnterVehicleViewModel /*@ViewModelInject constructor(parkingServiceApplication: ParkingServiceApplication,
                                                          @Assisted private val savedStateHandle: SavedStateHandle)*/ : ViewModel() {
@@ -23,10 +26,12 @@ class EnterVehicleViewModel /*@ViewModelInject constructor(parkingServiceApplica
 
     fun insertVehicle(vehicle: Vehicle, time: Time){
         val parking = Parking(vehicle, time)
-        try {
-            enterVehicleLiveData.value = parkingServiceApplication.enterVehicle(parking)
-        } catch (e: ParkingException) {
-            showMessageLiveData.value = e.message
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                enterVehicleLiveData.value = parkingServiceApplication.enterVehicle(parking)
+            } catch (e: ParkingException) {
+                showMessageLiveData.value = e.message
+            }
         }
 
     }

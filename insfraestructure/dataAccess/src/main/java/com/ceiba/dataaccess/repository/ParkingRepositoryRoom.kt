@@ -9,6 +9,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Context): ParkingRepository {
@@ -16,13 +17,13 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
 
     private val parkingDbRoomImpl: ParkingDbRoomImpl = Room.databaseBuilder(this.context, ParkingDbRoomImpl::class.java, DB_NAME).build()
 
-    override fun enterVehicle(parking: Parking): Long {
+    override suspend fun enterVehicle(parking: Parking): Long? {
         val parkingDto = ParkingTranslator.fromDomainToDto(parking)
-        var id: Long = 0
+        var id: Long? = null
 
-        CoroutineScope(Dispatchers.IO).launch {
-            if (parking.validateEnterLicensePlate()) {
-                id = parkingDbRoomImpl.parkingDao().insertVehicle(parkingDto)
+        if (parking.validateEnterLicensePlate()) {
+            id = withContext(Dispatchers.IO) {
+                parkingDbRoomImpl.parkingDao().insertVehicle(parkingDto)
             }
         }
 

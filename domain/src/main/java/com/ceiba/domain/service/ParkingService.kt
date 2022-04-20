@@ -7,7 +7,7 @@ import javax.inject.Inject
 class ParkingService @Inject constructor(parkingRepository: ParkingRepository) {
     private var parkingRepository: ParkingRepository = parkingRepository
 
-    fun enterVehicle(parking: Parking): Long {
+    suspend fun enterVehicle(parking: Parking): Long? {
         return parkingRepository.enterVehicle(parking)
     }
 }
