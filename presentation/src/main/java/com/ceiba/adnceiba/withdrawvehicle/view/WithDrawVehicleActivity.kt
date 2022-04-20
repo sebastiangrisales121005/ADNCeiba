@@ -73,7 +73,6 @@ class WithDrawVehicleActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this)[WithDrawViewModel::class.java]
         viewModel?.parkingServiceApplication = parkingServiceApplication
-        viewModel?.calculateAmount(Time(null, getDateTimeText(), null))
 
         getVehicleSelected(spinner)
     }

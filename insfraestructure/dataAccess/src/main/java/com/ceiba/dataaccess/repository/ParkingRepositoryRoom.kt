@@ -5,7 +5,9 @@ import androidx.room.Room
 import com.ceiba.dataaccess.anticorruption.ParkingTranslator
 import com.ceiba.dataaccess.dto.ParkingDto
 import com.ceiba.domain.aggregate.Parking
+import com.ceiba.domain.entity.Vehicle
 import com.ceiba.domain.repository.ParkingRepository
+import com.ceiba.domain.valueobject.Time
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -35,12 +37,28 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
     }
 
     override suspend fun calculateAmountParking(parking: Parking): Int? {
+        val parkingUpdate = Parking(Vehicle(getVehiclesParkingDb(parking).licensePlate, getVehiclesParkingDb(parking).vehicleType,
+            getVehiclesParkingDb(parking).cylinderCapacity!!),
+            Time(getVehiclesParkingDb(parking).startDateTime, getVehiclesParkingDb(parking).endDateTime, getVehiclesParkingDb(parking).day))
+
+        parkingUpdate.calculateTotalValueParking()
+
+        return parkingUpdate.totalValueParking
+
+    }
+
+    private suspend fun getVehiclesParkingDb(parking: Parking): ParkingDto {
+        updateWithDrawVehicle(parking)
+        return withContext(Dispatchers.IO) {
+            parkingDbRoomImpl.parkingDao().validateVehicleExist(parking.vehicle?.licensePlate!!)[0]
+        }
+    }
+
+    private suspend fun updateWithDrawVehicle(parking: Parking) {
         CoroutineScope(Dispatchers.IO).launch {
             val parkingDto = ParkingTranslator.fromDomainToDto(parking)
             parkingDbRoomImpl.parkingDao().update(parkingDto.licensePlate, parkingDto.endDateTime)
-            parking.calculateTotalValueParking()
         }
-        return parking.totalValueParking
     }
 
 
