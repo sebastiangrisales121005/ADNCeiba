@@ -3,6 +3,7 @@ package com.ceiba.dataaccess.repository
 import android.content.Context
 import androidx.room.Room
 import com.ceiba.dataaccess.anticorruption.ParkingTranslator
+import com.ceiba.dataaccess.dto.ParkingDto
 import com.ceiba.domain.aggregate.Parking
 import com.ceiba.domain.repository.ParkingRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -21,15 +22,21 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
         val parkingDto = ParkingTranslator.fromDomainToDto(parking)
         var id: Long? = null
 
-        if (parking.validateEnterLicensePlate()) {
-            if (parkingDbRoomImpl.parkingDao().validateVehicleExist(parking.vehicle?.licensePlate!!).isNotEmpty()) {
-                id = withContext(Dispatchers.IO) {
-                    parkingDbRoomImpl.parkingDao().insertVehicle(parkingDto)
-                }
+        if (parkingDbRoomImpl.parkingDao().validateVehicleExist(parking.vehicle?.licensePlate!!).isEmpty()) {
+            id = if (parking.validateEnterLicensePlate()) {
+                executeInsertVehicle(parkingDto)
+            } else {
+                executeInsertVehicle(parkingDto)
             }
         }
 
         return id
+    }
+
+    private suspend fun executeInsertVehicle(parkingDto: ParkingDto): Long {
+        return withContext(Dispatchers.IO) {
+            parkingDbRoomImpl.parkingDao().insertVehicle(parkingDto)
+        }
     }
 
     companion object {
