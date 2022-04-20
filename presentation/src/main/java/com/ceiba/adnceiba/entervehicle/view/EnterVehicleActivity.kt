@@ -47,7 +47,7 @@ class EnterVehicleActivity : AppCompatActivity() {
         mCalendar.set(Calendar.SECOND, 0)
         mCalendar.set(Calendar.MILLISECOND, 0)
 
-        Log.e("DATETIME", getDateTimeText())
+        findViewById<TextInputEditText>(R.id.input_date_enter_vehicle).setText(getDateTimeText())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,9 +76,12 @@ class EnterVehicleActivity : AppCompatActivity() {
         viewModel?.parkingServiceApplication = parkingServiceApplication
 
         getVehicleSelected(spinner)
-        findViewById<Button>(R.id.button_enter_vehicle).setOnClickListener {
+        findViewById<Button>(R.id.button_save_vehicle).setOnClickListener {
+            val valueLicensePlate = findViewById<TextInputEditText>(R.id.input_license_plate_enter_vehicle).text.toString()
+            val valueCylinderCapacity = findViewById<TextInputEditText>(R.id.input_cylinder_capacity_enter_vehicle).text.toString()
+            
             viewModel?.insertVehicle(
-                Vehicle("", selectedVehicle, 0),
+                Vehicle(valueLicensePlate, selectedVehicle, valueCylinderCapacity.toInt()),
                 Time(getDateTimeText(), null, getDayOfWeek())
             )
         }
