@@ -87,10 +87,14 @@ class EnterVehicleActivity : AppCompatActivity() {
     private fun observables() {
         viewModel?.enterVehicleLiveData?.observe(this) {
             if (!it.equals(0)) {
-                showToast("Vehículo ingresado correctamente!")
+                showToast(getString(R.string.vehiculo_ingresado))
             } else {
-                showToast("Error en su ingreso, por favor intente de nuevo")
+                showToast(getString(R.string.error_ingreso_vehiculo))
             }
+        }
+
+        viewModel?.showMessageLiveData?.observe(this) {
+            showToast(it)
         }
     }
 

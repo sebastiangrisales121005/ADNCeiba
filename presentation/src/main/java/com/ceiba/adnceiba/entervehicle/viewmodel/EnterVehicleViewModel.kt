@@ -19,13 +19,14 @@ class EnterVehicleViewModel /*@ViewModelInject constructor(parkingServiceApplica
     lateinit var parkingServiceApplication: ParkingServiceApplication
 
     val enterVehicleLiveData = MutableLiveData<Long>()
+    val showMessageLiveData = MutableLiveData<String>()
 
     fun insertVehicle(vehicle: Vehicle, time: Time){
         val parking = Parking(vehicle, time)
         try {
             enterVehicleLiveData.value = parkingServiceApplication.enterVehicle(parking)
         } catch (e: ParkingException) {
-            Log.e("MENSAJE_ERROR", e.message!!)
+            showMessageLiveData.value = e.message
         }
 
     }
