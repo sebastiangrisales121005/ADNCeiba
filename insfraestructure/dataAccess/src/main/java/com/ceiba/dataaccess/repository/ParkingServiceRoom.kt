@@ -21,5 +21,5 @@ interface ParkingServiceRoom {
     suspend fun update(licensePlate: String, endTime: String?)
 
     @Delete
-    suspend fun deleteVehicle(parkingDto: ParkingDto): Long?
+    suspend fun deleteVehicle(parkingDto: ParkingDto): Int?
 }

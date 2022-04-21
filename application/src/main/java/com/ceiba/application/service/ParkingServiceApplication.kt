@@ -13,7 +13,7 @@ class ParkingServiceApplication @Inject constructor() {
         return parkingService.enterVehicle(parking)
     }
 
-    suspend fun deleteVehicle(parking: Parking): Long? {
+    suspend fun deleteVehicle(parking: Parking): Int? {
         return parkingService.deleteVehicle(parking)
     }
 

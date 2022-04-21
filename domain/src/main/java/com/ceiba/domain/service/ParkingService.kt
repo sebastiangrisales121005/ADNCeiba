@@ -11,7 +11,7 @@ class ParkingService @Inject constructor(parkingRepository: ParkingRepository) {
         return parkingRepository.enterVehicle(parking)
     }
 
-    suspend fun deleteVehicle(parking: Parking): Long? {
+    suspend fun deleteVehicle(parking: Parking): Int? {
         return parkingRepository.deleteVehicle(parking)
     }
 
