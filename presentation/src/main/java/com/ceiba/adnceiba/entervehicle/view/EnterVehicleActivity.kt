@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.InputFilter
 import android.util.Log
 import android.view.View
 import android.widget.*
@@ -32,6 +33,9 @@ class EnterVehicleActivity : AppCompatActivity() {
     private var selectedVehicle: String? = null
 
     private var viewModel: EnterVehicleViewModel? = null
+
+    private var inputLicensePlate: TextInputEditText? = null
+    private var inputCylinderCapacity: TextInputEditText? = null
 
     private val mPickerDate = DatePickerDialog.OnDateSetListener { _, year, monthYear, dayMonth ->
         mCalendar.set(Calendar.YEAR, year)
@@ -72,13 +76,18 @@ class EnterVehicleActivity : AppCompatActivity() {
         val spinner = findViewById<Spinner>(R.id.spinner_vehicle_type_enter)
         spinner.adapter = adapterSpinnerVehicle
 
+        inputLicensePlate = findViewById(R.id.input_license_plate_enter_vehicle)
+        inputCylinderCapacity = findViewById(R.id.input_cylinder_capacity_enter_vehicle)
+
         viewModel = ViewModelProvider(this)[EnterVehicleViewModel::class.java]
         viewModel?.parkingServiceApplication = parkingServiceApplication
 
+        viewModel?.disableEmojiInTitle()
+
         getVehicleSelected(spinner)
         findViewById<Button>(R.id.button_save_vehicle).setOnClickListener {
-            val valueLicensePlate = findViewById<TextInputEditText>(R.id.input_license_plate_enter_vehicle).text.toString()
-            val valueCylinderCapacity = findViewById<TextInputEditText>(R.id.input_cylinder_capacity_enter_vehicle).text.toString()
+            val valueLicensePlate = inputLicensePlate?.text.toString()
+            val valueCylinderCapacity = inputCylinderCapacity?.text.toString()
             
             viewModel?.insertVehicle(
                 Vehicle(valueLicensePlate, selectedVehicle, valueCylinderCapacity.toInt()),
@@ -99,6 +108,11 @@ class EnterVehicleActivity : AppCompatActivity() {
 
         viewModel?.showMessageLiveData?.observe(this) {
             showToast(it)
+        }
+
+        viewModel?.validateEnterEmojiLiveData?.observe(this) {
+            inputLicensePlate?.filters = arrayOf(it)
+            inputCylinderCapacity?.filters = arrayOf(it)
         }
     }
 

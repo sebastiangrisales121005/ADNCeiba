@@ -4,6 +4,7 @@ package com.ceiba.adnceiba.entervehicle.viewmodel
 //import androidx.hilt.Assisted
 //import androidx.hilt.lifecycle.ViewModelInject
 //import androidx.lifecycle.SavedStateHandle
+import android.text.InputFilter
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -23,6 +24,7 @@ class EnterVehicleViewModel /*@ViewModelInject constructor(parkingServiceApplica
 
     val enterVehicleLiveData = MutableLiveData<Long>()
     val showMessageLiveData = MutableLiveData<String>()
+    val validateEnterEmojiLiveData = MutableLiveData<InputFilter>()
 
     fun insertVehicle(vehicle: Vehicle, time: Time){
         val parking = Parking(vehicle, time)
@@ -34,6 +36,51 @@ class EnterVehicleViewModel /*@ViewModelInject constructor(parkingServiceApplica
             }
         }
 
+    }
+
+    fun disableEmojiInTitle() {
+        val emojiFilter = InputFilter { source, start, end, dest, dstart, dend ->
+            for (index in start until end) {
+                val type = Character.getType(source[index])
+
+                when (type) {
+                    '*'.code,
+                    Character.OTHER_SYMBOL.toInt(),
+                    Character.SURROGATE.toInt() -> {
+                        return@InputFilter ""
+                    }
+                    Character.LOWERCASE_LETTER.toInt() -> {
+                        val index2 = index + 1
+                        if (index2 < end && Character.getType(source[index + 1]) == Character.NON_SPACING_MARK.toInt())
+                            return@InputFilter ""
+                    }
+                    Character.DECIMAL_DIGIT_NUMBER.toInt() -> {
+                        val index2 = index + 1
+                        val index3 = index + 2
+                        if (index2 < end && index3 < end &&
+                            Character.getType(source[index2]) == Character.NON_SPACING_MARK.toInt() &&
+                            Character.getType(source[index3]) == Character.ENCLOSING_MARK.toInt()
+                        )
+                            return@InputFilter ""
+                    }
+                    Character.OTHER_PUNCTUATION.toInt() -> {
+                        val index2 = index + 1
+
+                        if (index2 < end && Character.getType(source[index2]) == Character.NON_SPACING_MARK.toInt()) {
+                            return@InputFilter ""
+                        }
+                    }
+                    Character.MATH_SYMBOL.toInt() -> {
+                        val index2 = index + 1
+                        if (index2 < end && Character.getType(source[index2]) == Character.NON_SPACING_MARK.toInt())
+                            return@InputFilter ""
+                    }
+                }
+            }
+            return@InputFilter null
+        }
+
+        validateEnterEmojiLiveData.value = emojiFilter
     }
 
 
