@@ -1,6 +1,9 @@
 package com.ceiba.domain
 
 import com.ceiba.domain.aggregate.Parking
+import com.ceiba.domain.core.ParkingBuilder
+import com.ceiba.domain.core.TimeBuilder
+import com.ceiba.domain.core.VehicleBuilder
 import com.ceiba.domain.entity.Vehicle
 import com.ceiba.domain.exception.ParkingException
 import com.ceiba.domain.valueobject.Time
@@ -15,14 +18,27 @@ class ParkingTest {
         val licensePlate = "ABC000"
         val typeVehicle = "Moto"
         val cylinderCapacity = 150
-        val vehicle = Vehicle(licensePlate, typeVehicle, cylinderCapacity)
+        val vehicleBuilder = VehicleBuilder.aVehicle()
+            .withLicensePlate(licensePlate)
+            .withVehicleType(typeVehicle)
+            .withCylinderCapacity(cylinderCapacity)
+            .build()
+
+
 
         val startDateTime = "2022-04-14 08:00:00"
         val endDateTime = "2022-04-14 10:00:00"
         val day = "domingo"
-        val time = Time(startDateTime, endDateTime, day)
+        val timeBuilder = TimeBuilder.aTime()
+            .withStartDateTime(startDateTime)
+            .withEndDateTime(endDateTime)
+            .withDay(day)
+            .build()
 
-        val parking = Parking(vehicle, time)
+        val parking = ParkingBuilder.aParking()
+            .withVehicle(vehicleBuilder)
+            .withTime(timeBuilder)
+            .build()
 
         //Act
         val result = parking.validateEnterLicensePlate()
@@ -37,14 +53,25 @@ class ParkingTest {
         val licensePlate = "EBC000"
         val typeVehicle = "Moto"
         val cylinderCapacity = 150
-        val vehicle = Vehicle(licensePlate, typeVehicle, cylinderCapacity)
+        val vehicleBuilder = VehicleBuilder.aVehicle()
+            .withLicensePlate(licensePlate)
+            .withVehicleType(typeVehicle)
+            .withCylinderCapacity(cylinderCapacity)
+            .build()
 
         val startDateTime = "2022-04-14 08:00:00"
         val endDateTime = "2022-04-14 10:00:00"
         val day = "domingo"
-        val time = Time(startDateTime, endDateTime, day)
+        val timeBuilder = TimeBuilder.aTime()
+            .withStartDateTime(startDateTime)
+            .withEndDateTime(endDateTime)
+            .withDay(day)
+            .build()
 
-        val parking = Parking(vehicle, time)
+        val parking = ParkingBuilder.aParking()
+            .withVehicle(vehicleBuilder)
+            .withTime(timeBuilder)
+            .build()
 
         //Act
         val result = parking.validateEnterLicensePlate()
@@ -59,15 +86,26 @@ class ParkingTest {
         val licensePlate = "ABC000"
         val typeVehicle = "Moto"
         val cylinderCapacity = 150
-        val vehicle = Vehicle(licensePlate, typeVehicle, cylinderCapacity)
+        val vehicleBuilder = VehicleBuilder.aVehicle()
+            .withLicensePlate(licensePlate)
+            .withVehicleType(typeVehicle)
+            .withCylinderCapacity(cylinderCapacity)
+            .build()
 
         val startDateTime = "2022-04-14 08:00:00"
         val endDateTime = "2022-04-14 10:00:00"
         val day = "martes"
-        val time = Time(startDateTime, endDateTime, day)
+        val timeBuilder = TimeBuilder.aTime()
+            .withStartDateTime(startDateTime)
+            .withEndDateTime(endDateTime)
+            .withDay(day)
+            .build()
 
 
-        val parking = Parking(vehicle, time)
+        val parking = ParkingBuilder.aParking()
+            .withVehicle(vehicleBuilder)
+            .withTime(timeBuilder)
+            .build()
 
         val expectedMessage = "Este vehículo no está autorizado a ingresar"
 
@@ -90,14 +128,25 @@ class ParkingTest {
         val licensePlate = "ABC000"
         val typeVehicle = "Carro"
         val cylinderCapacity = 150
-        val vehicle = Vehicle(licensePlate, typeVehicle, cylinderCapacity)
+        val vehicleBuilder = VehicleBuilder.aVehicle()
+            .withLicensePlate(licensePlate)
+            .withVehicleType(typeVehicle)
+            .withCylinderCapacity(cylinderCapacity)
+            .build()
 
         val startDateTime = "2022-04-14 08:00:00"
         val endDateTime = "2022-04-16 17:00:00"
         val day = "martes"
-        val time = Time(startDateTime, endDateTime, day)
+        val timeBuilder = TimeBuilder.aTime()
+            .withStartDateTime(startDateTime)
+            .withEndDateTime(endDateTime)
+            .withDay(day)
+            .build()
 
-        val parking = Parking(vehicle, time)
+        val parking = ParkingBuilder.aParking()
+            .withVehicle(vehicleBuilder)
+            .withTime(timeBuilder)
+            .build()
 
         //Act
         parking.calculateTotalValueParking()
@@ -112,14 +161,25 @@ class ParkingTest {
         val licensePlate = "ABC000"
         val typeVehicle = "Carro"
         val cylinderCapacity = 150
-        val vehicle = Vehicle(licensePlate, typeVehicle, cylinderCapacity)
+        val vehicleBuilder = VehicleBuilder.aVehicle()
+            .withLicensePlate(licensePlate)
+            .withVehicleType(typeVehicle)
+            .withCylinderCapacity(cylinderCapacity)
+            .build()
 
         val startDateTime = "2022-04-14 08:00:00"
         val endDateTime = "2022-04-16 15:00:00"
         val day = "martes"
-        val time = Time(startDateTime, endDateTime, day)
+        val timeBuilder = TimeBuilder.aTime()
+            .withStartDateTime(startDateTime)
+            .withEndDateTime(endDateTime)
+            .withDay(day)
+            .build()
 
-        val parking = Parking(vehicle, time)
+        val parking = ParkingBuilder.aParking()
+            .withVehicle(vehicleBuilder)
+            .withTime(timeBuilder)
+            .build()
 
         //Act
         parking.calculateTotalValueParking()
@@ -134,14 +194,25 @@ class ParkingTest {
         val licensePlate = "ABC000"
         val typeVehicle = "Carro"
         val cylinderCapacity = 150
-        val vehicle = Vehicle(licensePlate, typeVehicle, cylinderCapacity)
+        val vehicleBuilder = VehicleBuilder.aVehicle()
+            .withLicensePlate(licensePlate)
+            .withVehicleType(typeVehicle)
+            .withCylinderCapacity(cylinderCapacity)
+            .build()
 
         val startDateTime = "2022-04-14 08:00:00"
         val endDateTime = "2022-04-16 15:00:00"
         val day = "martes"
-        val time = Time(startDateTime, endDateTime, day)
+        val timeBuilder = TimeBuilder.aTime()
+            .withStartDateTime(startDateTime)
+            .withEndDateTime(endDateTime)
+            .withDay(day)
+            .build()
 
-        val parking = Parking(vehicle, time)
+        val parking = ParkingBuilder.aParking()
+            .withVehicle(vehicleBuilder)
+            .withTime(timeBuilder)
+            .build()
 
         //Act
         parking.calculateTotalValueParking()
@@ -156,14 +227,25 @@ class ParkingTest {
         val licensePlate = "ABC000"
         val typeVehicle = "Moto"
         val cylinderCapacity = 150
-        val vehicle = Vehicle(licensePlate, typeVehicle, cylinderCapacity)
+        val vehicleBuilder = VehicleBuilder.aVehicle()
+            .withLicensePlate(licensePlate)
+            .withVehicleType(typeVehicle)
+            .withCylinderCapacity(cylinderCapacity)
+            .build()
 
         val startDateTime = "2022-04-14 08:00:00"
         val endDateTime = "2022-04-16 17:00:00"
         val day = "martes"
-        val time = Time(startDateTime, endDateTime, day)
+        val timeBuilder = TimeBuilder.aTime()
+            .withStartDateTime(startDateTime)
+            .withEndDateTime(endDateTime)
+            .withDay(day)
+            .build()
 
-        val parking = Parking(vehicle, time)
+        val parking = ParkingBuilder.aParking()
+            .withVehicle(vehicleBuilder)
+            .withTime(timeBuilder)
+            .build()
 
         //Act
         parking.calculateTotalValueParking()
@@ -178,14 +260,25 @@ class ParkingTest {
         val licensePlate = "ABC000"
         val typeVehicle = "Moto"
         val cylinderCapacity = 150
-        val vehicle = Vehicle(licensePlate, typeVehicle, cylinderCapacity)
+        val vehicleBuilder = VehicleBuilder.aVehicle()
+            .withLicensePlate(licensePlate)
+            .withVehicleType(typeVehicle)
+            .withCylinderCapacity(cylinderCapacity)
+            .build()
 
         val startDateTime = "2022-04-14 08:00:00"
         val endDateTime = "2022-04-16 15:00:00"
         val day = "martes"
-        val time = Time(startDateTime, endDateTime, day)
+        val timeBuilder = TimeBuilder.aTime()
+            .withStartDateTime(startDateTime)
+            .withEndDateTime(endDateTime)
+            .withDay(day)
+            .build()
 
-        val parking = Parking(vehicle, time)
+        val parking = ParkingBuilder.aParking()
+            .withVehicle(vehicleBuilder)
+            .withTime(timeBuilder)
+            .build()
 
         //Act
         parking.calculateTotalValueParking()
@@ -200,14 +293,25 @@ class ParkingTest {
         val licensePlate = "ABC000"
         val typeVehicle = "Moto"
         val cylinderCapacity = 150
-        val vehicle = Vehicle(licensePlate, typeVehicle, cylinderCapacity)
+        val vehicleBuilder = VehicleBuilder.aVehicle()
+            .withLicensePlate(licensePlate)
+            .withVehicleType(typeVehicle)
+            .withCylinderCapacity(cylinderCapacity)
+            .build()
 
         val startDateTime = "2022-04-14 08:00:00"
         val endDateTime = "2022-04-16 15:00:00"
         val day = "martes"
-        val time = Time(startDateTime, endDateTime, day)
+        val timeBuilder = TimeBuilder.aTime()
+            .withStartDateTime(startDateTime)
+            .withEndDateTime(endDateTime)
+            .withDay(day)
+            .build()
 
-        val parking = Parking(vehicle, time)
+        val parking = ParkingBuilder.aParking()
+            .withVehicle(vehicleBuilder)
+            .withTime(timeBuilder)
+            .build()
 
         //Act
         parking.calculateTotalValueParking()

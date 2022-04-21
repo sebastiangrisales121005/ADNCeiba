@@ -48,6 +48,8 @@ class Parking {
             if (vehicle?.cylinderCapacity!! > 500) {
                 totalValueParking = (totalForDays + totalForHours) + 2000
             }
+
+            totalValueParking = (totalForDays + totalForHours)
         }
 
 
