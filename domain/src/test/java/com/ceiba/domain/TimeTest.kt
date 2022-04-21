@@ -14,7 +14,7 @@ class TimeTest {
         val endDateTime = "2022-04-14 10:00:00"
         val day = "martes"
 
-        val timeBuilder = TimeBuilder()
+        val timeBuilder = TimeBuilder.aTime()
             .withStartDateTime(startDateTime)
             .withEndDateTime(endDateTime)
             .withDay(day)
@@ -35,7 +35,7 @@ class TimeTest {
         val startDateTime = "2022-04-14 08:00:00"
         val endDateTime = "2022-04-15 10:00:00"
         val day = "martes"
-        val timeBuilder = TimeBuilder()
+        val timeBuilder = TimeBuilder.aTime()
             .withStartDateTime(startDateTime)
             .withEndDateTime(endDateTime)
             .withDay(day)
@@ -54,7 +54,7 @@ class TimeTest {
         val startDateTime = "2022-04-14 08:00:00"
         val endDateTime = "2022-04-15 10:00:00"
         val day = "martes"
-        val timeBuilder = TimeBuilder()
+        val timeBuilder = TimeBuilder.aTime()
             .withStartDateTime(startDateTime)
             .withEndDateTime(endDateTime)
             .withDay(day)
@@ -73,7 +73,7 @@ class TimeTest {
         val startDateTime = "2022-04-14 08:00:00"
         val endDateTime = "2022-04-15 10:00:00"
         val day = "martes"
-        val timeBuilder = TimeBuilder()
+        val timeBuilder = TimeBuilder.aTime()
             .withStartDateTime(startDateTime)
             .withEndDateTime(endDateTime)
             .withDay(day)
@@ -92,7 +92,7 @@ class TimeTest {
         val startDateTime = "2022-04-14 08:00:00"
         val endDateTime = "2022-04-15 11:00:00"
         val day = "martes"
-        val timeBuilder = TimeBuilder()
+        val timeBuilder = TimeBuilder.aTime()
             .withStartDateTime(startDateTime)
             .withEndDateTime(endDateTime)
             .withDay(day)
