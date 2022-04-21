@@ -15,9 +15,14 @@ class WithDrawViewModel: ViewModel() {
 
     val showCalculateParkingLiveData = MutableLiveData<Parking>()
 
+    val deleteVehicleLiveData = MutableLiveData<Long>()
+
     fun calculateAmount(parking: Parking) {
         CoroutineScope(Dispatchers.Main).launch {
-            showCalculateParkingLiveData.value = parkingServiceApplication.calculateAmountParking(parking)
+            val parkingUpdate = parkingServiceApplication.calculateAmountParking(parking)
+            showCalculateParkingLiveData.value = parkingUpdate
+
+            deleteVehicleLiveData.value = parkingServiceApplication.deleteVehicle(parkingUpdate!!)
         }
     }
 }
