@@ -10,6 +10,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProvider
 import com.ceiba.adnceiba.R
 import com.ceiba.adnceiba.entervehicle.view.EnterVehicleActivity
@@ -58,6 +59,7 @@ class WithDrawVehicleActivity : AppCompatActivity() {
         setContentView(R.layout.activity_with_draw_vehicle)
 
         initializeWidgets()
+        observables()
     }
 
     private fun initializeWidgets() {
@@ -84,6 +86,13 @@ class WithDrawVehicleActivity : AppCompatActivity() {
 
             viewModel?.calculateAmount(Parking(
                 Vehicle(valueLicensePlate, null, 0),Time(null, getDateTimeText(), null)))
+        }
+    }
+
+    fun observables() {
+        viewModel?.showCalculateParkingLiveData?.observe(this) {
+            findViewById<ConstraintLayout>(R.id.container_payment_vehicle).visibility = View.VISIBLE
+
         }
     }
 
