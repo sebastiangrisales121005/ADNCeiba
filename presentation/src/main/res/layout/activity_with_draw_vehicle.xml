@@ -64,39 +64,11 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_cylinder_capacity_withdraw"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/input_layout_date_time_withdraw"
-                app:layout_constraintStart_toStartOf="@id/input_layout_license_plate_withdraw"
-                android:hint="@string/cilindraje">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/input_cylinder_capacity_withdraw_vehicle"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:inputType="number"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <Spinner
-                android:id="@+id/spinner_vehicle_type_withdraw"
-                android:layout_height="50dp"
-                android:layout_width="160dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintStart_toStartOf="@id/input_layout_license_plate_withdraw"
-                app:layout_constraintTop_toBottomOf="@id/input_layout_cylinder_capacity_withdraw"/>
-
             <Button
                 android:id="@+id/button_delete_vehicle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/spinner_vehicle_type_withdraw"
+                app:layout_constraintTop_toBottomOf="@id/input_layout_date_time_withdraw"
                 android:layout_marginTop="30dp"
                 android:text="@string/retirar"/>
 
@@ -105,7 +77,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/button_delete_vehicle"
-                app:layout_constraintStart_toStartOf="@id/input_layout_cylinder_capacity_withdraw"
+                app:layout_constraintStart_toStartOf="@id/input_layout_date_time_withdraw"
                 android:visibility="gone">
 
                 <TextView

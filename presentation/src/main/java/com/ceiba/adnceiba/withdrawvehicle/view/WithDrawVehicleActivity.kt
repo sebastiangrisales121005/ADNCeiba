@@ -6,10 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.Spinner
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProvider
 import com.ceiba.adnceiba.R
@@ -32,8 +29,6 @@ class WithDrawVehicleActivity : AppCompatActivity() {
     lateinit var parkingServiceApplication: ParkingServiceApplication
 
     private val mCalendar = Calendar.getInstance()
-
-    private val vehicles = arrayOf(EnterVehicleActivity.CAR, EnterVehicleActivity.MOTORCYCLE)
 
     private var viewModel: WithDrawViewModel? = null
 
@@ -68,18 +63,8 @@ class WithDrawVehicleActivity : AppCompatActivity() {
                 mCalendar.get(Calendar.DAY_OF_MONTH)).show()
         }
 
-        val adapterSpinnerVehicle = ArrayAdapter(
-            this, android.R.layout.simple_spinner_item,
-            vehicles
-        )
-
-        val spinner = findViewById<Spinner>(R.id.spinner_vehicle_type_withdraw)
-        spinner.adapter = adapterSpinnerVehicle
-
         viewModel = ViewModelProvider(this)[WithDrawViewModel::class.java]
         viewModel?.parkingServiceApplication = parkingServiceApplication
-
-        getVehicleSelected(spinner)
 
         findViewById<Button>(R.id.button_delete_vehicle).setOnClickListener {
             val valueLicensePlate = findViewById<TextInputEditText>(R.id.input_license_plate_withdraw_vehicle).text.toString()
@@ -89,10 +74,13 @@ class WithDrawVehicleActivity : AppCompatActivity() {
         }
     }
 
-    fun observables() {
+    private fun observables() {
         viewModel?.showCalculateParkingLiveData?.observe(this) {
             findViewById<ConstraintLayout>(R.id.container_payment_vehicle).visibility = View.VISIBLE
 
+            findViewById<TextView>(R.id.count_day_vehicle).text = it.time?.numberDays.toString()
+            findViewById<TextView>(R.id.count_hour_vehicle).text = it.time?.numberHours.toString()
+            findViewById<TextView>(R.id.payment_vehicle).text = it.totalValueParking.toString()
         }
     }
 
@@ -109,18 +97,4 @@ class WithDrawVehicleActivity : AppCompatActivity() {
         return sdf.format(mCalendar.time.time)
     }
 
-
-
-    fun getVehicleSelected(spinner: Spinner) {
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                Log.e("VEHICULO", vehicles[position])
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
-            }
-
-        }
-    }
 }
