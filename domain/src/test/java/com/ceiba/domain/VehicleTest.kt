@@ -1,5 +1,6 @@
 package com.ceiba.domain
 
+import com.ceiba.domain.core.VehicleBuilder
 import com.ceiba.domain.entity.Vehicle
 import com.ceiba.domain.exception.ParkingException
 import org.junit.Assert
@@ -14,10 +15,14 @@ class VehicleTest {
         val typeVehicle = "Moto"
         val cylinderCapacity = 150
 
-        val vehicle = Vehicle(licensePlate, typeVehicle, cylinderCapacity)
+        val vehicleBuilder = VehicleBuilder.aVehicle()
+            .withLicensePlate(licensePlate)
+            .withVehicleType(typeVehicle)
+            .withCylinderCapacity(cylinderCapacity)
+            .build()
 
         //Act
-        val result = vehicle.validateVehicleType()
+        val result = vehicleBuilder.validateVehicleType()
 
         //Assert
         Assert.assertTrue(result)
@@ -30,14 +35,18 @@ class VehicleTest {
         val typeVehicle = "Moto"
         val cylinderCapacity = 150
 
-        val vehicle = Vehicle(licensePlate, typeVehicle, cylinderCapacity)
+        val vehicleBuilder = VehicleBuilder.aVehicle()
+            .withLicensePlate(licensePlate)
+            .withVehicleType(typeVehicle)
+            .withCylinderCapacity(cylinderCapacity)
+            .build()
 
         val amountCar = 21
         val amountMotorCycle = 11
 
         //Act
         try {
-            vehicle.validateAmountVehicle(amountCar, amountMotorCycle)
+            vehicleBuilder.validateAmountVehicle(amountCar, amountMotorCycle)
 
             Assert.fail()
 
