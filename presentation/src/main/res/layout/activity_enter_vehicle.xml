@@ -76,7 +76,8 @@
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:clickable="true"
-                    android:inputType="number"/>
+                    android:inputType="number"
+                    android:maxLength="4"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
