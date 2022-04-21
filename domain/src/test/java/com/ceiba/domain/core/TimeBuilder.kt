@@ -23,7 +23,7 @@ class TimeBuilder() {
         return this
     }
 
-    fun withDay(endDateTime: String): TimeBuilder {
+    fun withDay(day: String): TimeBuilder {
         this.day = day
         return this
     }

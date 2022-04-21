@@ -1,5 +1,6 @@
 package com.ceiba.domain
 
+import com.ceiba.domain.core.TimeBuilder
 import com.ceiba.domain.valueobject.Time
 import org.junit.Assert
 import org.junit.Test
@@ -12,14 +13,20 @@ class TimeTest {
         val startDateTime = "2022-04-14 08:00:00"
         val endDateTime = "2022-04-14 10:00:00"
         val day = "martes"
-        val time = Time(startDateTime, endDateTime, day)
-        time.numberHours = 9
+
+        val timeBuilder = TimeBuilder()
+            .withStartDateTime(startDateTime)
+            .withEndDateTime(endDateTime)
+            .withDay(day)
+            .build()
+
+        timeBuilder.numberHours = 9
 
         //Act
-        time.calculateDaysFromHours()
+        timeBuilder.calculateDaysFromHours()
 
         //Assert
-        Assert.assertEquals(1, time.numberDays)
+        Assert.assertEquals(1, timeBuilder.numberDays)
     }
 
     @Test
@@ -28,13 +35,17 @@ class TimeTest {
         val startDateTime = "2022-04-14 08:00:00"
         val endDateTime = "2022-04-15 10:00:00"
         val day = "martes"
-        val time = Time(startDateTime, endDateTime, day)
+        val timeBuilder = TimeBuilder()
+            .withStartDateTime(startDateTime)
+            .withEndDateTime(endDateTime)
+            .withDay(day)
+            .build()
 
         //Act
-        time.calculateTimeParking()
+        timeBuilder.calculateTimeParking()
 
         //Assert
-        Assert.assertEquals(1, time.numberDays)
+        Assert.assertEquals(1, timeBuilder.numberDays)
     }
 
     @Test
@@ -43,13 +54,17 @@ class TimeTest {
         val startDateTime = "2022-04-14 08:00:00"
         val endDateTime = "2022-04-15 10:00:00"
         val day = "martes"
-        val time = Time(startDateTime, endDateTime, day)
+        val timeBuilder = TimeBuilder()
+            .withStartDateTime(startDateTime)
+            .withEndDateTime(endDateTime)
+            .withDay(day)
+            .build()
 
         //Act
-        time.calculateTimeParking()
+        timeBuilder.calculateTimeParking()
 
         //Assert
-        Assert.assertNotEquals(2, time.numberDays)
+        Assert.assertNotEquals(2, timeBuilder.numberDays)
     }
 
     @Test
@@ -58,13 +73,17 @@ class TimeTest {
         val startDateTime = "2022-04-14 08:00:00"
         val endDateTime = "2022-04-15 10:00:00"
         val day = "martes"
-        val time = Time(startDateTime, endDateTime, day)
+        val timeBuilder = TimeBuilder()
+            .withStartDateTime(startDateTime)
+            .withEndDateTime(endDateTime)
+            .withDay(day)
+            .build()
 
         //Act
-        time.calculateTimeParking()
+        timeBuilder.calculateTimeParking()
 
         //Assert
-        Assert.assertEquals(2, time.numberHours)
+        Assert.assertEquals(2, timeBuilder.numberHours)
     }
 
     @Test
@@ -73,12 +92,16 @@ class TimeTest {
         val startDateTime = "2022-04-14 08:00:00"
         val endDateTime = "2022-04-15 11:00:00"
         val day = "martes"
-        val time = Time(startDateTime, endDateTime, day)
+        val timeBuilder = TimeBuilder()
+            .withStartDateTime(startDateTime)
+            .withEndDateTime(endDateTime)
+            .withDay(day)
+            .build()
 
         //Act
-        time.calculateTimeParking()
+        timeBuilder.calculateTimeParking()
 
         //Assert
-        Assert.assertNotEquals(2, time.numberHours)
+        Assert.assertNotEquals(2, timeBuilder.numberHours)
     }
 }
