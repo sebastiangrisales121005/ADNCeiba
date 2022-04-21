@@ -4,5 +4,5 @@ import com.ceiba.domain.aggregate.Parking
 
 interface ParkingRepository {
     suspend fun enterVehicle(parking: Parking): Long?
-    suspend fun calculateAmountParking(parking: Parking): Int?
+    suspend fun calculateAmountParking(parking: Parking): Parking?
 }

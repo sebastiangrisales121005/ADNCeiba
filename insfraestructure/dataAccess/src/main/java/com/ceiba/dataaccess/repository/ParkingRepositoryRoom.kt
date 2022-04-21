@@ -36,14 +36,14 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
         return id
     }
 
-    override suspend fun calculateAmountParking(parking: Parking): Int? {
+    override suspend fun calculateAmountParking(parking: Parking): Parking? {
         val parkingUpdate = Parking(Vehicle(getVehiclesParkingDb(parking).licensePlate, getVehiclesParkingDb(parking).vehicleType,
             getVehiclesParkingDb(parking).cylinderCapacity!!),
             Time(getVehiclesParkingDb(parking).startDateTime, getVehiclesParkingDb(parking).endDateTime, getVehiclesParkingDb(parking).day))
 
         parkingUpdate.calculateTotalValueParking()
 
-        return parkingUpdate.totalValueParking
+        return parkingUpdate
 
     }
 
