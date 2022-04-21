@@ -26,5 +26,9 @@ class MainActivityTest {
         onView(withId(R.id.button_enter_vehicle)).perform(click())
 
         onView(withId(R.id.button_save_vehicle)).check(matches(isDisplayed()))
+        onView(withId(R.id.input_license_plate_enter_vehicle)).check(matches(isDisplayed()))
+        onView(withId(R.id.input_date_enter_vehicle)).check(matches(isDisplayed()))
+        onView(withId(R.id.input_cylinder_capacity_enter_vehicle)).check(matches(isDisplayed()))
+        onView(withId(R.id.spinner_vehicle_type_enter)).check(matches(isDisplayed()))
     }
 }
