@@ -80,7 +80,7 @@ class EnterVehicleActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[EnterVehicleViewModel::class.java]
         viewModel?.parkingServiceApplication = parkingServiceApplication
 
-        viewModel?.disableEmojiInTitle()
+        viewModel?.disableEmoji()
 
         getVehicleSelected(spinner)
         findViewById<Button>(R.id.button_save_vehicle).setOnClickListener {

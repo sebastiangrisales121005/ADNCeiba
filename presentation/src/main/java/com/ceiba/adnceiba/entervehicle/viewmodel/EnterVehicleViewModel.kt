@@ -38,7 +38,7 @@ class EnterVehicleViewModel /*@ViewModelInject constructor(parkingServiceApplica
 
     }
 
-    fun disableEmojiInTitle() {
+    fun disableEmoji() {
         val emojiFilter = InputFilter { source, start, end, dest, dstart, dend ->
             for (index in start until end) {
                 val type = Character.getType(source[index])

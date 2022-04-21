@@ -32,6 +32,8 @@ class WithDrawVehicleActivity : AppCompatActivity() {
 
     private var viewModel: WithDrawViewModel? = null
 
+    private var inputLicensePlate: TextInputEditText? = null
+
     private val mPickerDate = DatePickerDialog.OnDateSetListener { _, year, monthYear, dayMonth ->
         mCalendar.set(Calendar.YEAR, year)
         mCalendar.set(Calendar.MONTH, monthYear)
@@ -63,11 +65,14 @@ class WithDrawVehicleActivity : AppCompatActivity() {
                 mCalendar.get(Calendar.DAY_OF_MONTH)).show()
         }
 
+        inputLicensePlate = findViewById(R.id.input_license_plate_withdraw_vehicle)
+
         viewModel = ViewModelProvider(this)[WithDrawViewModel::class.java]
         viewModel?.parkingServiceApplication = parkingServiceApplication
+        viewModel?.disableEmoji()
 
         findViewById<Button>(R.id.button_delete_vehicle).setOnClickListener {
-            val valueLicensePlate = findViewById<TextInputEditText>(R.id.input_license_plate_withdraw_vehicle).text.toString()
+            val valueLicensePlate = inputLicensePlate?.text.toString()
 
             viewModel?.calculateAmount(Parking(
                 Vehicle(valueLicensePlate, null, 0),Time(null, getDateTimeText(), null)))
@@ -89,6 +94,10 @@ class WithDrawVehicleActivity : AppCompatActivity() {
             } ?: kotlin.run {
                 showToast(getString(R.string.error_retiro_vehiculo))
             }
+        }
+
+        viewModel?.validateEnterEmojiLiveData?.observe(this) {
+            inputLicensePlate?.filters = arrayOf(it)
         }
     }
 
