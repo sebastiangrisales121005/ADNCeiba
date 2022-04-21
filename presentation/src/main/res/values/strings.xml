@@ -16,4 +16,6 @@
     <string name="cobro_total">Cobro total:</string>
     <string name="vehiculo_ingresado">Vehículo ingresado correctamente!</string>
     <string name="error_ingreso_vehiculo">Error en su ingreso, por favor intente de nuevo</string>
+    <string name="retiro_correcto">Vehículo retirado correctamente!</string>
+    <string name="error_retiro_vehiculo">Error en el retiro, por favor intente de nuevo</string>
 </resources>
