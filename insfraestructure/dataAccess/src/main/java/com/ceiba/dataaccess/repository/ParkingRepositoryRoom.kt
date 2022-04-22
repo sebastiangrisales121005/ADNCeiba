@@ -24,15 +24,10 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
         val parkingDto = ParkingTranslator.fromDomainToDto(parking)
         var id: Long? = null
 
-        //parking.vehicle?.validateAmountVehicle(getCountCar(), getCountMotorCycle())
-        //val car: Vehicle = Car(parking.vehicle.licensePlate, parking.vehicle.vehicleType)
-        parking.vehicle.validate(getCountMotorCycle())
-        if (parkingDbRoomImpl.parkingDao().validateVehicleExist(parking.vehicle?.licensePlate!!).isEmpty()) {
-            id = if (parking.validateEnterLicensePlate()) {
-                executeInsertVehicle(parkingDto)
-            } else {
-                executeInsertVehicle(parkingDto)
-            }
+        //parking.vehicle.validate(getCountMotorCycle())
+
+        if (parkingDbRoomImpl.parkingDao().validateVehicleExist(parking.vehicle.licensePlate).isEmpty()) {
+            executeInsertVehicle(parkingDto)
         }
 
         return id
@@ -46,13 +41,9 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
     }
 
     override suspend fun calculateAmountParking(parking: ParkingValidateEnter): ParkingValidateEnter {
-        val parkingUpdate = ParkingValidateEnter(Vehicle(getVehiclesParkingDb(parking).licensePlate, getVehiclesParkingDb(parking).vehicleType,
-            getVehiclesParkingDb(parking).cylinderCapacity!!),
-            Time(getVehiclesParkingDb(parking).startDateTime, getVehiclesParkingDb(parking).endDateTime, getVehiclesParkingDb(parking).day))
+        parking.vehicle.calculateTotalForVehicle(parking.time)
 
-        parkingUpdate.calculateTotalValueParking()
-
-        return parkingUpdate
+        return parking
 
     }
 

@@ -8,6 +8,7 @@ class ParkingService @Inject constructor(parkingRepository: ParkingRepository) {
     private var parkingRepository: ParkingRepository = parkingRepository
 
     suspend fun enterVehicle(parking: ParkingValidateEnter): Long? {
+        parking.validateEnterLicensePlate()
         return parkingRepository.enterVehicle(parking)
     }
 
