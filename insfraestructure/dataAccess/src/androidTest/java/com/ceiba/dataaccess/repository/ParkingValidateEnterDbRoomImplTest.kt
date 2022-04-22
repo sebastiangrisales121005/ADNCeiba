@@ -6,6 +6,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.ceiba.dataaccess.anticorruption.ParkingTranslator
 import com.ceiba.domain.aggregate.ParkingValidateEnter
+import com.ceiba.domain.entity.Motorcycle
 import com.ceiba.domain.entity.Vehicle
 import com.ceiba.domain.valueobject.Time
 import junit.framework.TestCase
@@ -41,7 +42,7 @@ class ParkingValidateEnterDbRoomImplTest: TestCase() {
         val licensePlate = "ABC000"
         val typeVehicle = "Moto"
         val cylinderCapacity = 150
-        val vehicle = Vehicle(licensePlate, typeVehicle, cylinderCapacity)
+        val vehicle = Motorcycle(licensePlate, typeVehicle, cylinderCapacity)
 
         val startDateTime = "2022-04-14 08:00:00"
         val endDateTime = "2022-04-14 10:00:00"
@@ -63,7 +64,7 @@ class ParkingValidateEnterDbRoomImplTest: TestCase() {
         val licensePlate = "ABC000"
         val typeVehicle = "Moto"
         val cylinderCapacity = 150
-        val vehicle = Vehicle(licensePlate, typeVehicle, cylinderCapacity)
+        val vehicle = Motorcycle(licensePlate, typeVehicle, cylinderCapacity)
 
         val startDateTime = "2022-04-14 08:00:00"
         val endDateTime = "2022-04-14 10:00:00"

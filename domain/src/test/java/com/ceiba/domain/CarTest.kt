@@ -1,7 +1,6 @@
 package com.ceiba.domain
 
 import com.ceiba.domain.core.CarBuilder
-import com.ceiba.domain.core.ParkingBuilder
 import com.ceiba.domain.core.TimeBuilder
 import com.ceiba.domain.entity.Car
 import org.junit.Assert
@@ -24,13 +23,8 @@ class CarTest {
             .withDay(day)
             .build()
 
-        val parking = ParkingBuilder.aParking()
-            .withVehicle(vehicleBuilder)
-            .withTime(timeBuilder)
-            .build()
-
         //Act
-        vehicleBuilder.calculateTotalValueParking(timeBuilder, Car.PRICE_DAY_CAR, Car.PRICE_HOUR_CAR)
+        vehicleBuilder.calculateTotalForVehicle(timeBuilder)
 
         //Assert
         Assert.assertEquals(24000, vehicleBuilder.totalValueParking)
@@ -51,13 +45,8 @@ class CarTest {
             .withDay(day)
             .build()
 
-        val parking = ParkingBuilder.aParking()
-            .withVehicle(vehicleBuilder)
-            .withTime(timeBuilder)
-            .build()
-
         //Act
-        vehicleBuilder.calculateTotalValueParking(timeBuilder, Car.PRICE_DAY_CAR, Car.PRICE_HOUR_CAR)
+        vehicleBuilder.calculateTotalForVehicle(timeBuilder)
 
         //Assert
         Assert.assertEquals(23000, vehicleBuilder.totalValueParking)
@@ -78,13 +67,8 @@ class CarTest {
             .withDay(day)
             .build()
 
-        val parking = ParkingBuilder.aParking()
-            .withVehicle(vehicleBuilder)
-            .withTime(timeBuilder)
-            .build()
-
         //Act
-        vehicleBuilder.calculateTotalValueParking(timeBuilder, Car.PRICE_DAY_CAR, Car.PRICE_HOUR_CAR)
+        vehicleBuilder.calculateTotalForVehicle(timeBuilder)
 
         //Assert
         Assert.assertNotEquals(24000, vehicleBuilder.totalValueParking)
