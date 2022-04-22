@@ -4,24 +4,12 @@ import com.ceiba.domain.entity.Vehicle
 import com.ceiba.domain.exception.ParkingException
 import com.ceiba.domain.valueobject.Time
 
-class Parking {
+class Parking(val vehicle: Vehicle, val time: Time) {
     var totalValueParking: Int? = null
-    var vehicle: Vehicle? = null
-    var time: Time? = null
-
-
-    constructor(vehicle: Vehicle, time: Time) {
-        this.vehicle = vehicle
-        this.time = time
-    }
-
-    constructor(time: Time) {
-        this.time = time
-    }
 
     fun validateEnterLicensePlate(): Boolean {
-        if (this.vehicle?.licensePlate!!.startsWith("A")) {
-            if (this.time?.day.equals("domingo") || this.time?.day.equals("lunes")) {
+        if (this.vehicle.licensePlate!!.startsWith("A")) {
+            if (this.time.day.equals("domingo") || this.time.day.equals("lunes")) {
                 return true
             } else {
                 throw ParkingException("Este vehículo no está autorizado a ingresar")
@@ -34,18 +22,18 @@ class Parking {
     fun calculateTotalValueParking() {
         val totalForDays: Int
         val totalForHours: Int
-        time?.calculateTimeParking()
+        time.calculateTimeParking()
 
-        if (!vehicle!!.validateVehicleType()) {
-            totalForDays = this.time?.numberDays!! * PRICE_DAY_CAR
-            totalForHours = this.time?.numberHours!! * PRICE_HOUR_CAR
+        if (!vehicle.validateVehicleType()) {
+            totalForDays = this.time.numberDays!! * PRICE_DAY_CAR
+            totalForHours = this.time.numberHours!! * PRICE_HOUR_CAR
 
             totalValueParking = totalForDays + totalForHours
         } else {
-            totalForDays = this.time?.numberDays!! * PRICE_DAY_MOTORCYCLE
-            totalForHours = this.time?.numberHours!! * PRICE_HOUR_MOTORCYCLE
+            totalForDays = this.time.numberDays!! * PRICE_DAY_MOTORCYCLE
+            totalForHours = this.time.numberHours!! * PRICE_HOUR_MOTORCYCLE
 
-            if (vehicle?.cylinderCapacity!! > 500) {
+            if (vehicle.cylinderCapacity!! > 500) {
                 totalValueParking = (totalForDays + totalForHours) + 2000
             }
 
