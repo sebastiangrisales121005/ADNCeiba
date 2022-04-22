@@ -1,18 +1,41 @@
 package com.ceiba.domain.entity
 
+import com.ceiba.domain.aggregate.Parking
 import com.ceiba.domain.exception.ParkingException
+import com.ceiba.domain.valueobject.Time
 
-class Motorcycle(val licensePlate: String, val vehicleType: String, val cylinderCapacity: Int) : Vehicle(licensePlate, vehicleType) {
+class Motorcycle(licensePlate: String, vehicleType: String, val cylinderCapacity: Int) : Vehicle(licensePlate, vehicleType) {
 
     /*override fun validateVehicleType(): Boolean {
         return vehicleType.equals("Moto")
 
-    }*7
+    }*/
 
     override fun validateAmountVehicle(amountVehicles: Int) {
         if (amountVehicles >= 10) {
             throw ParkingException("El parqueadero no permite más motos")
         }
+    }
+
+    override fun calculateTotalValueParking(time: Time): Int {
+        time.calculateTimeParking()
+        var totalForDays = 0
+        time.numberDays?.let {
+            totalForDays = it * Parking.PRICE_DAY_MOTORCYCLE
+        }
+
+        var totalForHours = 0
+        time.numberHours?.let {
+            totalForHours = it * Parking.PRICE_HOUR_MOTORCYCLE
+        }
+
+        var totalValueParking = totalForDays + totalForHours
+
+        if (cylinderCapacity > 500) {
+            totalValueParking += 2000
+        }
+
+        return totalValueParking
     }
 
 

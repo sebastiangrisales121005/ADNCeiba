@@ -8,7 +8,7 @@ class Parking(var vehicle: Vehicle, val time: Time) {
     var totalValueParking: Int? = null
 
     fun validateEnterLicensePlate(): Boolean {
-        if (this.vehicle.licensePlate!!.startsWith("A")) {
+        if (vehicle.licensePlate.startsWith("A")) {
             if (this.time.day.equals("domingo") || this.time.day.equals("lunes")) {
                 return true
             } else {
@@ -29,16 +29,7 @@ class Parking(var vehicle: Vehicle, val time: Time) {
             totalForHours = this.time.numberHours!! * PRICE_HOUR_CAR
 
             totalValueParking = totalForDays + totalForHours
-        } else {
-            totalForDays = this.time.numberDays!! * PRICE_DAY_MOTORCYCLE
-            totalForHours = this.time.numberHours!! * PRICE_HOUR_MOTORCYCLE
-
-            if (vehicle.cylinderCapacity!! > 500) {
-                totalValueParking = (totalForDays + totalForHours) + 2000
-            }
-
-            totalValueParking = (totalForDays + totalForHours)
-        }
+        } 
 
 
     }

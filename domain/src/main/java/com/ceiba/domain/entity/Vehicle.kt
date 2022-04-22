@@ -1,22 +1,14 @@
 package com.ceiba.domain.entity
 
 import com.ceiba.domain.exception.ParkingException
+import com.ceiba.domain.valueobject.Time
 
-abstract class Vehicle(licensePlate: String, vehicleType: String) {
-
-    init {
-        if (validateVehicleType()) {
-            //this.cylinderCapacity = cylinderCapacity
-        } else {
-            //this.cylinderCapacity = 0
-        }
-    }
+abstract class Vehicle(val licensePlate: String, val vehicleType: String) {
 
     fun validate(amountVehicles: Int) {
         validateAmountVehicle(amountVehicles)
 
     }
-
 
     /*fun validateVehicleType(): Boolean {
         if (this.vehicleType.equals("Moto")) {
@@ -28,6 +20,8 @@ abstract class Vehicle(licensePlate: String, vehicleType: String) {
     //abstract fun validateVehicleType(): Boolean
 
     abstract fun validateAmountVehicle(amountVehicles: Int)
+
+    abstract fun calculateTotalValueParking(time: Time): Int
 
     /*fun validateAmountVehicle(amountCar: Int, amountMotorCycle: Int) {
         if (amountCar >= 20) {
