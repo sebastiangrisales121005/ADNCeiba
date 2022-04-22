@@ -4,16 +4,14 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProvider
 import com.ceiba.adnceiba.R
-import com.ceiba.adnceiba.entervehicle.view.EnterVehicleActivity
 import com.ceiba.adnceiba.withdrawvehicle.viewmodel.WithDrawViewModel
 import com.ceiba.application.service.ParkingServiceApplication
-import com.ceiba.domain.aggregate.Parking
+import com.ceiba.domain.aggregate.ParkingValidateEnter
 import com.ceiba.domain.entity.Vehicle
 import com.ceiba.domain.valueobject.Time
 import com.google.android.material.textfield.TextInputEditText
@@ -74,7 +72,7 @@ class WithDrawVehicleActivity : AppCompatActivity() {
         findViewById<Button>(R.id.button_delete_vehicle).setOnClickListener {
             val valueLicensePlate = inputLicensePlate?.text.toString()
 
-            viewModel?.calculateAmount(Parking(
+            viewModel?.calculateAmount(ParkingValidateEnter(
                 Vehicle(valueLicensePlate, null, 0),Time(null, getDateTimeText(), null)))
         }
     }

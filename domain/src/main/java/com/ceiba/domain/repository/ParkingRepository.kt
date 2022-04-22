@@ -1,11 +1,11 @@
 package com.ceiba.domain.repository
 
-import com.ceiba.domain.aggregate.Parking
+import com.ceiba.domain.aggregate.ParkingValidateEnter
 
 interface ParkingRepository {
-    suspend fun enterVehicle(parking: Parking): Long?
+    suspend fun enterVehicle(parking: ParkingValidateEnter): Long?
 
-    suspend fun deleteVehicle(parking: Parking): Int?
+    suspend fun deleteVehicle(parking: ParkingValidateEnter): Int?
 
-    suspend fun calculateAmountParking(parking: Parking): Parking?
+    suspend fun calculateAmountParking(parking: ParkingValidateEnter): ParkingValidateEnter?
 }

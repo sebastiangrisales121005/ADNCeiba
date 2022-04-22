@@ -4,8 +4,7 @@ import com.ceiba.domain.entity.Vehicle
 import com.ceiba.domain.exception.ParkingException
 import com.ceiba.domain.valueobject.Time
 
-class Parking(var vehicle: Vehicle, val time: Time) {
-    var totalValueParking: Int? = null
+class ParkingValidateEnter(var vehicle: Vehicle, val time: Time) {
 
     fun validateEnterLicensePlate(): Boolean {
         if (vehicle.licensePlate.startsWith("A")) {
@@ -19,8 +18,5 @@ class Parking(var vehicle: Vehicle, val time: Time) {
         return false
     }
 
-    companion object {
-
-    }
 
 }

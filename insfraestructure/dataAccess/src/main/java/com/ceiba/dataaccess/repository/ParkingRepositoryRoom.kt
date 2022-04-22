@@ -4,8 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.ceiba.dataaccess.anticorruption.ParkingTranslator
 import com.ceiba.dataaccess.dto.ParkingDto
-import com.ceiba.domain.aggregate.Parking
-import com.ceiba.domain.entity.Motorcycle
+import com.ceiba.domain.aggregate.ParkingValidateEnter
 import com.ceiba.domain.entity.Vehicle
 import com.ceiba.domain.repository.ParkingRepository
 import com.ceiba.domain.valueobject.Time
@@ -21,7 +20,7 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
 
     private val parkingDbRoomImpl: ParkingDbRoomImpl = Room.databaseBuilder(this.context, ParkingDbRoomImpl::class.java, DB_NAME).build()
 
-    override suspend fun enterVehicle(parking: Parking): Long? {
+    override suspend fun enterVehicle(parking: ParkingValidateEnter): Long? {
         val parkingDto = ParkingTranslator.fromDomainToDto(parking)
         var id: Long? = null
 
@@ -39,15 +38,15 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
         return id
     }
 
-    override suspend fun deleteVehicle(parking: Parking): Int? {
+    override suspend fun deleteVehicle(parking: ParkingValidateEnter): Int? {
         val parkingDto = ParkingTranslator.fromDomainToDto(parking)
         return withContext(Dispatchers.IO) {
             parkingDbRoomImpl.parkingDao().deleteVehicle(parkingDto)
         }
     }
 
-    override suspend fun calculateAmountParking(parking: Parking): Parking {
-        val parkingUpdate = Parking(Vehicle(getVehiclesParkingDb(parking).licensePlate, getVehiclesParkingDb(parking).vehicleType,
+    override suspend fun calculateAmountParking(parking: ParkingValidateEnter): ParkingValidateEnter {
+        val parkingUpdate = ParkingValidateEnter(Vehicle(getVehiclesParkingDb(parking).licensePlate, getVehiclesParkingDb(parking).vehicleType,
             getVehiclesParkingDb(parking).cylinderCapacity!!),
             Time(getVehiclesParkingDb(parking).startDateTime, getVehiclesParkingDb(parking).endDateTime, getVehiclesParkingDb(parking).day))
 
@@ -57,14 +56,14 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
 
     }
 
-    private suspend fun getVehiclesParkingDb(parking: Parking): ParkingDto {
+    private suspend fun getVehiclesParkingDb(parking: ParkingValidateEnter): ParkingDto {
         updateWithDrawVehicle(parking)
         return withContext(Dispatchers.IO) {
             parkingDbRoomImpl.parkingDao().validateVehicleExist(parking.vehicle?.licensePlate!!)[0]
         }
     }
 
-    private suspend fun updateWithDrawVehicle(parking: Parking) {
+    private suspend fun updateWithDrawVehicle(parking: ParkingValidateEnter) {
         CoroutineScope(Dispatchers.IO).launch {
             val parkingDto = ParkingTranslator.fromDomainToDto(parking)
             parkingDbRoomImpl.parkingDao().update(parkingDto.licensePlate, parkingDto.endDateTime)

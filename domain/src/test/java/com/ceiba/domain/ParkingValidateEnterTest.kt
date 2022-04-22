@@ -1,16 +1,13 @@
 package com.ceiba.domain
 
-import com.ceiba.domain.aggregate.Parking
 import com.ceiba.domain.core.ParkingBuilder
 import com.ceiba.domain.core.TimeBuilder
 import com.ceiba.domain.core.VehicleBuilder
-import com.ceiba.domain.entity.Vehicle
 import com.ceiba.domain.exception.ParkingException
-import com.ceiba.domain.valueobject.Time
 import org.junit.Assert
 import org.junit.Test
 
-class ParkingTest {
+class ParkingValidateEnterTest {
 
     @Test
     fun parking_validateEnterLicensePlate_isCorrect() {

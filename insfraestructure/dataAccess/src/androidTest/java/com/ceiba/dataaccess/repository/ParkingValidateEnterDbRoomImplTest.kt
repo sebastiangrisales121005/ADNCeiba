@@ -5,7 +5,7 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.ceiba.dataaccess.anticorruption.ParkingTranslator
-import com.ceiba.domain.aggregate.Parking
+import com.ceiba.domain.aggregate.ParkingValidateEnter
 import com.ceiba.domain.entity.Vehicle
 import com.ceiba.domain.valueobject.Time
 import junit.framework.TestCase
@@ -17,7 +17,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class ParkingDbRoomImplTest: TestCase() {
+class ParkingValidateEnterDbRoomImplTest: TestCase() {
     private lateinit var parkingDbRoomImpl: ParkingDbRoomImpl
     private lateinit var parkingServiceRoom: ParkingServiceRoom
 
@@ -48,7 +48,7 @@ class ParkingDbRoomImplTest: TestCase() {
         val day = "martes"
         val time = Time(startDateTime, endDateTime, day)
 
-        val parkingDto = ParkingTranslator.fromDomainToDto(Parking(vehicle, time))
+        val parkingDto = ParkingTranslator.fromDomainToDto(ParkingValidateEnter(vehicle, time))
 
         //Act
         val id = parkingServiceRoom.insertVehicle(parkingDto)
@@ -70,7 +70,7 @@ class ParkingDbRoomImplTest: TestCase() {
         val day = "martes"
         val time = Time(startDateTime, endDateTime, day)
 
-        val parkingDto = ParkingTranslator.fromDomainToDto(Parking(vehicle, time))
+        val parkingDto = ParkingTranslator.fromDomainToDto(ParkingValidateEnter(vehicle, time))
 
         //Act
         val vehicles = parkingServiceRoom.validateVehicleExist(parkingDto.licensePlate).toString()

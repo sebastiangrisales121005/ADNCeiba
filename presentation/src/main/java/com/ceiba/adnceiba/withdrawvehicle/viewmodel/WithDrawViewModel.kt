@@ -4,8 +4,7 @@ import android.text.InputFilter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ceiba.application.service.ParkingServiceApplication
-import com.ceiba.domain.aggregate.Parking
-import com.ceiba.domain.valueobject.Time
+import com.ceiba.domain.aggregate.ParkingValidateEnter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -14,13 +13,13 @@ class WithDrawViewModel: ViewModel() {
 
     lateinit var parkingServiceApplication: ParkingServiceApplication
 
-    val showCalculateParkingLiveData = MutableLiveData<Parking>()
+    val showCalculateParkingLiveData = MutableLiveData<ParkingValidateEnter>()
 
     val deleteVehicleLiveData = MutableLiveData<Int>()
 
     val validateEnterEmojiLiveData = MutableLiveData<InputFilter>()
 
-    fun calculateAmount(parking: Parking) {
+    fun calculateAmount(parking: ParkingValidateEnter) {
         CoroutineScope(Dispatchers.Main).launch {
             val parkingUpdate = parkingServiceApplication.calculateAmountParking(parking)
             showCalculateParkingLiveData.value = parkingUpdate

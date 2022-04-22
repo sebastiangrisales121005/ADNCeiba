@@ -1,11 +1,11 @@
 package com.ceiba.dataaccess.anticorruption
 
 import com.ceiba.dataaccess.dto.ParkingDto
-import com.ceiba.domain.aggregate.Parking
+import com.ceiba.domain.aggregate.ParkingValidateEnter
 
 class ParkingTranslator {
     companion object {
-        fun fromDomainToDto(parking: Parking): ParkingDto {
+        fun fromDomainToDto(parking: ParkingValidateEnter): ParkingDto {
             val parkingDto = ParkingDto()
             parkingDto.licensePlate = parking.vehicle!!.licensePlate!!
             parkingDto.vehicleType = parking.vehicle?.vehicleType

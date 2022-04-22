@@ -6,7 +6,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.ceiba.adnceiba.entervehicle.view.EnterVehicleActivity
 import com.ceiba.adnceiba.withdrawvehicle.view.WithDrawVehicleActivity
-import com.ceiba.domain.aggregate.Parking
+import com.ceiba.domain.aggregate.ParkingValidateEnter
 import com.ceiba.domain.entity.Vehicle
 import com.ceiba.domain.valueobject.Time
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val vehicle = Vehicle("ABC000", "CARRO", 0)
         val time = Time("2022-04-14", "2022-04-15", "Martes")
-        val parking = Parking(vehicle, time)
+        val parking = ParkingValidateEnter(vehicle, time)
         //parkingServiceApplication.enterVehicle(parking)
 
         findViewById<Button>(R.id.button_enter_vehicle).setOnClickListener {

@@ -1,6 +1,5 @@
 package com.ceiba.domain.entity
 
-import com.ceiba.domain.aggregate.Parking
 import com.ceiba.domain.exception.ParkingException
 import com.ceiba.domain.valueobject.Time
 
