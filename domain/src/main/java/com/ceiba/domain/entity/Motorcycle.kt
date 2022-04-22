@@ -16,14 +16,12 @@ class Motorcycle(licensePlate: String, vehicleType: String, val cylinderCapacity
         }
     }
 
-    override fun calculateTotalForVehicle(time: Time): Int {
-        var totalValueParking = calculateTotalValueParking(time, PRICE_DAY_MOTORCYCLE, PRICE_HOUR_MOTORCYCLE)
+    override fun calculateTotalForVehicle(time: Time) {
+        totalValueParking = calculateTotalValueParking(time, PRICE_DAY_MOTORCYCLE, PRICE_HOUR_MOTORCYCLE)
 
         if (cylinderCapacity > 500) {
             totalValueParking += 2000
         }
-
-        return totalValueParking
     }
 
     companion object {

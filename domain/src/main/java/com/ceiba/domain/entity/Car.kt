@@ -10,8 +10,8 @@ class Car(licensePlate: String, vehicleType: String): Vehicle(licensePlate, vehi
         }
     }
 
-    override fun calculateTotalForVehicle(time: Time): Int {
-        return calculateTotalValueParking(time, PRICE_DAY_CAR, PRICE_HOUR_CAR)
+    override fun calculateTotalForVehicle(time: Time) {
+        totalValueParking = calculateTotalValueParking(time, PRICE_DAY_CAR, PRICE_HOUR_CAR)
     }
 
     companion object {

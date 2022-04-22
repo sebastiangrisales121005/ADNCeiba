@@ -83,7 +83,7 @@ class WithDrawVehicleActivity : AppCompatActivity() {
 
             findViewById<TextView>(R.id.count_day_vehicle).text = it.time.numberDays.toString()
             findViewById<TextView>(R.id.count_hour_vehicle).text = it.time.numberHours.toString()
-            findViewById<TextView>(R.id.payment_vehicle).text = it.totalValueParking.toString()
+            findViewById<TextView>(R.id.payment_vehicle).text = it.vehicle.totalValueParking.toString()
         }
 
         viewModel?.deleteVehicleLiveData?.observe(this) {
