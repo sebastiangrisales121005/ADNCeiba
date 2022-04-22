@@ -3,11 +3,16 @@ package com.ceiba.adnceiba.withdrawvehicle.viewmodel
 import android.text.InputFilter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.ceiba.application.service.ParkingServiceApplication
+import com.ceiba.application.service.factory.VehicleFactory
+import com.ceiba.dataaccess.dto.ParkingDto
 import com.ceiba.domain.aggregate.ParkingValidateEnter
+import com.ceiba.domain.valueobject.Time
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class WithDrawViewModel: ViewModel() {
 
@@ -19,12 +24,21 @@ class WithDrawViewModel: ViewModel() {
 
     val validateEnterEmojiLiveData = MutableLiveData<InputFilter>()
 
-    fun calculateAmount(parking: ParkingValidateEnter) {
+    fun calculateAmount(licensePlate: String, time: Time) {
+        val vehicle = VehicleFactory.build(licensePlate, null, 0)
+        val parking = vehicle?.let { ParkingValidateEnter(it, time) }
+
         CoroutineScope(Dispatchers.Main).launch {
-            val parkingUpdate = parkingServiceApplication.calculateAmountParking(parking)
+            val parkingUpdate = parking?.let { getCalculateAmount(parking) }
             showCalculateParkingLiveData.value = parkingUpdate
 
             deleteVehicleLiveData.value = parkingServiceApplication.deleteVehicle(parkingUpdate!!)
+        }
+    }
+
+    suspend fun getCalculateAmount(parkingValidateEnter: ParkingValidateEnter): ParkingValidateEnter? {
+        return withContext(Dispatchers.IO){
+            parkingServiceApplication.parkingService.calculateAmountParking(parkingValidateEnter)
         }
     }
 

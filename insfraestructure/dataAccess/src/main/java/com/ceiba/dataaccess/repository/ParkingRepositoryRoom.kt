@@ -2,10 +2,10 @@ package com.ceiba.dataaccess.repository
 
 import android.content.Context
 import androidx.room.Room
+import com.ceiba.application.service.factory.VehicleFactory
 import com.ceiba.dataaccess.anticorruption.ParkingTranslator
 import com.ceiba.dataaccess.dto.ParkingDto
 import com.ceiba.domain.aggregate.ParkingValidateEnter
-import com.ceiba.domain.entity.Vehicle
 import com.ceiba.domain.repository.ParkingRepository
 import com.ceiba.domain.valueobject.Time
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -41,17 +41,38 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
     }
 
     override suspend fun calculateAmountParking(parking: ParkingValidateEnter): ParkingValidateEnter {
-        parking.vehicle.calculateTotalForVehicle(parking.time)
+        /*val parkingUpdate = ParkingValidateEnter(Vehicle(getVehiclesParkingDb(parking).licensePlate, getVehiclesParkingDb(parking).vehicleType,
+            getVehiclesParkingDb(parking).cylinderCapacity!!),
+            Time(getVehiclesParkingDb(parking).startDateTime, getVehiclesParkingDb(parking).endDateTime, getVehiclesParkingDb(parking).day))
 
-        return parking
+        */
+        val parkingUpdate = getVehiclesParkingDb(parking)
+        parkingUpdate?.vehicle?.calculateTotalForVehicle(parking.time)
+
+        return parkingUpdate
 
     }
 
-    private suspend fun getVehiclesParkingDb(parking: ParkingValidateEnter): ParkingDto {
+    private suspend fun getVehiclesParkingDb(parking: ParkingValidateEnter): ParkingValidateEnter? {
         updateWithDrawVehicle(parking)
-        return withContext(Dispatchers.IO) {
-            parkingDbRoomImpl.parkingDao().validateVehicleExist(parking.vehicle?.licensePlate!!)[0]
+        val parkingDB = parkingDbRoomImpl.parkingDao().validateVehicleExist(parking.vehicle.licensePlate)[0]
+
+        val vehicle = parkingDB.vehicleType?.let {
+            parkingDB.cylinderCapacity?.let { cylinder ->
+                VehicleFactory.build(
+                    parkingDB.licensePlate, it,
+                    cylinder
+                )
+            }
         }
+
+        return vehicle?.let {
+            ParkingValidateEnter(
+                it,
+                Time(parkingDB.startDateTime, parkingDB.endDateTime, parkingDB.day)
+            )
+        }
+
     }
 
     private suspend fun updateWithDrawVehicle(parking: ParkingValidateEnter) {

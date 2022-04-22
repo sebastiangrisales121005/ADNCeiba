@@ -72,8 +72,8 @@ class WithDrawVehicleActivity : AppCompatActivity() {
         findViewById<Button>(R.id.button_delete_vehicle).setOnClickListener {
             val valueLicensePlate = inputLicensePlate?.text.toString()
 
-            viewModel?.calculateAmount(ParkingValidateEnter(
-                Vehicle(valueLicensePlate, null, 0),Time(null, getDateTimeText(), null)))
+            viewModel?.calculateAmount(valueLicensePlate,
+                Time(null, getDateTimeText(), null))
         }
     }
 
@@ -81,8 +81,8 @@ class WithDrawVehicleActivity : AppCompatActivity() {
         viewModel?.showCalculateParkingLiveData?.observe(this) {
             findViewById<ConstraintLayout>(R.id.container_payment_vehicle).visibility = View.VISIBLE
 
-            findViewById<TextView>(R.id.count_day_vehicle).text = it.time?.numberDays.toString()
-            findViewById<TextView>(R.id.count_hour_vehicle).text = it.time?.numberHours.toString()
+            findViewById<TextView>(R.id.count_day_vehicle).text = it.time.numberDays.toString()
+            findViewById<TextView>(R.id.count_hour_vehicle).text = it.time.numberHours.toString()
             findViewById<TextView>(R.id.payment_vehicle).text = it.totalValueParking.toString()
         }
 
