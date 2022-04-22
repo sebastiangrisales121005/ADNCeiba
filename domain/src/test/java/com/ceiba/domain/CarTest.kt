@@ -2,7 +2,6 @@ package com.ceiba.domain
 
 import com.ceiba.domain.core.CarBuilder
 import com.ceiba.domain.core.TimeBuilder
-import com.ceiba.domain.entity.Car
 import org.junit.Assert
 import org.junit.Test
 

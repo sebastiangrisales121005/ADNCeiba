@@ -5,11 +5,6 @@ import com.ceiba.domain.valueobject.Time
 
 class Motorcycle(licensePlate: String, vehicleType: String, val cylinderCapacity: Int) : Vehicle(licensePlate, vehicleType) {
 
-    /*override fun validateVehicleType(): Boolean {
-        return vehicleType.equals("Moto")
-
-    }*/
-
     override fun validateAmountVehicle(amountVehicles: Int) {
         if (amountVehicles >= 10) {
             throw ParkingException("El parqueadero no permite más motos")
