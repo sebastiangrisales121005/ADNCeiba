@@ -7,8 +7,8 @@ class Car(licensePlate: String, vehicleType: String): Vehicle(licensePlate, vehi
         TODO("Not yet implemented")
     }
 
-    override fun calculateTotalValueParking(time: Time): Int {
-        TODO("Not yet implemented")
+    override fun calculateTotalForVehicle(time: Time): Int {
+        return calculateTotalForVehicle(time)
     }
 
 }
