@@ -1,5 +1,6 @@
 package com.ceiba.domain
 
+import com.ceiba.domain.core.MotorcycleBuilder
 import com.ceiba.domain.core.ParkingBuilder
 import com.ceiba.domain.core.TimeBuilder
 import com.ceiba.domain.core.VehicleBuilder
@@ -12,16 +13,8 @@ class ParkingValidateEnterTest {
     @Test
     fun parking_validateEnterLicensePlate_isCorrect() {
         //Arrange
-        val licensePlate = "ABC000"
-        val typeVehicle = "Moto"
-        val cylinderCapacity = 150
-        val vehicleBuilder = VehicleBuilder.aVehicle()
-            .withLicensePlate(licensePlate)
-            .withVehicleType(typeVehicle)
-            .withCylinderCapacity(cylinderCapacity)
+        val vehicleBuilder = MotorcycleBuilder.aMotorcycle()
             .build()
-
-
 
         val startDateTime = "2022-04-14 08:00:00"
         val endDateTime = "2022-04-14 10:00:00"
@@ -48,12 +41,8 @@ class ParkingValidateEnterTest {
     fun parking_validateEnterLicensePlate_isFailureLicensePlate() {
         //Arrange
         val licensePlate = "EBC000"
-        val typeVehicle = "Moto"
-        val cylinderCapacity = 150
-        val vehicleBuilder = VehicleBuilder.aVehicle()
+        val vehicleBuilder = MotorcycleBuilder.aMotorcycle()
             .withLicensePlate(licensePlate)
-            .withVehicleType(typeVehicle)
-            .withCylinderCapacity(cylinderCapacity)
             .build()
 
         val startDateTime = "2022-04-14 08:00:00"
@@ -80,13 +69,7 @@ class ParkingValidateEnterTest {
     @Test
     fun parking_validateEnterLicensePlateWithoutDay_exception() {
         //Arrange
-        val licensePlate = "ABC000"
-        val typeVehicle = "Moto"
-        val cylinderCapacity = 150
-        val vehicleBuilder = VehicleBuilder.aVehicle()
-            .withLicensePlate(licensePlate)
-            .withVehicleType(typeVehicle)
-            .withCylinderCapacity(cylinderCapacity)
+        val vehicleBuilder = MotorcycleBuilder.aMotorcycle()
             .build()
 
         val startDateTime = "2022-04-14 08:00:00"
@@ -216,105 +199,6 @@ class ParkingValidateEnterTest {
 
         //Assert
         Assert.assertNotEquals(24000, parking.totalValueParking)
-    }
-
-    @Test
-    fun parking_calculateTotalValueParkingMotorCycle_isCorrect() {
-        //Arrange
-        val licensePlate = "ABC000"
-        val typeVehicle = "Moto"
-        val cylinderCapacity = 150
-        val vehicleBuilder = VehicleBuilder.aVehicle()
-            .withLicensePlate(licensePlate)
-            .withVehicleType(typeVehicle)
-            .withCylinderCapacity(cylinderCapacity)
-            .build()
-
-        val startDateTime = "2022-04-14 08:00:00"
-        val endDateTime = "2022-04-16 17:00:00"
-        val day = "martes"
-        val timeBuilder = TimeBuilder.aTime()
-            .withStartDateTime(startDateTime)
-            .withEndDateTime(endDateTime)
-            .withDay(day)
-            .build()
-
-        val parking = ParkingBuilder.aParking()
-            .withVehicle(vehicleBuilder)
-            .withTime(timeBuilder)
-            .build()
-
-        //Act
-        parking.calculateTotalValueParking()
-
-        //Assert
-        Assert.assertEquals(12000, parking.totalValueParking)
-    }
-
-    @Test
-    fun parking_calculateTotalValueParkingMotorCycle_isCorrectHours() {
-        //Arrange
-        val licensePlate = "ABC000"
-        val typeVehicle = "Moto"
-        val cylinderCapacity = 150
-        val vehicleBuilder = VehicleBuilder.aVehicle()
-            .withLicensePlate(licensePlate)
-            .withVehicleType(typeVehicle)
-            .withCylinderCapacity(cylinderCapacity)
-            .build()
-
-        val startDateTime = "2022-04-14 08:00:00"
-        val endDateTime = "2022-04-16 15:00:00"
-        val day = "martes"
-        val timeBuilder = TimeBuilder.aTime()
-            .withStartDateTime(startDateTime)
-            .withEndDateTime(endDateTime)
-            .withDay(day)
-            .build()
-
-        val parking = ParkingBuilder.aParking()
-            .withVehicle(vehicleBuilder)
-            .withTime(timeBuilder)
-            .build()
-
-        //Act
-        parking.calculateTotalValueParking()
-
-        //Assert
-        Assert.assertEquals(11500, parking.totalValueParking)
-    }
-
-    @Test
-    fun parking_calculateTotalValueParkingMotorCycle_isFailure() {
-        //Arrange
-        val licensePlate = "ABC000"
-        val typeVehicle = "Moto"
-        val cylinderCapacity = 150
-        val vehicleBuilder = VehicleBuilder.aVehicle()
-            .withLicensePlate(licensePlate)
-            .withVehicleType(typeVehicle)
-            .withCylinderCapacity(cylinderCapacity)
-            .build()
-
-        val startDateTime = "2022-04-14 08:00:00"
-        val endDateTime = "2022-04-16 15:00:00"
-        val day = "martes"
-        val timeBuilder = TimeBuilder.aTime()
-            .withStartDateTime(startDateTime)
-            .withEndDateTime(endDateTime)
-            .withDay(day)
-            .build()
-
-        val parking = ParkingBuilder.aParking()
-            .withVehicle(vehicleBuilder)
-            .withTime(timeBuilder)
-            .build()
-
-        //Act
-        parking.calculateTotalValueParking()
-
-        //Assert
-        Assert.assertNotEquals(12000, parking.totalValueParking)
     }
 
 }
