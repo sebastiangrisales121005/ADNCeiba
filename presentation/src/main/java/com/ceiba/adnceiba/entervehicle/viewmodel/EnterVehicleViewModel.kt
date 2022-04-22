@@ -5,16 +5,12 @@ package com.ceiba.adnceiba.entervehicle.viewmodel
 //import androidx.hilt.lifecycle.ViewModelInject
 //import androidx.lifecycle.SavedStateHandle
 import android.text.InputFilter
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ceiba.application.service.ParkingServiceApplication
 import com.ceiba.domain.aggregate.Parking
-import com.ceiba.domain.entity.Motorcycle
-import com.ceiba.domain.entity.Vehicle
 import com.ceiba.domain.exception.ParkingException
-import com.ceiba.domain.factory.VehicleFactory
+import com.ceiba.application.service.factory.VehicleFactory
 import com.ceiba.domain.valueobject.Time
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

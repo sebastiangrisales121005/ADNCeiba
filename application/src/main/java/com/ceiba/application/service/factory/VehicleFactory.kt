@@ -1,4 +1,4 @@
-package com.ceiba.domain.factory
+package com.ceiba.application.service.factory
 
 import com.ceiba.domain.entity.Car
 import com.ceiba.domain.entity.Motorcycle
