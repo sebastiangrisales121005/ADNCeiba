@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.ceiba.dataaccess.anticorruption.ParkingTranslator
 import com.ceiba.dataaccess.dto.ParkingDto
 import com.ceiba.domain.aggregate.Parking
+import com.ceiba.domain.entity.Motorcycle
 import com.ceiba.domain.entity.Vehicle
 import com.ceiba.domain.repository.ParkingRepository
 import com.ceiba.domain.valueobject.Time
@@ -24,7 +25,9 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
         val parkingDto = ParkingTranslator.fromDomainToDto(parking)
         var id: Long? = null
 
-        parking.vehicle?.validateAmountVehicle(getCountCar(), getCountMotorCycle())
+        //parking.vehicle?.validateAmountVehicle(getCountCar(), getCountMotorCycle())
+        //val car: Vehicle = Car(parking.vehicle.licensePlate, parking.vehicle.vehicleType)
+        parking.vehicle.validate(getCountMotorCycle())
         if (parkingDbRoomImpl.parkingDao().validateVehicleExist(parking.vehicle?.licensePlate!!).isEmpty()) {
             id = if (parking.validateEnterLicensePlate()) {
                 executeInsertVehicle(parkingDto)

@@ -11,8 +11,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ceiba.application.service.ParkingServiceApplication
 import com.ceiba.domain.aggregate.Parking
+import com.ceiba.domain.entity.Motorcycle
 import com.ceiba.domain.entity.Vehicle
 import com.ceiba.domain.exception.ParkingException
+import com.ceiba.domain.factory.VehicleFactory
 import com.ceiba.domain.valueobject.Time
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -26,13 +28,19 @@ class EnterVehicleViewModel /*@ViewModelInject constructor(parkingServiceApplica
     val showMessageLiveData = MutableLiveData<String>()
     val validateEnterEmojiLiveData = MutableLiveData<InputFilter>()
 
-    fun insertVehicle(vehicle: Vehicle, time: Time){
-        val parking = Parking(vehicle, time)
-        CoroutineScope(Dispatchers.Main).launch {
-            try {
-                enterVehicleLiveData.value = parkingServiceApplication.enterVehicle(parking)
-            } catch (e: ParkingException) {
-                showMessageLiveData.value = e.message
+    fun insertVehicle(licensePlate: String, selectedVehicle: String, cylinderCapacity: Int,
+                    time: Time){
+        val vehicle = VehicleFactory.build(licensePlate, selectedVehicle, cylinderCapacity)
+        vehicle?.let {
+            val parking = Parking(it, time)
+
+            CoroutineScope(Dispatchers.Main).launch {
+                try {
+                    enterVehicleLiveData.value =
+                        parkingServiceApplication.enterVehicle(parking)
+                } catch (e: ParkingException) {
+                    showMessageLiveData.value = e.message
+                }
             }
         }
 

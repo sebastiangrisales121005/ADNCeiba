@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.ceiba.adnceiba.R
 import com.ceiba.adnceiba.entervehicle.viewmodel.EnterVehicleViewModel
 import com.ceiba.application.service.ParkingServiceApplication
+import com.ceiba.domain.entity.Motorcycle
 import com.ceiba.domain.entity.Vehicle
 import com.ceiba.domain.valueobject.Time
 import com.google.android.material.textfield.TextInputEditText
@@ -28,7 +29,7 @@ class EnterVehicleActivity : AppCompatActivity() {
 
     private val vehicles = arrayOf(CAR, MOTORCYCLE)
 
-    private var selectedVehicle: String? = null
+    private lateinit var selectedVehicle: String
 
     private var viewModel: EnterVehicleViewModel? = null
 
@@ -88,7 +89,7 @@ class EnterVehicleActivity : AppCompatActivity() {
             val valueCylinderCapacity = inputCylinderCapacity?.text.toString()
             
             viewModel?.insertVehicle(
-                Vehicle(valueLicensePlate, selectedVehicle, valueCylinderCapacity.toInt()),
+                valueLicensePlate, selectedVehicle, valueCylinderCapacity.toInt(),
                 Time(getDateTimeText(), null, getDayOfWeek())
             )
         }
