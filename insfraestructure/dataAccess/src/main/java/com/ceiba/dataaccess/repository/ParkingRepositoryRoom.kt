@@ -70,10 +70,8 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
     }
 
     private suspend fun updateWithDrawVehicle(parking: ParkingValidateEnter) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val parkingDto = ParkingTranslator.fromDomainToDto(parking)
-            parkingDbRoomImpl.parkingDao().update(parkingDto.licensePlate, parkingDto.endDateTime)
-        }
+        val parkingDto = ParkingTranslator.fromDomainToDto(parking)
+        parkingDbRoomImpl.parkingDao().update(parkingDto.licensePlate, parkingDto.endDateTime)
     }
 
 
