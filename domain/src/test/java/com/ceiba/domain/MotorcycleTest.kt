@@ -3,9 +3,7 @@ package com.ceiba.domain
 import com.ceiba.domain.core.MotorcycleBuilder
 import com.ceiba.domain.core.ParkingBuilder
 import com.ceiba.domain.core.TimeBuilder
-import com.ceiba.domain.core.VehicleBuilder
 import com.ceiba.domain.entity.Motorcycle
-import com.ceiba.domain.entity.Vehicle
 import com.ceiba.domain.exception.ParkingException
 import org.junit.Assert
 import org.junit.Test

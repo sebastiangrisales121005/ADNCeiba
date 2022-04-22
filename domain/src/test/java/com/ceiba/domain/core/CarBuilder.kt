@@ -9,7 +9,7 @@ class CarBuilder {
 
     init {
         this.licensePlate = "ABC000"
-        this.vehicleType = "Moto"
+        this.vehicleType = "Carro"
     }
 
     fun withLicensePlate(licensePlate: String): CarBuilder {
