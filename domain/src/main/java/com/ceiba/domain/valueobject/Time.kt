@@ -29,9 +29,16 @@ class Time(startDateTime: String?, endDateTime: String?, day: String?) {
 
         val timeLong = endDate!!.time - startDate!!.time
 
-        this.numberDays = (timeLong/(24 * 60 * 60 * 1000)).toInt()
-        this.numberHours = ((timeLong/(60 * 60 * 1000) - this.numberDays!! * 24)).toInt()
+        this.numberDays = (timeLong/(HOURS_FOR_DAY * MINUTES_FOR_HOUR * SECONDS_FOR_MINUTE * 1000)).toInt()
+        this.numberHours = ((timeLong/(MINUTES_FOR_HOUR * SECONDS_FOR_MINUTE * MILLISECONDS) - this.numberDays!! * HOURS_FOR_DAY)).toInt()
         calculateDaysFromHours()
+    }
+
+    companion object {
+        const val HOURS_FOR_DAY = 24
+        const val MINUTES_FOR_HOUR = 60
+        const val SECONDS_FOR_MINUTE = 60
+        const val MILLISECONDS = 1000
     }
 
 }
