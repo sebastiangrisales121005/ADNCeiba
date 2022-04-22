@@ -7,7 +7,7 @@ class Motorcycle(licensePlate: String, vehicleType: String, val cylinderCapacity
 
     override fun validateAmountVehicle(amountVehicles: Int) {
         if (amountVehicles >= 10) {
-            throw ParkingException("El parqueadero no permite más motos")
+            throw ParkingException(MESSAGE_RESTRICTED)
         }
     }
 
@@ -22,6 +22,7 @@ class Motorcycle(licensePlate: String, vehicleType: String, val cylinderCapacity
     companion object {
         const val PRICE_HOUR_MOTORCYCLE = 500
         const val PRICE_DAY_MOTORCYCLE = 4000
+        const val MESSAGE_RESTRICTED = "El parqueadero no permite más motos"
     }
 
 
