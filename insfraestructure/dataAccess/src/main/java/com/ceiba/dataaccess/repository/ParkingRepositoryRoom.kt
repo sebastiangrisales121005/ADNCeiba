@@ -40,12 +40,7 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
         }
     }
 
-    override suspend fun calculateAmountParking(parking: ParkingValidateEnter): ParkingValidateEnter {
-        /*val parkingUpdate = ParkingValidateEnter(Vehicle(getVehiclesParkingDb(parking).licensePlate, getVehiclesParkingDb(parking).vehicleType,
-            getVehiclesParkingDb(parking).cylinderCapacity!!),
-            Time(getVehiclesParkingDb(parking).startDateTime, getVehiclesParkingDb(parking).endDateTime, getVehiclesParkingDb(parking).day))
-
-        */
+    override suspend fun calculateAmountParking(parking: ParkingValidateEnter): ParkingValidateEnter? {
         val parkingUpdate = getVehiclesParkingDb(parking)
         parkingUpdate?.vehicle?.calculateTotalForVehicle(parking.time)
 
@@ -57,10 +52,10 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
         updateWithDrawVehicle(parking)
         val parkingDB = parkingDbRoomImpl.parkingDao().validateVehicleExist(parking.vehicle.licensePlate)[0]
 
-        val vehicle = parkingDB.vehicleType?.let {
+        val vehicle = parkingDB.vehicleType?.let { vehicleType ->
             parkingDB.cylinderCapacity?.let { cylinder ->
                 VehicleFactory.build(
-                    parkingDB.licensePlate, it,
+                    parkingDB.licensePlate, vehicleType,
                     cylinder
                 )
             }
