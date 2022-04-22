@@ -31,4 +31,10 @@ class MotorcycleBuilder {
     fun build(): Motorcycle {
         return Motorcycle(licensePlate, vehicleType, cylinderCapacity)
     }
+
+    companion object {
+        fun aMotorcycle(): MotorcycleBuilder {
+            return MotorcycleBuilder()
+        }
+    }
 }
