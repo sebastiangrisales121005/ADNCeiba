@@ -29,7 +29,7 @@ class Parking(var vehicle: Vehicle, val time: Time) {
             totalForHours = this.time.numberHours!! * PRICE_HOUR_CAR
 
             totalValueParking = totalForDays + totalForHours
-        } 
+        }
 
 
     }
