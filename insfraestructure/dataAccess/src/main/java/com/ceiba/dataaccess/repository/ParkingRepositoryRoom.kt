@@ -35,9 +35,8 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
 
     override suspend fun deleteVehicle(parking: ParkingValidateEnter): Int? {
         val parkingDto = ParkingTranslator.fromDomainToDto(parking)
-        return withContext(Dispatchers.IO) {
-            parkingDbRoomImpl.parkingDao().deleteVehicle(parkingDto)
-        }
+        return parkingDbRoomImpl.parkingDao().deleteVehicle(parkingDto)
+
     }
 
     override suspend fun calculateAmountParking(parking: ParkingValidateEnter): ParkingValidateEnter? {

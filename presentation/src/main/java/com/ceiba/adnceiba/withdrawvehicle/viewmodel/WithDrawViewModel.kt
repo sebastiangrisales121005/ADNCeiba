@@ -32,13 +32,19 @@ class WithDrawViewModel: ViewModel() {
             val parkingUpdate = parking?.let { getCalculateAmount(parking) }
             showCalculateParkingLiveData.value = parkingUpdate
 
-            deleteVehicleLiveData.value = parkingServiceApplication.deleteVehicle(parkingUpdate!!)
+            deleteVehicleLiveData.value = parkingUpdate?.let { deleteVehicle(it) }
         }
     }
 
-    suspend fun getCalculateAmount(parkingValidateEnter: ParkingValidateEnter): ParkingValidateEnter? {
+    private suspend fun getCalculateAmount(parkingValidateEnter: ParkingValidateEnter): ParkingValidateEnter? {
         return withContext(Dispatchers.IO){
             parkingServiceApplication.parkingService.calculateAmountParking(parkingValidateEnter)
+        }
+    }
+
+    private suspend fun deleteVehicle(parkingValidateEnter: ParkingValidateEnter): Int? {
+        return withContext(Dispatchers.IO) {
+            parkingServiceApplication.parkingService.deleteVehicle(parkingValidateEnter)
         }
     }
 
