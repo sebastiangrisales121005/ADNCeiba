@@ -33,9 +33,6 @@ class MotorcycleTest {
     @Test
     fun parking_calculateTotalValueParkingMotorCycle_isCorrect() {
         //Arrange
-        val licensePlate = "ABC000"
-        val typeVehicle = "Moto"
-        val cylinderCapacity = 150
         val vehicleBuilder = MotorcycleBuilder.aMotorcycle()
             .build()
 
@@ -48,13 +45,8 @@ class MotorcycleTest {
             .withDay(day)
             .build()
 
-        val parking = ParkingBuilder.aParking()
-            .withVehicle(vehicleBuilder)
-            .withTime(timeBuilder)
-            .build()
-
         //Act
-        vehicleBuilder.calculateTotalValueParking(timeBuilder, Motorcycle.PRICE_DAY_MOTORCYCLE, Motorcycle.PRICE_HOUR_MOTORCYCLE)
+        vehicleBuilder.calculateTotalForVehicle(timeBuilder)
 
         //Assert
         Assert.assertEquals(12000, vehicleBuilder.totalValueParking)
@@ -75,13 +67,8 @@ class MotorcycleTest {
             .withDay(day)
             .build()
 
-        val parking = ParkingBuilder.aParking()
-            .withVehicle(vehicleBuilder)
-            .withTime(timeBuilder)
-            .build()
-
         //Act
-        vehicleBuilder.calculateTotalValueParking(timeBuilder, Motorcycle.PRICE_DAY_MOTORCYCLE, Motorcycle.PRICE_HOUR_MOTORCYCLE)
+        vehicleBuilder.calculateTotalForVehicle(timeBuilder)
 
         //Assert
         Assert.assertEquals(11500, vehicleBuilder.totalValueParking)
@@ -102,13 +89,8 @@ class MotorcycleTest {
             .withDay(day)
             .build()
 
-        val parking = ParkingBuilder.aParking()
-            .withVehicle(vehicleBuilder)
-            .withTime(timeBuilder)
-            .build()
-
         //Act
-        vehicleBuilder.calculateTotalValueParking(timeBuilder, Motorcycle.PRICE_DAY_MOTORCYCLE, Motorcycle.PRICE_HOUR_MOTORCYCLE)
+        vehicleBuilder.calculateTotalForVehicle(timeBuilder)
 
         //Assert
         Assert.assertNotEquals(12000, vehicleBuilder.totalValueParking)
