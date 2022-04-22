@@ -11,16 +11,16 @@ abstract class Vehicle(val licensePlate: String, val vehicleType: String) {
 
     }
 
-    fun calculateTotalValueParking(time: Time): Int {
+    fun calculateTotalValueParking(time: Time, priceDay: Int, priceHour: Int): Int {
         time.calculateTimeParking()
         var totalForDays = 0
         time.numberDays?.let {
-            totalForDays = it * Parking.PRICE_DAY_MOTORCYCLE
+            totalForDays = it * priceDay
         }
 
         var totalForHours = 0
         time.numberHours?.let {
-            totalForHours = it * Parking.PRICE_HOUR_MOTORCYCLE
+            totalForHours = it * priceHour
         }
 
         return totalForDays + totalForHours
@@ -32,8 +32,6 @@ abstract class Vehicle(val licensePlate: String, val vehicleType: String) {
         }
         return false
     }*/
-
-    //abstract fun validateVehicleType(): Boolean
 
     abstract fun validateAmountVehicle(amountVehicles: Int)
 

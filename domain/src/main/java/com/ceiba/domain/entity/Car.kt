@@ -1,5 +1,6 @@
 package com.ceiba.domain.entity
 
+import com.ceiba.domain.aggregate.Parking
 import com.ceiba.domain.valueobject.Time
 
 class Car(licensePlate: String, vehicleType: String): Vehicle(licensePlate, vehicleType)  {
@@ -8,7 +9,7 @@ class Car(licensePlate: String, vehicleType: String): Vehicle(licensePlate, vehi
     }
 
     override fun calculateTotalForVehicle(time: Time): Int {
-        return calculateTotalForVehicle(time)
+        return calculateTotalValueParking(time, Parking.PRICE_DAY_CAR, Parking.PRICE_HOUR_CAR)
     }
 
 }
