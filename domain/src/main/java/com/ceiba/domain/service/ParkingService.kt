@@ -1,6 +1,7 @@
 package com.ceiba.domain.service
 
 import com.ceiba.domain.aggregate.ParkingValidateEnter
+import com.ceiba.domain.entity.Car
 import com.ceiba.domain.entity.Motorcycle
 import com.ceiba.domain.repository.ParkingRepository
 import javax.inject.Inject
@@ -11,6 +12,7 @@ class ParkingService @Inject constructor(parkingRepository: ParkingRepository) {
     suspend fun enterVehicle(parking: ParkingValidateEnter): Long? {
         parking.validateEnterLicensePlate()
         validateMotorCycle(parking)
+        validateCar(parking)
 
         return parkingRepository.enterVehicle(parking)
     }
@@ -27,6 +29,12 @@ class ParkingService @Inject constructor(parkingRepository: ParkingRepository) {
         val motorcycle = Motorcycle(parking.vehicle.licensePlate, parking.vehicle.vehicleType,
             parking.vehicle.cylinderCapacity)
         motorcycle.validate(parkingRepository.validateAmountMotorcycle())
+    }
+
+    private suspend fun validateCar(parking: ParkingValidateEnter) {
+        val car = Car(parking.vehicle.licensePlate, parking.vehicle.vehicleType,
+            parking.vehicle.cylinderCapacity)
+        car.validate(parkingRepository.getCountCarParking())
     }
 
 }
