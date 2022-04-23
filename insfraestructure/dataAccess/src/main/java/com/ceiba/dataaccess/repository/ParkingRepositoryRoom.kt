@@ -25,9 +25,10 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
         var id: Long? = null
 
         //parking.vehicle.validate(getCountMotorCycle())
+        val vehicleExist = parkingDbRoomImpl.parkingDao().validateVehicleExist(parking.vehicle.licensePlate).isEmpty()
 
-        if (parkingDbRoomImpl.parkingDao().validateVehicleExist(parking.vehicle.licensePlate).isEmpty()) {
-            executeInsertVehicle(parkingDto)
+        if (vehicleExist) {
+            id = executeInsertVehicle(parkingDto)
         }
 
         return id
