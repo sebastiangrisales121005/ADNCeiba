@@ -8,4 +8,6 @@ interface ParkingRepository {
     suspend fun deleteVehicle(parking: ParkingValidateEnter): Int?
 
     suspend fun calculateAmountParking(parking: ParkingValidateEnter): ParkingValidateEnter?
+
+    suspend fun validateAmountMotorcycle(): Int
 }

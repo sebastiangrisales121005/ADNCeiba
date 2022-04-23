@@ -48,6 +48,10 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
 
     }
 
+    override suspend fun validateAmountMotorcycle(): Int {
+        return getCountMotorCycle()
+    }
+
     private suspend fun getVehiclesParkingDb(parking: ParkingValidateEnter): ParkingValidateEnter? {
         updateWithDrawVehicle(parking)
         val parkingDB = parkingDbRoomImpl.parkingDao().validateVehicleExist(parking.vehicle.licensePlate)[0]
@@ -83,9 +87,7 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
     }
 
     private suspend fun getCountMotorCycle(): Int {
-        return withContext(Dispatchers.IO) {
-            parkingDbRoomImpl.parkingDao().getCountMotorCycle()
-        }
+        return  parkingDbRoomImpl.parkingDao().getCountMotorCycle()
     }
 
     private suspend fun executeInsertVehicle(parkingDto: ParkingDto): Long {
