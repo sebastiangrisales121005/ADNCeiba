@@ -11,7 +11,7 @@ class CarBuilder {
     init {
         this.licensePlate = "ABC000"
         this.vehicleType = "Carro"
-        this.cylinderCapacity = 0
+        this.cylinderCapacity = 1200
     }
 
     fun withLicensePlate(licensePlate: String): CarBuilder {
