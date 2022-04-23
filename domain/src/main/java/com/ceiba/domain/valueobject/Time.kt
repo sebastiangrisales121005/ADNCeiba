@@ -2,18 +2,9 @@ package com.ceiba.domain.valueobject
 
 import java.text.SimpleDateFormat
 
-class Time(startDateTime: String?, endDateTime: String?, day: String?) {
-    var startDateTime: String? = null
-    var endDateTime: String? = null
-    var day: String? = null
+class Time(val startDateTime: String?, val endDateTime: String?, val day: String?) {
     var numberDays: Int? = 0
     var numberHours: Int? = null
-
-    init {
-        this.startDateTime = startDateTime
-        this.endDateTime = endDateTime
-        this.day = day
-    }
 
     fun calculateDaysFromHours() {
         if (this.numberHours!! in 9..23) {
@@ -24,8 +15,8 @@ class Time(startDateTime: String?, endDateTime: String?, day: String?) {
 
     fun calculateTimeParking() {
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-        val startDate = simpleDateFormat.parse(startDateTime!!)
-        val endDate = simpleDateFormat.parse(endDateTime!!)
+        val startDate = simpleDateFormat.parse(startDateTime)
+        val endDate = simpleDateFormat.parse(endDateTime)
 
         val timeLong = endDate!!.time - startDate!!.time
 

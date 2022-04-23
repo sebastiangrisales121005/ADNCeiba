@@ -27,17 +27,22 @@ class EnterVehicleViewModel /*@ViewModelInject constructor(parkingServiceApplica
 
     fun insertVehicle(licensePlate: String, selectedVehicle: String, cylinderCapacity: Int,
                     time: Time){
-        val vehicle = VehicleFactory.build(licensePlate, selectedVehicle, cylinderCapacity)
+        try {
+            val vehicle = VehicleFactory.build(licensePlate, selectedVehicle, cylinderCapacity)
 
-        val parking = vehicle?.let { ParkingValidateEnter(it, time) }
+            val parking = vehicle?.let { ParkingValidateEnter(it, time) }
 
-        CoroutineScope(Dispatchers.Main).launch {
-            try {
-                enterVehicleLiveData.value = parking?.let { getEnterVehicle(it) }
-            } catch (e: ParkingException) {
-                showMessageLiveData.value = e.message
+            CoroutineScope(Dispatchers.Main).launch {
+                try {
+                    enterVehicleLiveData.value = parking?.let { getEnterVehicle(it) }
+                } catch (e: ParkingException) {
+                    showMessageLiveData.value = e.message
+                }
             }
+        } catch (e: ParkingException) {
+            showMessageLiveData.value = e.message
         }
+
 
     }
 
