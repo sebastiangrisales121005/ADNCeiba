@@ -28,7 +28,7 @@ class ParkingService @Inject constructor(parkingRepository: ParkingRepository) {
     private suspend fun validateMotorCycle(parking: ParkingValidateEnter) {
         val motorcycle = Motorcycle(parking.vehicle.licensePlate, parking.vehicle.vehicleType,
             parking.vehicle.cylinderCapacity)
-        motorcycle.validate(parkingRepository.validateAmountMotorcycle())
+        motorcycle.validate(parkingRepository.getCountMotorcycleParking())
     }
 
     private suspend fun validateCar(parking: ParkingValidateEnter) {

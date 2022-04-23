@@ -48,7 +48,7 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
 
     }
 
-    override suspend fun validateAmountMotorcycle(): Int {
+    override suspend fun getCountMotorcycleParking(): Int {
         return getCountMotorCycle()
     }
 
