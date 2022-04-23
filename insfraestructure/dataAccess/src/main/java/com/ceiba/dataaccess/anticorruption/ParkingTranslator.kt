@@ -9,7 +9,7 @@ class ParkingTranslator {
             val parkingDto = ParkingDto()
             parkingDto.licensePlate = parking.vehicle.licensePlate
             parkingDto.vehicleType = parking.vehicle.vehicleType
-            parkingDto.cylinderCapacity = parking.vehicle.cylinderCapacityVehicle
+            parkingDto.cylinderCapacity = parking.vehicle.cylinderCapacity
 
             parkingDto.startDateTime = parking.time.startDateTime
             parkingDto.endDateTime = parking.time.endDateTime

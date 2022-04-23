@@ -3,7 +3,7 @@ package com.ceiba.domain.entity
 import com.ceiba.domain.exception.ParkingException
 import com.ceiba.domain.valueobject.Time
 
-class Car(licensePlate: String, vehicleType: String): Vehicle(licensePlate, vehicleType)  {
+class Car(licensePlate: String, vehicleType: String, cylinderCapacity: Int): Vehicle(licensePlate, vehicleType, cylinderCapacity)  {
     override fun validateAmountVehicle(amountVehicles: Int) {
         if (amountVehicles >= 20) {
             throw ParkingException(MESSAGE_RESTRICTED)

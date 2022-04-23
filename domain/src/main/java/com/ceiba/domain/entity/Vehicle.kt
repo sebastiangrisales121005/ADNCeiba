@@ -2,9 +2,8 @@ package com.ceiba.domain.entity
 
 import com.ceiba.domain.valueobject.Time
 
-abstract class Vehicle(val licensePlate: String, val vehicleType: String) {
+abstract class Vehicle(val licensePlate: String, val vehicleType: String, val cylinderCapacity: Int) {
     var totalValueParking: Int = 0
-    var cylinderCapacityVehicle: Int = 0
 
     fun validate(amountVehicles: Int) {
         validateAmountVehicle(amountVehicles)
