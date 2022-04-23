@@ -6,7 +6,7 @@ import com.ceiba.domain.entity.Motorcycle
 import com.ceiba.domain.repository.ParkingRepository
 import javax.inject.Inject
 
-class ParkingService @Inject constructor(parkingRepository: ParkingRepository) {
+class ParkingValidateEnterService @Inject constructor(parkingRepository: ParkingRepository) {
     private var parkingRepository: ParkingRepository = parkingRepository
 
     suspend fun enterVehicle(parking: ParkingValidateEnter): Long? {
