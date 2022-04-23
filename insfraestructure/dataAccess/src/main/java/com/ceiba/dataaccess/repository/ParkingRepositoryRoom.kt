@@ -24,7 +24,6 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
         val parkingDto = ParkingTranslator.fromDomainToDto(parking)
         var id: Long? = null
 
-        //parking.vehicle.validate(getCountMotorCycle())
         val vehicleExist = parkingDbRoomImpl.parkingDao().validateVehicleExist(parking.vehicle.licensePlate).isEmpty()
 
         if (vehicleExist) {
@@ -40,8 +39,8 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
 
     }
 
-    override suspend fun calculateAmountParking(parking: ParkingValidateEnter): ParkingValidateEnter? {
-        val parkingUpdate = getVehiclesParkingDb(parking)
+    override suspend fun calculateAmountParking(licensePlate: String, endTime: String): ParkingValidateEnter? {
+        val parkingUpdate = getVehiclesParkingDb(licensePlate, endTime)
         parkingUpdate?.vehicle?.calculateTotalForVehicle(parkingUpdate.time)
 
         return parkingUpdate
@@ -56,9 +55,9 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
         return getCountCar()
     }
 
-    private suspend fun getVehiclesParkingDb(parking: ParkingValidateEnter): ParkingValidateEnter? {
-        updateWithDrawVehicle(parking)
-        val parkingDB = parkingDbRoomImpl.parkingDao().validateVehicleExist(parking.vehicle.licensePlate)[0]
+    private suspend fun getVehiclesParkingDb(licensePlate: String, endTime: String): ParkingValidateEnter? {
+        updateWithDrawVehicle(licensePlate, endTime)
+        val parkingDB = parkingDbRoomImpl.parkingDao().validateVehicleExist(licensePlate)[0]
 
         val vehicle = parkingDB.vehicleType?.let { vehicleType ->
             parkingDB.cylinderCapacity?.let { cylinder ->
@@ -78,9 +77,8 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
 
     }
 
-    private suspend fun updateWithDrawVehicle(parking: ParkingValidateEnter) {
-        val parkingDto = ParkingTranslator.fromDomainToDto(parking)
-        parkingDbRoomImpl.parkingDao().update(parkingDto.licensePlate, parkingDto.endDateTime)
+    private suspend fun updateWithDrawVehicle(licensePlate: String, endTime: String) {
+        parkingDbRoomImpl.parkingDao().update(licensePlate, endTime)
     }
 
 

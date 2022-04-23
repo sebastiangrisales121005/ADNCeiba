@@ -7,7 +7,7 @@ interface ParkingRepository {
 
     suspend fun deleteVehicle(parking: ParkingValidateEnter): Int?
 
-    suspend fun calculateAmountParking(parking: ParkingValidateEnter): ParkingValidateEnter?
+    suspend fun calculateAmountParking(licensePlate: String, endTime: String): ParkingValidateEnter?
 
     suspend fun getCountMotorcycleParking(): Int
 

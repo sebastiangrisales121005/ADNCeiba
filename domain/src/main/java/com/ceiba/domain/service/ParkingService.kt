@@ -21,8 +21,8 @@ class ParkingService @Inject constructor(parkingRepository: ParkingRepository) {
         return parkingRepository.deleteVehicle(parking)
     }
 
-    suspend fun calculateAmountParking(parking: ParkingValidateEnter): ParkingValidateEnter? {
-        return parkingRepository.calculateAmountParking(parking)
+    suspend fun calculateAmountParking(licensePlate: String, endTime: String): ParkingValidateEnter? {
+        return parkingRepository.calculateAmountParking(licensePlate, endTime)
     }
 
     private suspend fun validateMotorCycle(parking: ParkingValidateEnter) {

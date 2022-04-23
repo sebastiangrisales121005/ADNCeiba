@@ -29,22 +29,24 @@ class WithDrawViewModel: ViewModel() {
         val parking = vehicle?.let { ParkingValidateEnter(it, time) }
 
         CoroutineScope(Dispatchers.Main).launch {
-            val parkingUpdate = parking?.let { getCalculateAmount(parking) }
+            val parkingUpdate = parking?.let { time.endDateTime?.let { endTime ->
+                getCalculateAmount(licensePlate, endTime)
+            } }
             showCalculateParkingLiveData.value = parkingUpdate
 
             deleteVehicleLiveData.value = parkingUpdate?.let { deleteVehicle(it) }
         }
     }
 
-    private suspend fun getCalculateAmount(parkingValidateEnter: ParkingValidateEnter): ParkingValidateEnter? {
+    private suspend fun getCalculateAmount(licensePlate: String, endTime: String): ParkingValidateEnter? {
         return withContext(Dispatchers.IO){
-            parkingServiceApplication.parkingService.calculateAmountParking(parkingValidateEnter)
+            parkingServiceApplication.calculateAmountParking(licensePlate, endTime)
         }
     }
 
     private suspend fun deleteVehicle(parkingValidateEnter: ParkingValidateEnter): Int? {
         return withContext(Dispatchers.IO) {
-            parkingServiceApplication.parkingService.deleteVehicle(parkingValidateEnter)
+            parkingServiceApplication.deleteVehicle(parkingValidateEnter)
         }
     }
 
