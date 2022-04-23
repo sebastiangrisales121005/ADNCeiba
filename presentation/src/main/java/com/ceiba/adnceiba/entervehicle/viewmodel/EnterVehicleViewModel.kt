@@ -15,6 +15,7 @@ import com.ceiba.domain.valueobject.Time
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class EnterVehicleViewModel /*@ViewModelInject constructor(parkingServiceApplication: ParkingServiceApplication,
                                                          @Assisted private val savedStateHandle: SavedStateHandle)*/ : ViewModel() {
@@ -32,12 +33,18 @@ class EnterVehicleViewModel /*@ViewModelInject constructor(parkingServiceApplica
 
         CoroutineScope(Dispatchers.Main).launch {
             try {
-                enterVehicleLiveData.value = parking?.let { parkingServiceApplication.enterVehicle(it) }
+                enterVehicleLiveData.value = parking?.let { getEnterVehicle(it) }
             } catch (e: ParkingException) {
                 showMessageLiveData.value = e.message
             }
         }
 
+    }
+
+    private suspend fun getEnterVehicle(parking: ParkingValidateEnter): Long? {
+       return withContext(Dispatchers.IO) {
+            parkingServiceApplication.enterVehicle(parking)
+        }
     }
 
     fun disableEmoji() {

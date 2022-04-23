@@ -18,10 +18,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val vehicle = Vehicle("ABC000", "CARRO", 0)
-        val time = Time("2022-04-14", "2022-04-15", "Martes")
-        val parking = ParkingValidateEnter(vehicle, time)
-        //parkingServiceApplication.enterVehicle(parking)
 
         findViewById<Button>(R.id.button_enter_vehicle).setOnClickListener {
             startActivity(Intent(this, EnterVehicleActivity::class.java))
