@@ -24,8 +24,8 @@ class WithDrawViewModel: ViewModel() {
 
     val validateEnterEmojiLiveData = MutableLiveData<InputFilter>()
 
-    fun calculateAmount(licensePlate: String, time: Time) {
-        val vehicle = VehicleFactory.build(licensePlate, null, 0)
+    fun calculateAmount(licensePlate: String, vehicleType: String, time: Time) {
+        val vehicle = VehicleFactory.build(licensePlate, vehicleType, 0)
         val parking = vehicle?.let { ParkingValidateEnter(it, time) }
 
         CoroutineScope(Dispatchers.Main).launch {
