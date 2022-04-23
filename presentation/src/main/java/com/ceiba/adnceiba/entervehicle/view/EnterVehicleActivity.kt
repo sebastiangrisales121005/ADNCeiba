@@ -87,10 +87,10 @@ class EnterVehicleActivity : AppCompatActivity() {
         findViewById<Button>(R.id.button_save_vehicle).setOnClickListener {
             val valueLicensePlate = inputLicensePlate?.text.toString()
             val valueCylinderCapacity = inputCylinderCapacity?.text.toString()
-            
+
             viewModel?.insertVehicle(
                 valueLicensePlate, selectedVehicle, valueCylinderCapacity.toInt(),
-                Time(getDateTimeText(), null, getDayOfWeek())
+                getDateTimeText(), getDayOfWeek()
             )
         }
     }

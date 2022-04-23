@@ -26,9 +26,10 @@ class EnterVehicleViewModel /*@ViewModelInject constructor(parkingServiceApplica
     val validateEnterEmojiLiveData = MutableLiveData<InputFilter>()
 
     fun insertVehicle(licensePlate: String, selectedVehicle: String, cylinderCapacity: Int,
-                    time: Time){
+                    startTime: String, day: String){
         try {
             val vehicle = VehicleFactory.build(licensePlate, selectedVehicle, cylinderCapacity)
+            val time = Time(startTime, null, day)
 
             val parking = vehicle?.let { ParkingValidateEnter(it, time) }
 

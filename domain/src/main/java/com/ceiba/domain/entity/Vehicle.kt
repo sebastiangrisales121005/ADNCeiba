@@ -31,7 +31,8 @@ abstract class Vehicle(val licensePlate: String, val vehicleType: String, val cy
     }
 
     private fun validateData() {
-        if (licensePlate.isEmpty() || vehicleType.isEmpty() || cylinderCapacity == 0) {
+        if (licensePlate.isNullOrEmpty() || vehicleType.isNullOrEmpty()||
+            cylinderCapacity == 0) {
             throw ParkingException(MESSAGE_EMPTY)
         }
     }
