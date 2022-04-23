@@ -33,10 +33,6 @@ class WithDrawVehicleActivity : AppCompatActivity() {
 
     private var inputLicensePlate: TextInputEditText? = null
 
-    private lateinit var selectedVehicle: String
-
-    private val vehicles = arrayOf(EnterVehicleActivity.CAR, EnterVehicleActivity.MOTORCYCLE)
-
     private val mPickerDate = DatePickerDialog.OnDateSetListener { _, year, monthYear, dayMonth ->
         mCalendar.set(Calendar.YEAR, year)
         mCalendar.set(Calendar.MONTH, monthYear)
@@ -70,24 +66,14 @@ class WithDrawVehicleActivity : AppCompatActivity() {
 
         inputLicensePlate = findViewById(R.id.input_license_plate_withdraw_vehicle)
 
-        val adapterSpinnerVehicle = ArrayAdapter(
-            this, android.R.layout.simple_spinner_item,
-            vehicles
-        )
-
-        val spinner = findViewById<Spinner>(R.id.spinner_vehicle_type_withdraw)
-        spinner.adapter = adapterSpinnerVehicle
-
         viewModel = ViewModelProvider(this)[WithDrawViewModel::class.java]
         viewModel?.parkingServiceApplication = parkingServiceApplication
         viewModel?.disableEmoji()
 
-        getVehicleSelected(spinner)
-
         findViewById<Button>(R.id.button_delete_vehicle).setOnClickListener {
             val valueLicensePlate = inputLicensePlate?.text.toString()
 
-            viewModel?.calculateAmount(valueLicensePlate, selectedVehicle,
+            viewModel?.calculateAmount(valueLicensePlate,
                 Time(null, getDateTimeText(), null))
         }
     }
@@ -129,19 +115,6 @@ class WithDrawVehicleActivity : AppCompatActivity() {
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-    }
-
-    fun getVehicleSelected(spinner: Spinner) {
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                selectedVehicle = vehicles[position]
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
-            }
-
-        }
     }
 
 }

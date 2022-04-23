@@ -24,14 +24,12 @@ class WithDrawViewModel: ViewModel() {
 
     val validateEnterEmojiLiveData = MutableLiveData<InputFilter>()
 
-    fun calculateAmount(licensePlate: String, vehicleType: String, time: Time) {
-        val vehicle = VehicleFactory.build(licensePlate, vehicleType, 0)
-        val parking = vehicle?.let { ParkingValidateEnter(it, time) }
+    fun calculateAmount(licensePlate: String, time: Time) {
 
         CoroutineScope(Dispatchers.Main).launch {
-            val parkingUpdate = parking?.let { time.endDateTime?.let { endTime ->
+            val parkingUpdate =  time.endDateTime?.let { endTime ->
                 getCalculateAmount(licensePlate, endTime)
-            } }
+            }
             showCalculateParkingLiveData.value = parkingUpdate
 
             deleteVehicleLiveData.value = parkingUpdate?.let { deleteVehicle(it) }
