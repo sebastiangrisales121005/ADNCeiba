@@ -87,13 +87,12 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
     }
 
     private suspend fun getCountMotorCycle(): Int {
-        return  parkingDbRoomImpl.parkingDao().getCountMotorCycle()
+        return parkingDbRoomImpl.parkingDao().getCountMotorCycle()
     }
 
     private suspend fun executeInsertVehicle(parkingDto: ParkingDto): Long {
-        return withContext(Dispatchers.IO) {
-            parkingDbRoomImpl.parkingDao().insertVehicle(parkingDto)
-        }
+        return parkingDbRoomImpl.parkingDao().insertVehicle(parkingDto)
+
     }
 
     companion object {
