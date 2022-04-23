@@ -5,7 +5,7 @@ import com.ceiba.domain.valueobject.Time
 
 class Car(licensePlate: String, vehicleType: String, cylinderCapacity: Int): Vehicle(licensePlate, vehicleType, cylinderCapacity)  {
     override fun validateAmountVehicle(amountVehicles: Int) {
-        if (amountVehicles >= 20) {
+        if (amountVehicles >= CAR_LIMIT_PARKING) {
             throw ParkingException(MESSAGE_RESTRICTED)
         }
     }
@@ -18,6 +18,7 @@ class Car(licensePlate: String, vehicleType: String, cylinderCapacity: Int): Veh
         const val PRICE_HOUR_CAR = 1000
         const val PRICE_DAY_CAR = 8000
         const val MESSAGE_RESTRICTED = "El parqueadero no permite más carros"
+        const val CAR_LIMIT_PARKING = 20
     }
 
 }

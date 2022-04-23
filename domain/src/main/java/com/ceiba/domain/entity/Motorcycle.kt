@@ -7,7 +7,7 @@ class Motorcycle(licensePlate: String, vehicleType: String, cylinderCapacity: In
 
 
     override fun validateAmountVehicle(amountVehicles: Int) {
-        if (amountVehicles >= 10) {
+        if (amountVehicles >= MOTORCYCLE_LIMIT_PARKING) {
             throw ParkingException(MESSAGE_RESTRICTED)
         }
     }
@@ -15,8 +15,8 @@ class Motorcycle(licensePlate: String, vehicleType: String, cylinderCapacity: In
     override fun calculateTotalForVehicle(time: Time) {
         totalValueParking = calculateTotalValueParking(time, PRICE_DAY_MOTORCYCLE, PRICE_HOUR_MOTORCYCLE)
 
-        if (cylinderCapacity > 500) {
-            totalValueParking += 2000
+        if (cylinderCapacity > CYLINDER_CAPACITY_LIMIT) {
+            totalValueParking += SURPLUS_MOTORCYCLE
         }
     }
 
@@ -24,6 +24,9 @@ class Motorcycle(licensePlate: String, vehicleType: String, cylinderCapacity: In
         const val PRICE_HOUR_MOTORCYCLE = 500
         const val PRICE_DAY_MOTORCYCLE = 4000
         const val MESSAGE_RESTRICTED = "El parqueadero no permite más motos"
+        const val CYLINDER_CAPACITY_LIMIT = 500
+        const val SURPLUS_MOTORCYCLE = 2000
+        const val MOTORCYCLE_LIMIT_PARKING = 10
     }
 
 
