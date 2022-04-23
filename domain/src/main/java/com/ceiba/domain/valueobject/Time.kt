@@ -1,14 +1,20 @@
 package com.ceiba.domain.valueobject
 
+import com.ceiba.domain.entity.Vehicle
+import com.ceiba.domain.exception.ParkingException
 import java.text.SimpleDateFormat
 
 class Time(val startDateTime: String?, val endDateTime: String?, val day: String?) {
     var numberDays: Int? = 0
     var numberHours: Int? = null
 
+    init {
+        validateEmpty()
+    }
+
     fun calculateDaysFromHours() {
-        if (this.numberHours!! in 9..23) {
-            this.numberDays = this.numberDays!! + 1
+        if (this.numberHours in 9..23) {
+            this.numberDays = this.numberDays?.plus(1)
             this.numberHours = 0
         }
     }
@@ -18,11 +24,18 @@ class Time(val startDateTime: String?, val endDateTime: String?, val day: String
         val startDate = simpleDateFormat.parse(startDateTime)
         val endDate = simpleDateFormat.parse(endDateTime)
 
-        val timeLong = endDate!!.time - startDate!!.time
+        val timeLong = endDate.time - startDate.time
 
         this.numberDays = (timeLong/(HOURS_FOR_DAY * MINUTES_FOR_HOUR * SECONDS_FOR_MINUTE * 1000)).toInt()
         this.numberHours = ((timeLong/(MINUTES_FOR_HOUR * SECONDS_FOR_MINUTE * MILLISECONDS) - this.numberDays!! * HOURS_FOR_DAY)).toInt()
         calculateDaysFromHours()
+    }
+
+    private fun validateEmpty () {
+        if (startDateTime.isNullOrEmpty() || endDateTime.isNullOrEmpty() ||
+                day.isNullOrEmpty()) {
+            throw ParkingException(Vehicle.MESSAGE_EMPTY)
+        }
     }
 
     companion object {
