@@ -39,9 +39,8 @@ class ParkingEntranceExitDbRoomImplTest: TestCase() {
     fun vehicle_enter_isCorrect() = runBlocking {
         //Arrange
         val licensePlate = "ABC000"
-        val typeVehicle = "Moto"
         val cylinderCapacity = 150
-        val vehicle = Motorcycle(licensePlate, typeVehicle, cylinderCapacity)
+        val vehicle = Motorcycle(licensePlate, cylinderCapacity)
 
         val startDateTime = "2022-04-14 08:00:00"
         val endDateTime = "2022-04-14 10:00:00"
@@ -61,9 +60,8 @@ class ParkingEntranceExitDbRoomImplTest: TestCase() {
     fun vehicle_enter_exist() = runBlocking {
         //Arrange
         val licensePlate = "ABC000"
-        val typeVehicle = "Moto"
         val cylinderCapacity = 150
-        val vehicle = Motorcycle(licensePlate, typeVehicle, cylinderCapacity)
+        val vehicle = Motorcycle(licensePlate, cylinderCapacity)
 
         val startDateTime = "2022-04-14 08:00:00"
         val endDateTime = "2022-04-14 10:00:00"
