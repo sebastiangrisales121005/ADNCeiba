@@ -8,6 +8,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.ceiba.adnceiba.R
+import com.ceiba.adnceiba.databinding.ActivityEnterVehicleBinding
 import com.ceiba.adnceiba.entervehicle.viewmodel.EnterVehicleViewModel
 import com.ceiba.application.service.ParkingServiceApplication
 import com.ceiba.domain.entity.Motorcycle
@@ -33,8 +34,7 @@ class EnterVehicleActivity : AppCompatActivity() {
 
     private var viewModel: EnterVehicleViewModel? = null
 
-    private var inputLicensePlate: TextInputEditText? = null
-    private var inputCylinderCapacity: TextInputEditText? = null
+    private var mActivityEnterVehicleBinding: ActivityEnterVehicleBinding? = null
 
     private val mPickerDate = DatePickerDialog.OnDateSetListener { _, year, monthYear, dayMonth ->
         mCalendar.set(Calendar.YEAR, year)
@@ -50,19 +50,20 @@ class EnterVehicleActivity : AppCompatActivity() {
         mCalendar.set(Calendar.SECOND, 0)
         mCalendar.set(Calendar.MILLISECOND, 0)
 
-        findViewById<TextInputEditText>(R.id.input_date_enter_vehicle).setText(getDateTimeText())
+        mActivityEnterVehicleBinding?.inputDateEnterVehicle?.setText(getDateTimeText())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_enter_vehicle)
+        mActivityEnterVehicleBinding = ActivityEnterVehicleBinding.inflate(layoutInflater)
+        setContentView(mActivityEnterVehicleBinding?.root)
 
         initializeWidgets()
         observables()
     }
 
     private fun initializeWidgets() {
-        findViewById<TextInputEditText>(R.id.input_date_enter_vehicle).setOnClickListener {
+        mActivityEnterVehicleBinding?.inputDateEnterVehicle?.setOnClickListener {
             DatePickerDialog(this, mPickerDate, mCalendar.get(Calendar.YEAR), mCalendar.get(Calendar.MONTH),
                 mCalendar.get(Calendar.DAY_OF_MONTH)).show()
         }
@@ -72,21 +73,18 @@ class EnterVehicleActivity : AppCompatActivity() {
             vehicles
         )
 
-        val spinner = findViewById<Spinner>(R.id.spinner_vehicle_type_enter)
-        spinner.adapter = adapterSpinnerVehicle
+        mActivityEnterVehicleBinding?.spinnerVehicleTypeEnter?.adapter = adapterSpinnerVehicle
 
-        inputLicensePlate = findViewById(R.id.input_license_plate_enter_vehicle)
-        inputCylinderCapacity = findViewById(R.id.input_cylinder_capacity_enter_vehicle)
 
         viewModel = ViewModelProvider(this)[EnterVehicleViewModel::class.java]
         viewModel?.parkingServiceApplication = parkingServiceApplication
 
         viewModel?.disableEmoji()
 
-        getVehicleSelected(spinner)
-        findViewById<Button>(R.id.button_save_vehicle).setOnClickListener {
-            val valueLicensePlate = inputLicensePlate?.text.toString()
-            val valueCylinderCapacity = inputCylinderCapacity?.text.toString()
+        getVehicleSelected(mActivityEnterVehicleBinding?.spinnerVehicleTypeEnter)
+        mActivityEnterVehicleBinding?.buttonSaveVehicle?.setOnClickListener {
+            val valueLicensePlate = mActivityEnterVehicleBinding?.inputLicensePlateEnterVehicle?.text.toString()
+            val valueCylinderCapacity = mActivityEnterVehicleBinding?.inputCylinderCapacityEnterVehicle?.text.toString()
 
             viewModel?.insertVehicle(
                 valueLicensePlate, selectedVehicle, valueCylinderCapacity.toInt(),
@@ -110,8 +108,8 @@ class EnterVehicleActivity : AppCompatActivity() {
         }
 
         viewModel?.validateEnterEmojiLiveData?.observe(this) {
-            inputLicensePlate?.filters = arrayOf(it)
-            inputCylinderCapacity?.filters = arrayOf(it)
+            mActivityEnterVehicleBinding?.inputLicensePlateEnterVehicle?.filters = arrayOf(it)
+            mActivityEnterVehicleBinding?.inputCylinderCapacityEnterVehicle?.filters = arrayOf(it)
         }
     }
 
@@ -136,8 +134,8 @@ class EnterVehicleActivity : AppCompatActivity() {
 
     }
 
-    fun getVehicleSelected(spinner: Spinner) {
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+    fun getVehicleSelected(spinner: Spinner?) {
+        spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 selectedVehicle = vehicles[position]
             }

@@ -9,6 +9,7 @@ import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProvider
 import com.ceiba.adnceiba.R
+import com.ceiba.adnceiba.databinding.ActivityWithDrawVehicleBinding
 import com.ceiba.adnceiba.withdrawvehicle.viewmodel.WithDrawViewModel
 import com.ceiba.application.service.ParkingServiceApplication
 import com.google.android.material.textfield.TextInputEditText
@@ -27,7 +28,7 @@ class WithDrawVehicleActivity : AppCompatActivity() {
 
     private var viewModel: WithDrawViewModel? = null
 
-    private var inputLicensePlate: TextInputEditText? = null
+    private var mActivityWithDrawVehicleBinding: ActivityWithDrawVehicleBinding? = null
 
     private val mPickerDate = DatePickerDialog.OnDateSetListener { _, year, monthYear, dayMonth ->
         mCalendar.set(Calendar.YEAR, year)
@@ -43,31 +44,30 @@ class WithDrawVehicleActivity : AppCompatActivity() {
         mCalendar.set(Calendar.SECOND, 0)
         mCalendar.set(Calendar.MILLISECOND, 0)
 
-        findViewById<TextInputEditText>(R.id.input_date_withdraw_vehicle).setText(getDateTimeText())
+        mActivityWithDrawVehicleBinding?.inputDateWithdrawVehicle?.setText(getDateTimeText())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_with_draw_vehicle)
+        mActivityWithDrawVehicleBinding = ActivityWithDrawVehicleBinding.inflate(layoutInflater)
+        setContentView(mActivityWithDrawVehicleBinding?.root)
 
         initializeWidgets()
         observables()
     }
 
     private fun initializeWidgets() {
-        findViewById<TextInputEditText>(R.id.input_date_withdraw_vehicle).setOnClickListener {
+        mActivityWithDrawVehicleBinding?.inputDateWithdrawVehicle?.setOnClickListener {
             DatePickerDialog(this, mPickerDate, mCalendar.get(Calendar.YEAR), mCalendar.get(Calendar.MONTH),
                 mCalendar.get(Calendar.DAY_OF_MONTH)).show()
         }
-
-        inputLicensePlate = findViewById(R.id.input_license_plate_withdraw_vehicle)
 
         viewModel = ViewModelProvider(this)[WithDrawViewModel::class.java]
         viewModel?.parkingServiceApplication = parkingServiceApplication
         viewModel?.disableEmoji()
 
-        findViewById<Button>(R.id.button_delete_vehicle).setOnClickListener {
-            val valueLicensePlate = inputLicensePlate?.text.toString()
+        mActivityWithDrawVehicleBinding?.buttonDeleteVehicle?.setOnClickListener {
+            val valueLicensePlate = mActivityWithDrawVehicleBinding?.inputLicensePlateWithdrawVehicle?.text.toString()
 
             viewModel?.calculateAmount(valueLicensePlate,
                 getDateTimeText())
@@ -76,11 +76,11 @@ class WithDrawVehicleActivity : AppCompatActivity() {
 
     private fun observables() {
         viewModel?.showCalculateParkingLiveData?.observe(this) {
-            findViewById<ConstraintLayout>(R.id.container_payment_vehicle).visibility = View.VISIBLE
+            mActivityWithDrawVehicleBinding?.containerPaymentVehicle?.visibility = View.VISIBLE
 
-            findViewById<TextView>(R.id.count_day_vehicle).text = it.time.numberDays.toString()
-            findViewById<TextView>(R.id.count_hour_vehicle).text = it.time.numberHours.toString()
-            findViewById<TextView>(R.id.payment_vehicle).text = it.vehicle.totalValueParking.toString()
+            mActivityWithDrawVehicleBinding?.countDayVehicle?.text = it.time.numberDays.toString()
+            mActivityWithDrawVehicleBinding?.countHourVehicle?.text = it.time.numberHours.toString()
+            mActivityWithDrawVehicleBinding?.paymentVehicle?.text = it.vehicle.totalValueParking.toString()
         }
 
         viewModel?.deleteVehicleLiveData?.observe(this) {
@@ -92,7 +92,7 @@ class WithDrawVehicleActivity : AppCompatActivity() {
         }
 
         viewModel?.validateEnterEmojiLiveData?.observe(this) {
-            inputLicensePlate?.filters = arrayOf(it)
+            mActivityWithDrawVehicleBinding?.inputLicensePlateWithdrawVehicle?.filters = arrayOf(it)
         }
 
         viewModel?.showMessageLiveData?.observe(this) {
