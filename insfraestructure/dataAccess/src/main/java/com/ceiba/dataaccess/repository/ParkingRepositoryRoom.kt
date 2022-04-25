@@ -92,7 +92,7 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
 
     }
 
-    fun enterCylinderCapacity(parking: ParkingValidateEnter, parkingEntity: ParkingEntity) {
+    private fun enterCylinderCapacity(parking: ParkingValidateEnter, parkingEntity: ParkingEntity) {
         if (parking.vehicle.javaClass == Motorcycle::class.java) {
             val motorcycle = parking.vehicle as Motorcycle
             parkingEntity.cylinderCapacity = motorcycle.cylinderCapacity

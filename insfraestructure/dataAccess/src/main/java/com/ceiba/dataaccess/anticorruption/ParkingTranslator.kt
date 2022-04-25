@@ -8,7 +8,7 @@ class ParkingTranslator {
         fun fromDomainToEntity(parking: ParkingValidateEnter): ParkingEntity = ParkingEntity().apply {
 
             licensePlate = parking.vehicle.licensePlate
-            vehicleType = parking.vehicle.vehicleType
+            vehicleType = parking.vehicle.javaClass.simpleName
 
             startDateTime = parking.time.startDateTime
             endDateTime = parking.time.endDateTime

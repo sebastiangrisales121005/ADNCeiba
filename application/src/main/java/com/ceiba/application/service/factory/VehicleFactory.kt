@@ -12,9 +12,9 @@ class VehicleFactory {
         fun build(licensePlate: String, vehicleType: String?, cylinderCapacity: Int): Vehicle? {
             var vehicle: Vehicle? = null
             if (vehicleType == MOTORCYCLE) {
-                vehicle = Motorcycle(licensePlate, vehicleType, cylinderCapacity)
+                vehicle = Motorcycle(licensePlate, cylinderCapacity)
             } else if (vehicleType == CAR) {
-                vehicle = Car(licensePlate, vehicleType)
+                vehicle = Car(licensePlate)
             }
 
             return vehicle

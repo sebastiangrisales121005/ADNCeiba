@@ -3,7 +3,7 @@ package com.ceiba.domain.entity
 import com.ceiba.domain.exception.ParkingException
 import com.ceiba.domain.valueobject.Time
 
-abstract class Vehicle(val licensePlate: String, val vehicleType: String) {
+abstract class Vehicle(val licensePlate: String) {
     var totalValueParking: Int = 0
 
     init {
@@ -31,7 +31,7 @@ abstract class Vehicle(val licensePlate: String, val vehicleType: String) {
     }
 
     private fun validateData() {
-        if (licensePlate.isNullOrEmpty() || vehicleType.isNullOrEmpty()) {
+        if (licensePlate.isNullOrEmpty()){
             throw ParkingException(MESSAGE_EMPTY)
         }
     }
