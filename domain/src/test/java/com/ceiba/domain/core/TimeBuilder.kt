@@ -8,9 +8,9 @@ class TimeBuilder() {
     var day: String? = null
 
     init {
-        startDateTime = ""
-        endDateTime = ""
-        day = ""
+        startDateTime = "2022-04-14 08:00:00"
+        endDateTime = "2022-04-16 17:00:00"
+        day = "martes"
     }
 
     fun withStartDateTime(startDateTime: String): TimeBuilder {

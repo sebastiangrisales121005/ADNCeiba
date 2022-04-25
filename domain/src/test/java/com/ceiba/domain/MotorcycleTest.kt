@@ -34,13 +34,7 @@ class MotorcycleTest {
         val vehicleBuilder = MotorcycleBuilder.aMotorcycle()
             .build()
 
-        val startDateTime = "2022-04-14 08:00:00"
-        val endDateTime = "2022-04-16 17:00:00"
-        val day = "martes"
         val timeBuilder = TimeBuilder.aTime()
-            .withStartDateTime(startDateTime)
-            .withEndDateTime(endDateTime)
-            .withDay(day)
             .build()
 
         //Act
@@ -56,13 +50,9 @@ class MotorcycleTest {
         val vehicleBuilder = MotorcycleBuilder.aMotorcycle()
             .build()
 
-        val startDateTime = "2022-04-14 08:00:00"
         val endDateTime = "2022-04-16 15:00:00"
-        val day = "martes"
         val timeBuilder = TimeBuilder.aTime()
-            .withStartDateTime(startDateTime)
             .withEndDateTime(endDateTime)
-            .withDay(day)
             .build()
 
         //Act
@@ -78,13 +68,9 @@ class MotorcycleTest {
         val vehicleBuilder = MotorcycleBuilder.aMotorcycle()
             .build()
 
-        val startDateTime = "2022-04-14 08:00:00"
         val endDateTime = "2022-04-16 15:00:00"
-        val day = "martes"
         val timeBuilder = TimeBuilder.aTime()
-            .withStartDateTime(startDateTime)
             .withEndDateTime(endDateTime)
-            .withDay(day)
             .build()
 
         //Act
