@@ -10,9 +10,9 @@ class ParkingValidateEnter(var vehicle: Vehicle, val time: Time) {
         if (vehicle.licensePlate.startsWith(LICENSE_PLATE_RESTRICTED)) {
             if (this.time.day.equals(SUNDAY_RESTRICTED) || this.time.day.equals(MONDAY_RESTRICTED)) {
                 return true
-            } else {
-                throw ParkingException(MESSAGE_RESTRICTED)
             }
+            throw ParkingException(MESSAGE_RESTRICTED)
+
         }
 
         return false

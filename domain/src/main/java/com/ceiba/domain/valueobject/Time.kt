@@ -8,7 +8,7 @@ class Time(val startDateTime: String?, val endDateTime: String?, val day: String
 
 
     fun calculateDaysFromHours() {
-        if (this.numberHours in 9..23) {
+        if (this.numberHours in MIN_RANGE_DAY..MAX_RANGE_DAY) {
             this.numberDays = this.numberDays.plus(1)
             this.numberHours = 0
         }
@@ -34,6 +34,8 @@ class Time(val startDateTime: String?, val endDateTime: String?, val day: String
         const val MINUTES_FOR_HOUR = 60
         const val SECONDS_FOR_MINUTE = 60
         const val MILLISECONDS = 1000
+        const val MIN_RANGE_DAY = 9
+        const val MAX_RANGE_DAY = 23
     }
 
 }

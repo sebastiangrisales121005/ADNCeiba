@@ -7,7 +7,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.ceiba.dataaccess.anticorruption.ParkingTranslator
 import com.ceiba.domain.aggregate.ParkingValidateEnter
 import com.ceiba.domain.entity.Motorcycle
-import com.ceiba.domain.entity.Vehicle
 import com.ceiba.domain.valueobject.Time
 import junit.framework.TestCase
 import kotlinx.coroutines.runBlocking
@@ -49,7 +48,7 @@ class ParkingValidateEnterDbRoomImplTest: TestCase() {
         val day = "martes"
         val time = Time(startDateTime, endDateTime, day)
 
-        val parkingDto = ParkingTranslator.fromDomainToDto(ParkingValidateEnter(vehicle, time))
+        val parkingDto = ParkingTranslator.fromDomainToEntity(ParkingValidateEnter(vehicle, time))
 
         //Act
         val id = parkingServiceRoom.insertVehicle(parkingDto)
@@ -71,7 +70,7 @@ class ParkingValidateEnterDbRoomImplTest: TestCase() {
         val day = "martes"
         val time = Time(startDateTime, endDateTime, day)
 
-        val parkingDto = ParkingTranslator.fromDomainToDto(ParkingValidateEnter(vehicle, time))
+        val parkingDto = ParkingTranslator.fromDomainToEntity(ParkingValidateEnter(vehicle, time))
 
         //Act
         val vehicles = parkingServiceRoom.validateVehicleExist(parkingDto.licensePlate).toString()

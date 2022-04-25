@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.ceiba.application.service.factory.VehicleFactory
 import com.ceiba.dataaccess.anticorruption.ParkingTranslator
-import com.ceiba.dataaccess.dto.ParkingDto
+import com.ceiba.dataaccess.dto.ParkingEntity
 import com.ceiba.domain.aggregate.ParkingValidateEnter
 import com.ceiba.domain.repository.ParkingValidateEnterRepository
 import com.ceiba.domain.valueobject.Time
@@ -12,12 +12,11 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Context): ParkingValidateEnterRepository {
-    private val context: Context = context
 
-    private val parkingDbRoomImpl: ParkingDbRoomImpl = Room.databaseBuilder(this.context, ParkingDbRoomImpl::class.java, DB_NAME).build()
+    private val parkingDbRoomImpl: ParkingDbRoomImpl = Room.databaseBuilder(context, ParkingDbRoomImpl::class.java, DB_NAME).build()
 
     override suspend fun enterVehicle(parking: ParkingValidateEnter): Long? {
-        val parkingDto = ParkingTranslator.fromDomainToDto(parking)
+        val parkingDto = ParkingTranslator.fromDomainToEntity(parking)
         var id: Long? = null
 
         val vehicleExist = parkingDbRoomImpl.parkingDao().validateVehicleExist(parking.vehicle.licensePlate).isEmpty()
@@ -30,7 +29,7 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
     }
 
     override suspend fun deleteVehicle(parking: ParkingValidateEnter): Int? {
-        val parkingDto = ParkingTranslator.fromDomainToDto(parking)
+        val parkingDto = ParkingTranslator.fromDomainToEntity(parking)
         return parkingDbRoomImpl.parkingDao().deleteVehicle(parkingDto)
 
     }
@@ -86,8 +85,8 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
         return parkingDbRoomImpl.parkingDao().getCountMotorCycle()
     }
 
-    private suspend fun executeInsertVehicle(parkingDto: ParkingDto): Long {
-        return parkingDbRoomImpl.parkingDao().insertVehicle(parkingDto)
+    private suspend fun executeInsertVehicle(parkingEntity: ParkingEntity): Long {
+        return parkingDbRoomImpl.parkingDao().insertVehicle(parkingEntity)
 
     }
 

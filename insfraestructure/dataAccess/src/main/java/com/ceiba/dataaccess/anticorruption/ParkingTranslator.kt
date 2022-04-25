@@ -1,20 +1,20 @@
 package com.ceiba.dataaccess.anticorruption
 
-import com.ceiba.dataaccess.dto.ParkingDto
+import com.ceiba.dataaccess.dto.ParkingEntity
 import com.ceiba.domain.aggregate.ParkingValidateEnter
 
 class ParkingTranslator {
     companion object {
-        fun fromDomainToDto(parking: ParkingValidateEnter): ParkingDto {
-            val parkingDto = ParkingDto()
-            parkingDto.licensePlate = parking.vehicle.licensePlate
-            parkingDto.vehicleType = parking.vehicle.vehicleType
-            parkingDto.cylinderCapacity = parking.vehicle.cylinderCapacity
+        fun fromDomainToEntity(parking: ParkingValidateEnter): ParkingEntity = ParkingEntity().apply {
 
-            parkingDto.startDateTime = parking.time.startDateTime
-            parkingDto.endDateTime = parking.time.endDateTime
-            parkingDto.day = parking.time.day
-            return parkingDto
+            licensePlate = parking.vehicle.licensePlate
+            vehicleType = parking.vehicle.vehicleType
+            cylinderCapacity = parking.vehicle.cylinderCapacity
+
+            startDateTime = parking.time.startDateTime
+            endDateTime = parking.time.endDateTime
+            day = parking.time.day
+
         }
     }
 }

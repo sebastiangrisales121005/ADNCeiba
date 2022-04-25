@@ -3,10 +3,7 @@ package com.ceiba.adnceiba.withdrawvehicle.viewmodel
 import android.text.InputFilter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.ceiba.application.service.ParkingServiceApplication
-import com.ceiba.application.service.factory.VehicleFactory
-import com.ceiba.dataaccess.dto.ParkingDto
 import com.ceiba.domain.aggregate.ParkingValidateEnter
 import com.ceiba.domain.exception.ParkingException
 import com.ceiba.domain.valueobject.Time
