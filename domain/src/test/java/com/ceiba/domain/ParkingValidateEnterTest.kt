@@ -15,11 +15,9 @@ class ParkingValidateEnterTest {
         val vehicleBuilder = MotorcycleBuilder.aMotorcycle()
             .build()
 
-        val startDateTime = "2022-04-14 08:00:00"
         val endDateTime = "2022-04-14 10:00:00"
         val day = "domingo"
         val timeBuilder = TimeBuilder.aTime()
-            .withStartDateTime(startDateTime)
             .withEndDateTime(endDateTime)
             .withDay(day)
             .build()
@@ -44,11 +42,9 @@ class ParkingValidateEnterTest {
             .withLicensePlate(licensePlate)
             .build()
 
-        val startDateTime = "2022-04-14 08:00:00"
         val endDateTime = "2022-04-14 10:00:00"
         val day = "domingo"
         val timeBuilder = TimeBuilder.aTime()
-            .withStartDateTime(startDateTime)
             .withEndDateTime(endDateTime)
             .withDay(day)
             .build()
@@ -71,13 +67,9 @@ class ParkingValidateEnterTest {
         val vehicleBuilder = MotorcycleBuilder.aMotorcycle()
             .build()
 
-        val startDateTime = "2022-04-14 08:00:00"
         val endDateTime = "2022-04-14 10:00:00"
-        val day = "martes"
         val timeBuilder = TimeBuilder.aTime()
-            .withStartDateTime(startDateTime)
             .withEndDateTime(endDateTime)
-            .withDay(day)
             .build()
 
 
