@@ -1,6 +1,7 @@
 package com.ceiba.domain.valueobject
 
 import java.text.SimpleDateFormat
+import java.util.*
 
 class Time(val startDateTime: String?, val endDateTime: String?, val day: String?) {
     var numberDays: Int = 0
@@ -15,11 +16,11 @@ class Time(val startDateTime: String?, val endDateTime: String?, val day: String
     }
 
     fun calculateTimeParking() {
-        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-        val startDate = simpleDateFormat.parse(startDateTime)
-        val endDate = simpleDateFormat.parse(endDateTime)
+        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
+        val startDate: Date? = startDateTime?.let { simpleDateFormat.parse(it) }
+        val endDate: Date? = endDateTime?.let { simpleDateFormat.parse(it)}
 
-        val timeLong = endDate.time - startDate.time
+        val timeLong = (endDate?.time ?: 0) - (startDate?.time ?: 0)
         val numberDaysOperation = timeLong/(HOURS_FOR_DAY * MINUTES_FOR_HOUR * SECONDS_FOR_MINUTE * 1000)
         val numberHoursOperation = timeLong/(MINUTES_FOR_HOUR * SECONDS_FOR_MINUTE * MILLISECONDS) - numberDaysOperation * HOURS_FOR_DAY
 

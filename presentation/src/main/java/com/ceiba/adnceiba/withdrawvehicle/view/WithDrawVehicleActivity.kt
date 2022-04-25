@@ -2,17 +2,15 @@ package com.ceiba.adnceiba.withdrawvehicle.view
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.*
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.ceiba.adnceiba.R
 import com.ceiba.adnceiba.databinding.ActivityWithDrawVehicleBinding
 import com.ceiba.adnceiba.withdrawvehicle.viewmodel.WithDrawViewModel
 import com.ceiba.application.service.ParkingServiceApplication
-import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
@@ -106,7 +104,7 @@ class WithDrawVehicleActivity : AppCompatActivity() {
         mTimePicker.show()
     }
 
-    fun getDateTimeText(): String {
+    private fun getDateTimeText(): String {
         val myFormat = "yyyy-MM-dd HH:mm:ss"
         val sdf = SimpleDateFormat(myFormat, Locale.ENGLISH)
 

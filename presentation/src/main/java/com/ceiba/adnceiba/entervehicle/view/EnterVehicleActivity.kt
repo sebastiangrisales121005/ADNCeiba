@@ -1,20 +1,20 @@
 package com.ceiba.adnceiba.entervehicle.view
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.View
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.ceiba.adnceiba.R
 import com.ceiba.adnceiba.databinding.ActivityEnterVehicleBinding
 import com.ceiba.adnceiba.entervehicle.viewmodel.EnterVehicleViewModel
 import com.ceiba.application.service.ParkingServiceApplication
-import com.ceiba.domain.entity.Motorcycle
-import com.ceiba.domain.entity.Vehicle
-import com.ceiba.domain.valueobject.Time
-import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
@@ -119,13 +119,14 @@ class EnterVehicleActivity : AppCompatActivity() {
         mTimePicker.show()
     }
 
-    fun getDateTimeText(): String {
+    private fun getDateTimeText(): String {
         val myFormat = "yyyy-MM-dd HH:mm:ss"
         val sdf = SimpleDateFormat(myFormat, Locale.ENGLISH)
 
         return sdf.format(mCalendar.time.time)
     }
 
+    @SuppressLint("SimpleDateFormat")
     fun getDayOfWeek(): String {
         val simpleDateFormat = SimpleDateFormat("EEEE")
         val date = Date(mCalendar.time.time)
@@ -134,7 +135,7 @@ class EnterVehicleActivity : AppCompatActivity() {
 
     }
 
-    fun getVehicleSelected(spinner: Spinner?) {
+    private fun getVehicleSelected(spinner: Spinner?) {
         spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 selectedVehicle = vehicles[position]
@@ -147,7 +148,7 @@ class EnterVehicleActivity : AppCompatActivity() {
         }
     }
 
-    fun showToast(message: String) {
+    private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 

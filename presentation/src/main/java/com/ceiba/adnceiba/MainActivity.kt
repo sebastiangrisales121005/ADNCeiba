@@ -2,7 +2,6 @@ package com.ceiba.adnceiba
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.ceiba.adnceiba.databinding.ActivityMainBinding
 import com.ceiba.adnceiba.entervehicle.view.EnterVehicleActivity

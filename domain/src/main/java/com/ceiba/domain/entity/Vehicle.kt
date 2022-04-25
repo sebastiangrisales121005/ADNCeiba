@@ -16,7 +16,7 @@ abstract class Vehicle(val licensePlate: String) {
     }
 
     private fun validateData() {
-        if (licensePlate.isNullOrEmpty()){
+        if (licensePlate.isEmpty()){
             throw ParkingException(MESSAGE_EMPTY)
         }
     }

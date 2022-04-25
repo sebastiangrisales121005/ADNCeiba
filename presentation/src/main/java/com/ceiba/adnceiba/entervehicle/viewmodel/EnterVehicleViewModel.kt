@@ -50,11 +50,10 @@ class EnterVehicleViewModel: ViewModel() {
     }
 
     fun disableEmoji() {
-        val emojiFilter = InputFilter { source, start, end, dest, dstart, dend ->
+        val emojiFilter = InputFilter { source, start, end, _, _, _ ->
             for (index in start until end) {
-                val type = Character.getType(source[index])
 
-                when (type) {
+                when (Character.getType(source[index])) {
                     '*'.code,
                     Character.OTHER_SYMBOL.toInt(),
                     Character.SURROGATE.toInt() -> {
