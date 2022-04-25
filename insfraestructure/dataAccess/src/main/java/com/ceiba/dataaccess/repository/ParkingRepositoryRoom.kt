@@ -6,16 +6,12 @@ import com.ceiba.application.service.factory.VehicleFactory
 import com.ceiba.dataaccess.anticorruption.ParkingTranslator
 import com.ceiba.dataaccess.dto.ParkingDto
 import com.ceiba.domain.aggregate.ParkingValidateEnter
-import com.ceiba.domain.repository.ParkingRepository
+import com.ceiba.domain.repository.ParkingValidateEnterRepository
 import com.ceiba.domain.valueobject.Time
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Context): ParkingRepository {
+class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Context): ParkingValidateEnterRepository {
     private val context: Context = context
 
     private val parkingDbRoomImpl: ParkingDbRoomImpl = Room.databaseBuilder(this.context, ParkingDbRoomImpl::class.java, DB_NAME).build()

@@ -3,11 +3,11 @@ package com.ceiba.domain.service
 import com.ceiba.domain.aggregate.ParkingValidateEnter
 import com.ceiba.domain.entity.Car
 import com.ceiba.domain.entity.Motorcycle
-import com.ceiba.domain.repository.ParkingRepository
+import com.ceiba.domain.repository.ParkingValidateEnterRepository
 import javax.inject.Inject
 
-class ParkingValidateEnterService @Inject constructor(parkingRepository: ParkingRepository) {
-    private var parkingRepository: ParkingRepository = parkingRepository
+class ParkingValidateEnterService @Inject constructor(parkingRepository: ParkingValidateEnterRepository) {
+    private var parkingRepository: ParkingValidateEnterRepository = parkingRepository
 
     suspend fun enterVehicle(parking: ParkingValidateEnter): Long? {
         parking.validateEnterLicensePlate()
