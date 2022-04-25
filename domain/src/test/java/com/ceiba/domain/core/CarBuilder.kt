@@ -6,12 +6,10 @@ class CarBuilder {
 
     var licensePlate: String
     var vehicleType: String
-    var cylinderCapacity: Int
 
     init {
         this.licensePlate = "ABC000"
         this.vehicleType = "Carro"
-        this.cylinderCapacity = 1200
     }
 
     fun withLicensePlate(licensePlate: String): CarBuilder {
@@ -24,13 +22,8 @@ class CarBuilder {
         return this
     }
 
-    fun withCylinderCapacity(cylinderCapacity: Int): CarBuilder {
-        this.cylinderCapacity = cylinderCapacity
-        return this
-    }
-
     fun build(): Car {
-        return Car(licensePlate, vehicleType, cylinderCapacity)
+        return Car(licensePlate, vehicleType)
     }
 
     companion object {
