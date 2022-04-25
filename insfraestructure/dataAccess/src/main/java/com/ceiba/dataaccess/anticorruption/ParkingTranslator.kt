@@ -9,7 +9,6 @@ class ParkingTranslator {
 
             licensePlate = parking.vehicle.licensePlate
             vehicleType = parking.vehicle.vehicleType
-            cylinderCapacity = parking.vehicle.cylinderCapacity
 
             startDateTime = parking.time.startDateTime
             endDateTime = parking.time.endDateTime

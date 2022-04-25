@@ -6,6 +6,7 @@ import com.ceiba.application.service.factory.VehicleFactory
 import com.ceiba.dataaccess.anticorruption.ParkingTranslator
 import com.ceiba.dataaccess.dto.ParkingEntity
 import com.ceiba.domain.aggregate.ParkingValidateEnter
+import com.ceiba.domain.entity.Motorcycle
 import com.ceiba.domain.repository.ParkingValidateEnterRepository
 import com.ceiba.domain.valueobject.Time
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -17,6 +18,7 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
 
     override suspend fun enterVehicle(parking: ParkingValidateEnter): Long? {
         val parkingDto = ParkingTranslator.fromDomainToEntity(parking)
+        enterCylinderCapacity(parking, parkingDto)
         var id: Long? = null
 
         val vehicleExist = parkingDbRoomImpl.parkingDao().validateVehicleExist(parking.vehicle.licensePlate).isEmpty()
@@ -88,6 +90,15 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
     private suspend fun executeInsertVehicle(parkingEntity: ParkingEntity): Long {
         return parkingDbRoomImpl.parkingDao().insertVehicle(parkingEntity)
 
+    }
+
+    fun enterCylinderCapacity(parking: ParkingValidateEnter, parkingEntity: ParkingEntity) {
+        if (parking.vehicle.javaClass == Motorcycle::class.java) {
+            val motorcycle = parking.vehicle as Motorcycle
+            parkingEntity.cylinderCapacity = motorcycle.cylinderCapacity
+        } else {
+            parkingEntity.cylinderCapacity = 0
+        }
     }
 
     companion object {

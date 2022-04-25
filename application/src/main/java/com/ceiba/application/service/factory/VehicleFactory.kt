@@ -14,7 +14,7 @@ class VehicleFactory {
             if (vehicleType == MOTORCYCLE) {
                 vehicle = Motorcycle(licensePlate, vehicleType, cylinderCapacity)
             } else if (vehicleType == CAR) {
-                vehicle = Car(licensePlate, vehicleType, cylinderCapacity)
+                vehicle = Car(licensePlate, vehicleType)
             }
 
             return vehicle
