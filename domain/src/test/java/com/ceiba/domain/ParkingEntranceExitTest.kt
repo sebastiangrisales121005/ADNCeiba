@@ -7,7 +7,7 @@ import com.ceiba.domain.exception.ParkingException
 import org.junit.Assert
 import org.junit.Test
 
-class ParkingValidateEnterTest {
+class ParkingEntranceExitTest {
 
     @Test
     fun parking_validateEnterLicensePlate_isCorrect() {

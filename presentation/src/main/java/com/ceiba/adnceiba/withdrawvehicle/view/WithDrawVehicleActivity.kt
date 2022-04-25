@@ -9,12 +9,8 @@ import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProvider
 import com.ceiba.adnceiba.R
-import com.ceiba.adnceiba.entervehicle.view.EnterVehicleActivity
 import com.ceiba.adnceiba.withdrawvehicle.viewmodel.WithDrawViewModel
 import com.ceiba.application.service.ParkingServiceApplication
-import com.ceiba.domain.aggregate.ParkingValidateEnter
-import com.ceiba.domain.entity.Vehicle
-import com.ceiba.domain.valueobject.Time
 import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat

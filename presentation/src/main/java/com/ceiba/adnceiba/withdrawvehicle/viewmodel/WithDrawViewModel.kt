@@ -4,7 +4,7 @@ import android.text.InputFilter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ceiba.application.service.ParkingServiceApplication
-import com.ceiba.domain.aggregate.ParkingValidateEnter
+import com.ceiba.domain.aggregate.ParkingEntranceExit
 import com.ceiba.domain.exception.ParkingException
 import com.ceiba.domain.valueobject.Time
 import kotlinx.coroutines.CoroutineScope
@@ -16,7 +16,7 @@ class WithDrawViewModel: ViewModel() {
 
     lateinit var parkingServiceApplication: ParkingServiceApplication
 
-    val showCalculateParkingLiveData = MutableLiveData<ParkingValidateEnter>()
+    val showCalculateParkingLiveData = MutableLiveData<ParkingEntranceExit>()
 
     val deleteVehicleLiveData = MutableLiveData<Int>()
 
@@ -42,15 +42,15 @@ class WithDrawViewModel: ViewModel() {
 
     }
 
-    private suspend fun getCalculateAmount(licensePlate: String, endTime: String): ParkingValidateEnter? {
+    private suspend fun getCalculateAmount(licensePlate: String, endTime: String): ParkingEntranceExit? {
         return withContext(Dispatchers.IO){
             parkingServiceApplication.calculateAmountParking(licensePlate, endTime)
         }
     }
 
-    private suspend fun deleteVehicle(parkingValidateEnter: ParkingValidateEnter): Int? {
+    private suspend fun deleteVehicle(parkingEntranceExit: ParkingEntranceExit): Int? {
         return withContext(Dispatchers.IO) {
-            parkingServiceApplication.deleteVehicle(parkingValidateEnter)
+            parkingServiceApplication.deleteVehicle(parkingEntranceExit)
         }
     }
 

@@ -4,7 +4,7 @@ import com.ceiba.domain.entity.Vehicle
 import com.ceiba.domain.exception.ParkingException
 import com.ceiba.domain.valueobject.Time
 
-class ParkingValidateEnter(var vehicle: Vehicle, val time: Time) {
+class ParkingEntranceExit(var vehicle: Vehicle, val time: Time) {
 
     fun validateEnterLicensePlate(): Boolean {
         if (vehicle.licensePlate.startsWith(LICENSE_PLATE_RESTRICTED)) {

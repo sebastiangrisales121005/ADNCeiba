@@ -6,9 +6,6 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.ceiba.adnceiba.entervehicle.view.EnterVehicleActivity
 import com.ceiba.adnceiba.withdrawvehicle.view.WithDrawVehicleActivity
-import com.ceiba.domain.aggregate.ParkingValidateEnter
-import com.ceiba.domain.entity.Vehicle
-import com.ceiba.domain.valueobject.Time
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

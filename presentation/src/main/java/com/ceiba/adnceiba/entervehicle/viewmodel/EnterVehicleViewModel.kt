@@ -5,7 +5,7 @@ import android.text.InputFilter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ceiba.application.service.ParkingServiceApplication
-import com.ceiba.domain.aggregate.ParkingValidateEnter
+import com.ceiba.domain.aggregate.ParkingEntranceExit
 import com.ceiba.domain.exception.ParkingException
 import com.ceiba.application.service.factory.VehicleFactory
 import com.ceiba.domain.valueobject.Time
@@ -27,7 +27,7 @@ class EnterVehicleViewModel: ViewModel() {
             val vehicle = VehicleFactory.build(licensePlate, selectedVehicle, cylinderCapacity)
             val time = Time(startTime, null, day)
 
-            val parking = vehicle?.let { ParkingValidateEnter(it, time) }
+            val parking = vehicle?.let { ParkingEntranceExit(it, time) }
 
             CoroutineScope(Dispatchers.Main).launch {
                 try {
@@ -43,7 +43,7 @@ class EnterVehicleViewModel: ViewModel() {
 
     }
 
-    private suspend fun getEnterVehicle(parking: ParkingValidateEnter): Long? {
+    private suspend fun getEnterVehicle(parking: ParkingEntranceExit): Long? {
        return withContext(Dispatchers.IO) {
             parkingServiceApplication.enterVehicle(parking)
         }

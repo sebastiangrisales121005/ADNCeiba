@@ -1,6 +1,6 @@
 package com.ceiba.domain.core
 
-import com.ceiba.domain.aggregate.ParkingValidateEnter
+import com.ceiba.domain.aggregate.ParkingEntranceExit
 import com.ceiba.domain.entity.Vehicle
 import com.ceiba.domain.valueobject.Time
 
@@ -23,8 +23,8 @@ class ParkingBuilder() {
         return this
     }
 
-    fun build(): ParkingValidateEnter {
-        return ParkingValidateEnter(vehicle!!, time!!)
+    fun build(): ParkingEntranceExit {
+        return ParkingEntranceExit(vehicle!!, time!!)
     }
 
     companion object {

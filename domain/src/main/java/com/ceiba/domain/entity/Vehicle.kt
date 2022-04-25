@@ -1,8 +1,7 @@
 package com.ceiba.domain.entity
 
-import com.ceiba.domain.aggregate.ParkingValidateEnter
+import com.ceiba.domain.aggregate.ParkingEntranceExit
 import com.ceiba.domain.exception.ParkingException
-import com.ceiba.domain.valueobject.Time
 
 abstract class Vehicle(val licensePlate: String) {
     abstract var totalValueParking: Int
@@ -24,7 +23,7 @@ abstract class Vehicle(val licensePlate: String) {
 
     abstract fun validateAmountVehicle(amountVehicles: Int)
 
-    abstract fun calculateTotalForVehicle(parkingValidateEnter: ParkingValidateEnter): Int
+    abstract fun calculateTotalForVehicle(parkingEntranceExit: ParkingEntranceExit): Int
 
     companion object {
         const val MESSAGE_EMPTY = "Los campos no pueden estar vacíos"
