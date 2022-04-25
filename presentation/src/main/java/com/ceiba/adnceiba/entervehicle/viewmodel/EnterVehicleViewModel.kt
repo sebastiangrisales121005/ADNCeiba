@@ -1,9 +1,6 @@
 package com.ceiba.adnceiba.entervehicle.viewmodel
 
 
-//import androidx.hilt.Assisted
-//import androidx.hilt.lifecycle.ViewModelInject
-//import androidx.lifecycle.SavedStateHandle
 import android.text.InputFilter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,8 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class EnterVehicleViewModel /*@ViewModelInject constructor(parkingServiceApplication: ParkingServiceApplication,
-                                                         @Assisted private val savedStateHandle: SavedStateHandle)*/ : ViewModel() {
+class EnterVehicleViewModel: ViewModel() {
     lateinit var parkingServiceApplication: ParkingServiceApplication
 
     val enterVehicleLiveData = MutableLiveData<Long>()
