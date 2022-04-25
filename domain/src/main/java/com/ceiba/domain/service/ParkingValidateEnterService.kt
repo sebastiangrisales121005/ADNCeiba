@@ -6,8 +6,7 @@ import com.ceiba.domain.entity.Motorcycle
 import com.ceiba.domain.repository.ParkingValidateEnterRepository
 import javax.inject.Inject
 
-class ParkingValidateEnterService @Inject constructor(parkingRepository: ParkingValidateEnterRepository) {
-    private var parkingRepository: ParkingValidateEnterRepository = parkingRepository
+class ParkingValidateEnterService @Inject constructor(private val parkingRepository: ParkingValidateEnterRepository) {
 
     suspend fun enterVehicle(parking: ParkingValidateEnter): Long? {
         parking.validateEnterLicensePlate()
@@ -26,15 +25,15 @@ class ParkingValidateEnterService @Inject constructor(parkingRepository: Parking
     }
 
     private suspend fun validateMotorCycle(parking: ParkingValidateEnter) {
-        val motorcycle = Motorcycle(parking.vehicle.licensePlate, parking.vehicle.vehicleType,
-            parking.vehicle.cylinderCapacity)
-        motorcycle.validate(parkingRepository.getCountMotorcycleParking())
+        if (parking.vehicle.javaClass == Motorcycle::class.java) {
+            parking.vehicle.validate(parkingRepository.getCountMotorcycleParking())
+        }
     }
 
     private suspend fun validateCar(parking: ParkingValidateEnter) {
-        val car = Car(parking.vehicle.licensePlate, parking.vehicle.vehicleType,
-            parking.vehicle.cylinderCapacity)
-        car.validate(parkingRepository.getCountCarParking())
+        if (parking.vehicle.javaClass == Car::class.java) {
+            parking.vehicle.validate(parkingRepository.getCountCarParking())
+        }
     }
 
 }
