@@ -1,13 +1,13 @@
 package com.ceiba.application.service
 
 import com.ceiba.domain.aggregate.ParkingEntranceExit
-import com.ceiba.domain.service.ParkingValidateEnterService
+import com.ceiba.domain.service.ParkingEntranceExitService
 import javax.inject.Inject
 
 class ParkingServiceApplication @Inject constructor() {
 
     @Inject
-    lateinit var parkingService: ParkingValidateEnterService
+    lateinit var parkingService: ParkingEntranceExitService
 
     suspend fun enterVehicle(parking: ParkingEntranceExit): Long? {
         return parkingService.enterVehicle(parking)
