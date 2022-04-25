@@ -38,7 +38,7 @@ abstract class Vehicle(val licensePlate: String) {
 
     abstract fun validateAmountVehicle(amountVehicles: Int)
 
-    abstract fun calculateTotalForVehicle(time: Time)
+    abstract fun calculateTotalForVehicle(time: Time): Int
 
     companion object {
         const val MESSAGE_EMPTY = "Los campos no pueden estar vacíos"
