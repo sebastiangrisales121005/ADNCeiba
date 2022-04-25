@@ -74,7 +74,7 @@ class WithDrawVehicleActivity : AppCompatActivity() {
             val valueLicensePlate = inputLicensePlate?.text.toString()
 
             viewModel?.calculateAmount(valueLicensePlate,
-                Time(null, getDateTimeText(), null))
+                getDateTimeText())
         }
     }
 
@@ -97,6 +97,10 @@ class WithDrawVehicleActivity : AppCompatActivity() {
 
         viewModel?.validateEnterEmojiLiveData?.observe(this) {
             inputLicensePlate?.filters = arrayOf(it)
+        }
+
+        viewModel?.showMessageLiveData?.observe(this) {
+            showToast(it)
         }
     }
 

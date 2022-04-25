@@ -8,6 +8,7 @@ import com.ceiba.application.service.ParkingServiceApplication
 import com.ceiba.application.service.factory.VehicleFactory
 import com.ceiba.dataaccess.dto.ParkingDto
 import com.ceiba.domain.aggregate.ParkingValidateEnter
+import com.ceiba.domain.exception.ParkingException
 import com.ceiba.domain.valueobject.Time
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,16 +25,24 @@ class WithDrawViewModel: ViewModel() {
 
     val validateEnterEmojiLiveData = MutableLiveData<InputFilter>()
 
-    fun calculateAmount(licensePlate: String, time: Time) {
+    val showMessageLiveData = MutableLiveData<String>()
 
-        CoroutineScope(Dispatchers.Main).launch {
-            val parkingUpdate =  time.endDateTime?.let { endTime ->
-                getCalculateAmount(licensePlate, endTime)
+    fun calculateAmount(licensePlate: String, endTime: String) {
+        try {
+            val time = Time(null, endTime, null)
+
+            CoroutineScope(Dispatchers.Main).launch {
+                val parkingUpdate =  time.endDateTime?.let { endTime ->
+                    getCalculateAmount(licensePlate, endTime)
+                }
+                showCalculateParkingLiveData.value = parkingUpdate
+
+                deleteVehicleLiveData.value = parkingUpdate?.let { deleteVehicle(it) }
             }
-            showCalculateParkingLiveData.value = parkingUpdate
-
-            deleteVehicleLiveData.value = parkingUpdate?.let { deleteVehicle(it) }
+        } catch (e: ParkingException) {
+            showMessageLiveData.value = e.message
         }
+
     }
 
     private suspend fun getCalculateAmount(licensePlate: String, endTime: String): ParkingValidateEnter? {
