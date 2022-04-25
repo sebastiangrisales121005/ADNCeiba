@@ -1,5 +1,6 @@
 package com.ceiba.domain.entity
 
+import com.ceiba.domain.aggregate.ParkingValidateEnter
 import com.ceiba.domain.exception.ParkingException
 import com.ceiba.domain.valueobject.Time
 
@@ -12,8 +13,8 @@ class Car(licensePlate: String): Vehicle(licensePlate)  {
         }
     }
 
-    override fun calculateTotalForVehicle(time: Time): Int {
-        totalValueParking = calculateTotalValueParking(time, PRICE_DAY_CAR, PRICE_HOUR_CAR)
+    override fun calculateTotalForVehicle(parkingValidateEnter: ParkingValidateEnter): Int {
+        totalValueParking = parkingValidateEnter.calculateTotalValueParking(PRICE_DAY_CAR, PRICE_HOUR_CAR)
 
         return totalValueParking
     }

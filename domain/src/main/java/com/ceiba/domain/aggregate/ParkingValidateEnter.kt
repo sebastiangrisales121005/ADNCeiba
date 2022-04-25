@@ -18,6 +18,21 @@ class ParkingValidateEnter(var vehicle: Vehicle, val time: Time) {
         return false
     }
 
+    fun calculateTotalValueParking(priceDay: Int, priceHour: Int): Int {
+        time.calculateTimeParking()
+        var totalForDays = 0
+        time.numberDays.let {
+            totalForDays = it * priceDay
+        }
+
+        var totalForHours = 0
+        time.numberHours?.let {
+            totalForHours = it * priceHour
+        }
+
+        return totalForDays + totalForHours
+    }
+
     companion object {
         const val LICENSE_PLATE_RESTRICTED = "A"
         const val SUNDAY_RESTRICTED = "domingo"
