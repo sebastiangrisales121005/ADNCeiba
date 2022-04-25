@@ -1,6 +1,7 @@
 package com.ceiba.domain
 
 import com.ceiba.domain.core.MotorcycleBuilder
+import com.ceiba.domain.core.ParkingBuilder
 import com.ceiba.domain.core.TimeBuilder
 import com.ceiba.domain.exception.ParkingException
 import org.junit.Assert
@@ -37,8 +38,13 @@ class MotorcycleTest {
         val timeBuilder = TimeBuilder.aTime()
             .build()
 
+        val parkingBuilder = ParkingBuilder.aParking()
+            .withTime(timeBuilder)
+            .withVehicle(vehicleBuilder)
+            .build()
+
         //Act
-        vehicleBuilder.calculateTotalForVehicle(timeBuilder)
+        vehicleBuilder.calculateTotalForVehicle(parkingBuilder)
 
         //Assert
         Assert.assertEquals(12000, vehicleBuilder.totalValueParking)
@@ -55,8 +61,13 @@ class MotorcycleTest {
             .withEndDateTime(endDateTime)
             .build()
 
+        val parkingBuilder = ParkingBuilder.aParking()
+            .withTime(timeBuilder)
+            .withVehicle(vehicleBuilder)
+            .build()
+
         //Act
-        vehicleBuilder.calculateTotalForVehicle(timeBuilder)
+        vehicleBuilder.calculateTotalForVehicle(parkingBuilder)
 
         //Assert
         Assert.assertEquals(11500, vehicleBuilder.totalValueParking)
@@ -73,8 +84,13 @@ class MotorcycleTest {
             .withEndDateTime(endDateTime)
             .build()
 
+        val parkingBuilder = ParkingBuilder.aParking()
+            .withTime(timeBuilder)
+            .withVehicle(vehicleBuilder)
+            .build()
+
         //Act
-        vehicleBuilder.calculateTotalForVehicle(timeBuilder)
+        vehicleBuilder.calculateTotalForVehicle(parkingBuilder)
 
         //Assert
         Assert.assertNotEquals(12000, vehicleBuilder.totalValueParking)
