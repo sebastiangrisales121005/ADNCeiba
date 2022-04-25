@@ -5,7 +5,7 @@ import com.ceiba.domain.exception.ParkingException
 import java.text.SimpleDateFormat
 
 class Time(val startDateTime: String?, val endDateTime: String?, val day: String?) {
-    var numberDays: Int? = 0
+    var numberDays: Int = 0
     var numberHours: Int? = null
 
     init {
@@ -14,7 +14,7 @@ class Time(val startDateTime: String?, val endDateTime: String?, val day: String
 
     fun calculateDaysFromHours() {
         if (this.numberHours in 9..23) {
-            this.numberDays = this.numberDays?.plus(1)
+            this.numberDays = this.numberDays.plus(1)
             this.numberHours = 0
         }
     }
@@ -25,9 +25,11 @@ class Time(val startDateTime: String?, val endDateTime: String?, val day: String
         val endDate = simpleDateFormat.parse(endDateTime)
 
         val timeLong = endDate.time - startDate.time
+        val numberDaysOperation = timeLong/(HOURS_FOR_DAY * MINUTES_FOR_HOUR * SECONDS_FOR_MINUTE * 1000)
+        val numberHoursOperation = timeLong/(MINUTES_FOR_HOUR * SECONDS_FOR_MINUTE * MILLISECONDS) - this.numberDays * HOURS_FOR_DAY
 
-        this.numberDays = (timeLong/(HOURS_FOR_DAY * MINUTES_FOR_HOUR * SECONDS_FOR_MINUTE * 1000)).toInt()
-        this.numberHours = ((timeLong/(MINUTES_FOR_HOUR * SECONDS_FOR_MINUTE * MILLISECONDS) - this.numberDays!! * HOURS_FOR_DAY)).toInt()
+        this.numberDays = numberDaysOperation.toInt()
+        this.numberHours = numberHoursOperation.toInt()
         calculateDaysFromHours()
     }
 

@@ -6,11 +6,14 @@ import com.ceiba.domain.entity.Vehicle
 
 class VehicleFactory {
     companion object {
+        private const val MOTORCYCLE = "Moto"
+        private const val CAR = "Carro"
+
         fun build(licensePlate: String, vehicleType: String?, cylinderCapacity: Int): Vehicle? {
             var vehicle: Vehicle? = null
-            if (vehicleType == "Moto") {
+            if (vehicleType == MOTORCYCLE) {
                 vehicle = Motorcycle(licensePlate, vehicleType, cylinderCapacity)
-            } else if (vehicleType == "Carro") {
+            } else if (vehicleType == CAR) {
                 vehicle = Car(licensePlate, vehicleType, cylinderCapacity)
             }
 

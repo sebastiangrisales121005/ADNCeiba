@@ -18,7 +18,7 @@ abstract class Vehicle(val licensePlate: String, val vehicleType: String, val cy
     fun calculateTotalValueParking(time: Time, priceDay: Int, priceHour: Int): Int {
         time.calculateTimeParking()
         var totalForDays = 0
-        time.numberDays?.let {
+        time.numberDays.let {
             totalForDays = it * priceDay
         }
 
