@@ -4,6 +4,8 @@ import com.ceiba.domain.exception.ParkingException
 import com.ceiba.domain.valueobject.Time
 
 class Car(licensePlate: String): Vehicle(licensePlate)  {
+    override var totalValueParking: Int = 0
+
     override fun validateAmountVehicle(amountVehicles: Int) {
         if (amountVehicles >= CAR_LIMIT_PARKING) {
             throw ParkingException(MESSAGE_RESTRICTED)
@@ -11,7 +13,9 @@ class Car(licensePlate: String): Vehicle(licensePlate)  {
     }
 
     override fun calculateTotalForVehicle(time: Time): Int {
-        return calculateTotalValueParking(time, PRICE_DAY_CAR, PRICE_HOUR_CAR)
+        totalValueParking = calculateTotalValueParking(time, PRICE_DAY_CAR, PRICE_HOUR_CAR)
+
+        return totalValueParking
     }
 
     companion object {

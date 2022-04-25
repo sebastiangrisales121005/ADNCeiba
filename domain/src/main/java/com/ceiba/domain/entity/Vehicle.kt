@@ -4,7 +4,7 @@ import com.ceiba.domain.exception.ParkingException
 import com.ceiba.domain.valueobject.Time
 
 abstract class Vehicle(val licensePlate: String) {
-    var totalValueParking: Int = 0
+    abstract var totalValueParking: Int
 
     init {
         validateData()

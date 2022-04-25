@@ -5,6 +5,8 @@ import com.ceiba.domain.valueobject.Time
 
 class Motorcycle(licensePlate: String, val cylinderCapacity: Int) : Vehicle(licensePlate) {
 
+    override var totalValueParking: Int = 0
+
 
     override fun validateAmountVehicle(amountVehicles: Int) {
         if (amountVehicles >= MOTORCYCLE_LIMIT_PARKING) {
@@ -13,7 +15,7 @@ class Motorcycle(licensePlate: String, val cylinderCapacity: Int) : Vehicle(lice
     }
 
     override fun calculateTotalForVehicle(time: Time): Int {
-        var totalValueParking = calculateTotalValueParking(time, PRICE_DAY_MOTORCYCLE, PRICE_HOUR_MOTORCYCLE)
+        totalValueParking = calculateTotalValueParking(time, PRICE_DAY_MOTORCYCLE, PRICE_HOUR_MOTORCYCLE)
 
         if (cylinderCapacity > CYLINDER_CAPACITY_LIMIT) {
             totalValueParking += SURPLUS_MOTORCYCLE
