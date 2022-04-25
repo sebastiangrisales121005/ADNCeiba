@@ -26,7 +26,7 @@ class Time(val startDateTime: String?, val endDateTime: String?, val day: String
 
         val timeLong = endDate.time - startDate.time
         val numberDaysOperation = timeLong/(HOURS_FOR_DAY * MINUTES_FOR_HOUR * SECONDS_FOR_MINUTE * 1000)
-        val numberHoursOperation = timeLong/(MINUTES_FOR_HOUR * SECONDS_FOR_MINUTE * MILLISECONDS) - this.numberDays * HOURS_FOR_DAY
+        val numberHoursOperation = timeLong/(MINUTES_FOR_HOUR * SECONDS_FOR_MINUTE * MILLISECONDS) - numberDaysOperation * HOURS_FOR_DAY
 
         this.numberDays = numberDaysOperation.toInt()
         this.numberHours = numberHoursOperation.toInt()
