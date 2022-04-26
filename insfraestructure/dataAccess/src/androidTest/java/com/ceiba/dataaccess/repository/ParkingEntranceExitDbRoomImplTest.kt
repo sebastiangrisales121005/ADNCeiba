@@ -47,10 +47,10 @@ class ParkingEntranceExitDbRoomImplTest: TestCase() {
         val day = "martes"
         val time = Time(startDateTime, endDateTime, day)
 
-        val parkingDto = ParkingTranslator.fromDomainToEntity(ParkingEntranceExit(vehicle, time))
+        val parkingEntity = ParkingTranslator.fromDomainToEntity(ParkingEntranceExit(vehicle, time))
 
         //Act
-        val id = parkingServiceRoom.insertVehicle(parkingDto)
+        val id = parkingServiceRoom.insertVehicle(parkingEntity)
 
         //Assert
         Assert.assertNotNull(id)
@@ -68,10 +68,10 @@ class ParkingEntranceExitDbRoomImplTest: TestCase() {
         val day = "martes"
         val time = Time(startDateTime, endDateTime, day)
 
-        val parkingDto = ParkingTranslator.fromDomainToEntity(ParkingEntranceExit(vehicle, time))
+        val parkingEntity = ParkingTranslator.fromDomainToEntity(ParkingEntranceExit(vehicle, time))
 
         //Act
-        val vehicles = parkingServiceRoom.validateVehicleExist(parkingDto.licensePlate).toString()
+        val vehicles = parkingServiceRoom.validateVehicleExist(parkingEntity.licensePlate).toString()
 
         //Assert
         Assert.assertEquals("[]", vehicles)

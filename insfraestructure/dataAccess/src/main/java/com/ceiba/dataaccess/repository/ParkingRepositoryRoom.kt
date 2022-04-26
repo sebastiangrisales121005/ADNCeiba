@@ -17,23 +17,23 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
     private val parkingDbRoomImpl: ParkingDbRoomImpl = Room.databaseBuilder(context, ParkingDbRoomImpl::class.java, DB_NAME).build()
 
     override suspend fun enterVehicle(parking: ParkingEntranceExit): Long? {
-        val parkingDto = ParkingTranslator.fromDomainToEntity(parking)
-        enterCylinderCapacity(parking, parkingDto)
+        val parkingEntity = ParkingTranslator.fromDomainToEntity(parking)
+        enterCylinderCapacity(parking, parkingEntity)
         var id: Long? = null
 
         val vehicleExist = parkingDbRoomImpl.parkingDao().validateVehicleExist(parking.vehicle.licensePlate).isEmpty()
 
         if (vehicleExist) {
-            id = executeInsertVehicle(parkingDto)
+            id = executeInsertVehicle(parkingEntity)
         }
 
         return id
     }
 
     override suspend fun outVehicle(parking: ParkingEntranceExit): Int? {
-        val parkingDto = ParkingTranslator.fromDomainToEntity(parking)
-        enterCylinderCapacity(parking, parkingDto)
-        return parkingDbRoomImpl.parkingDao().outVehicle(parkingDto)
+        val parkingEntity = ParkingTranslator.fromDomainToEntity(parking)
+        enterCylinderCapacity(parking, parkingEntity)
+        return parkingDbRoomImpl.parkingDao().outVehicle(parkingEntity)
 
     }
 
