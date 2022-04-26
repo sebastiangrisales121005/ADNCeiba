@@ -44,10 +44,10 @@ class MotorcycleTest {
             .build()
 
         //Act
-        vehicleBuilder.calculateTotalForVehicle(parkingBuilder)
+        val result = vehicleBuilder.calculateTotalForVehicle(parkingBuilder)
 
         //Assert
-        Assert.assertEquals(12000, vehicleBuilder.totalValueParking)
+        Assert.assertEquals(12000, result)
     }
 
     @Test
@@ -67,10 +67,10 @@ class MotorcycleTest {
             .build()
 
         //Act
-        vehicleBuilder.calculateTotalForVehicle(parkingBuilder)
+        val result = vehicleBuilder.calculateTotalForVehicle(parkingBuilder)
 
         //Assert
-        Assert.assertEquals(11500, vehicleBuilder.totalValueParking)
+        Assert.assertEquals(11500, result)
     }
 
     @Test
@@ -90,9 +90,9 @@ class MotorcycleTest {
             .build()
 
         //Act
-        vehicleBuilder.calculateTotalForVehicle(parkingBuilder)
+        val result = vehicleBuilder.calculateTotalForVehicle(parkingBuilder)
 
         //Assert
-        Assert.assertNotEquals(12000, vehicleBuilder.totalValueParking)
+        Assert.assertNotEquals(12000, result)
     }
 }

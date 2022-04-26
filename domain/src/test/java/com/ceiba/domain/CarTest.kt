@@ -23,10 +23,10 @@ class CarTest {
             .build()
 
         //Act
-        vehicleBuilder.calculateTotalForVehicle(parkingBuilder)
+        val result = vehicleBuilder.calculateTotalForVehicle(parkingBuilder)
 
         //Assert
-        Assert.assertEquals(24000, vehicleBuilder.totalValueParking)
+        Assert.assertEquals(24000, result)
     }
 
     @Test
@@ -46,10 +46,10 @@ class CarTest {
             .build()
 
         //Act
-        vehicleBuilder.calculateTotalForVehicle(parkingBuilder)
+        val result = vehicleBuilder.calculateTotalForVehicle(parkingBuilder)
 
         //Assert
-        Assert.assertEquals(23000, vehicleBuilder.totalValueParking)
+        Assert.assertEquals(23000, result)
     }
 
     @Test
@@ -69,9 +69,9 @@ class CarTest {
             .build()
 
         //Act
-        vehicleBuilder.calculateTotalForVehicle(parkingBuilder)
+        val result = vehicleBuilder.calculateTotalForVehicle(parkingBuilder)
 
         //Assert
-        Assert.assertNotEquals(24000, vehicleBuilder.totalValueParking)
+        Assert.assertNotEquals(24000, result)
     }
 }
