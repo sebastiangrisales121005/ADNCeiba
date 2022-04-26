@@ -11,8 +11,7 @@ class ParkingEntranceExitService @Inject constructor(private val parkingReposito
 
     suspend fun enterVehicle(parking: ParkingEntranceExit): Long? {
         parking.validateEnterLicensePlate()
-        validateMotorCycle(parking)
-        validateCar(parking)
+        validateCountVehicle(parking)
 
         return parkingRepository.enterVehicle(parking)
     }
@@ -29,16 +28,8 @@ class ParkingEntranceExitService @Inject constructor(private val parkingReposito
 
     }
 
-    private suspend fun validateMotorCycle(parking: ParkingEntranceExit) {
-        if (parking.vehicle.javaClass == Motorcycle::class.java) {
-            parking.vehicle.validate(parkingRepository.getCountMotorcycleParking())
-        }
-    }
-
-    private suspend fun validateCar(parking: ParkingEntranceExit) {
-        if (parking.vehicle.javaClass == Car::class.java) {
-            parking.vehicle.validate(parkingRepository.getCountCarParking())
-        }
+    private suspend fun validateCountVehicle(parking: ParkingEntranceExit) {
+        parking.vehicle.validate(parkingRepository.getCountVehicleParking(parking.vehicle.javaClass.simpleName))
     }
 
 }

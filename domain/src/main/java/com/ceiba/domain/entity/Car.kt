@@ -12,9 +12,7 @@ class Car(licensePlate: String): Vehicle(licensePlate)  {
     }
 
     override fun assignCalculateValueParking(parkingEntranceExit: ParkingEntranceExit): Int {
-        var totalValueParking = parkingEntranceExit.calculateTotalValueParking(PRICE_DAY_CAR, PRICE_HOUR_CAR)
-
-        return totalValueParking
+        return parkingEntranceExit.calculateTotalValueParking(PRICE_DAY_CAR, PRICE_HOUR_CAR)
     }
 
     companion object {

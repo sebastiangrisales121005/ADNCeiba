@@ -45,12 +45,8 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
 
     }
 
-    override suspend fun getCountMotorcycleParking(): Int {
-        return getCountMotorCycle()
-    }
-
-    override suspend fun getCountCarParking(): Int {
-        return getCountCar()
+    override suspend fun getCountVehicleParking(vehicleType: String): Int {
+        return getCountVehicle(vehicleType)
     }
 
     private suspend fun getVehiclesParkingDb(licensePlate: String, endTime: String): ParkingEntranceExit? {
@@ -79,13 +75,8 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
         parkingDbRoomImpl.parkingDao().update(licensePlate, endTime)
     }
 
-
-    private suspend fun getCountCar(): Int {
-        return parkingDbRoomImpl.parkingDao().getCountCar()
-    }
-
-    private suspend fun getCountMotorCycle(): Int {
-        return parkingDbRoomImpl.parkingDao().getCountMotorCycle()
+    private suspend fun getCountVehicle(vehicleType: String): Int {
+        return parkingDbRoomImpl.parkingDao().getCountVehicle(vehicleType)
     }
 
     private suspend fun executeInsertVehicle(parkingEntity: ParkingEntity): Long {

@@ -9,7 +9,5 @@ interface ParkingEntranceExitRepository {
 
     suspend fun calculateAmountParking(licensePlate: String, endTime: String): ParkingEntranceExit?
 
-    suspend fun getCountMotorcycleParking(): Int
-
-    suspend fun getCountCarParking(): Int
+    suspend fun getCountVehicleParking(vehicleType: String): Int
 }
