@@ -11,4 +11,5 @@ class ParkingEntity  {
     var startDateTime: String? = null
     var endDateTime: String? = null
     var day: String? = null
+    var stateVehicle: Int? = null
 }

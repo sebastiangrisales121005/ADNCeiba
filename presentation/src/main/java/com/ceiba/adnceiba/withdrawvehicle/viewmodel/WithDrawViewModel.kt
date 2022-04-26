@@ -34,7 +34,12 @@ class WithDrawViewModel: ViewModel() {
                 }
                 showCalculateParkingLiveData.value = parkingUpdate
 
-                outVehicleLiveData.value = parkingUpdate?.let { outVehicle(it) }
+                parkingUpdate?.let {
+                    val stateVehicle = outVehicle(it)
+                    if (stateVehicle == 1) {
+                        outVehicleLiveData.value  = stateVehicle
+                    }
+                }
             }
         } catch (e: ParkingException) {
             showMessageLiveData.value = e.message

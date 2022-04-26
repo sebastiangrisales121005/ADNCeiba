@@ -14,6 +14,8 @@ class ParkingTranslator {
             endDateTime = parking.time.endDateTime
             day = parking.time.day
 
+            stateVehicle = 0
+
         }
     }
 }

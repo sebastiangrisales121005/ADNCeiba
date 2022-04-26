@@ -17,23 +17,26 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
     private val parkingDbRoomImpl: ParkingDbRoomImpl = Room.databaseBuilder(context, ParkingDbRoomImpl::class.java, DB_NAME).build()
 
     override suspend fun enterVehicle(parking: ParkingEntranceExit): Long? {
-        val parkingEntity = ParkingTranslator.fromDomainToEntity(parking)
-        enterCylinderCapacity(parking, parkingEntity)
         var id: Long? = null
+        val vehicleExist = parkingDbRoomImpl.parkingDao().validateVehicleExist(parking.vehicle.licensePlate)
+        if (vehicleExist.isEmpty()) {
+            val parkingEntity = ParkingTranslator.fromDomainToEntity(parking)
+            enterCylinderCapacity(parking, parkingEntity)
 
-        val vehicleExist = parkingDbRoomImpl.parkingDao().validateVehicleExist(parking.vehicle.licensePlate).isEmpty()
-
-        if (vehicleExist) {
             id = executeInsertVehicle(parkingEntity)
+        }
+        else if (vehicleExist[0].stateVehicle?.equals(1) == true) {
+            id = parkingDbRoomImpl.parkingDao().outVehicle(0, parking.vehicle.licensePlate)?.toLong()
+
         }
 
         return id
     }
 
     override suspend fun outVehicle(parking: ParkingEntranceExit): Int? {
-        val parkingEntity = ParkingTranslator.fromDomainToEntity(parking)
-        enterCylinderCapacity(parking, parkingEntity)
-        return parkingDbRoomImpl.parkingDao().outVehicle(parkingEntity)
+        parkingDbRoomImpl.parkingDao().outVehicle(1, parking.vehicle.licensePlate)
+        return parkingDbRoomImpl.parkingDao()
+            .validateVehicleExist(parking.vehicle.licensePlate)[0].stateVehicle
 
     }
 

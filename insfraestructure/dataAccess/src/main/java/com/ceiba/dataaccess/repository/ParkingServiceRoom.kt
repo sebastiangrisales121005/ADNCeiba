@@ -20,6 +20,6 @@ interface ParkingServiceRoom {
     @Query("UPDATE ParkingEntity SET endDateTime = :endTime WHERE licensePlate = :licensePlate")
     suspend fun update(licensePlate: String, endTime: String?)
 
-    @Delete
-    suspend fun outVehicle(parkingEntity: ParkingEntity): Int?
+    @Query("UPDATE ParkingEntity SET stateVehicle = :state WHERE licensePlate = :licensePlate")
+    suspend fun outVehicle(state: Int, licensePlate: String): Int?
 }
