@@ -3,6 +3,7 @@ package com.ceiba.domain.service
 import com.ceiba.domain.aggregate.ParkingEntranceExit
 import com.ceiba.domain.entity.Car
 import com.ceiba.domain.entity.Motorcycle
+import com.ceiba.domain.exception.ParkingException
 import com.ceiba.domain.repository.ParkingEntranceExitRepository
 import javax.inject.Inject
 
@@ -20,8 +21,12 @@ class ParkingEntranceExitService @Inject constructor(private val parkingReposito
         return parkingRepository.outVehicle(parking)
     }
 
-    suspend fun calculateAmountParking(licensePlate: String, endTime: String): ParkingEntranceExit? {
-        return parkingRepository.calculateAmountParking(licensePlate, endTime)
+    suspend fun calculateAmountParking(licensePlate: String, endTime: String): ParkingEntranceExit {
+        val parkingUpdate = parkingRepository.calculateAmountParking(licensePlate, endTime)
+        parkingUpdate?.vehicle?.calculateTotalForVehicle(parkingUpdate)
+        parkingUpdate?.let { return it }
+            ?: kotlin.run { throw ParkingException("Error en el cálculo") }
+
     }
 
     private suspend fun validateMotorCycle(parking: ParkingEntranceExit) {

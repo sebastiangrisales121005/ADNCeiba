@@ -4,7 +4,6 @@ import com.ceiba.domain.aggregate.ParkingEntranceExit
 import com.ceiba.domain.exception.ParkingException
 
 class Car(licensePlate: String): Vehicle(licensePlate)  {
-    override var totalValueParking: Int = 0
 
     override fun validateAmountVehicle(amountVehicles: Int) {
         if (amountVehicles >= CAR_LIMIT_PARKING) {
@@ -12,8 +11,8 @@ class Car(licensePlate: String): Vehicle(licensePlate)  {
         }
     }
 
-    override fun calculateTotalForVehicle(parkingEntranceExit: ParkingEntranceExit): Int {
-        totalValueParking = parkingEntranceExit.calculateTotalValueParking(PRICE_DAY_CAR, PRICE_HOUR_CAR)
+    override fun assignCalculateValueParking(parkingEntranceExit: ParkingEntranceExit): Int {
+        var totalValueParking = parkingEntranceExit.calculateTotalValueParking(PRICE_DAY_CAR, PRICE_HOUR_CAR)
 
         return totalValueParking
     }

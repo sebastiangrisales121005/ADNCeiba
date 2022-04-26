@@ -41,10 +41,7 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
     }
 
     override suspend fun calculateAmountParking(licensePlate: String, endTime: String): ParkingEntranceExit? {
-        val parkingUpdate = getVehiclesParkingDb(licensePlate, endTime)
-        parkingUpdate?.vehicle?.calculateTotalForVehicle(parkingUpdate)
-
-        return parkingUpdate
+        return getVehiclesParkingDb(licensePlate, endTime)
 
     }
 

@@ -5,17 +5,14 @@ import com.ceiba.domain.exception.ParkingException
 
 class Motorcycle(licensePlate: String, val cylinderCapacity: Int) : Vehicle(licensePlate) {
 
-    override var totalValueParking: Int = 0
-
-
     override fun validateAmountVehicle(amountVehicles: Int) {
         if (amountVehicles >= MOTORCYCLE_LIMIT_PARKING) {
             throw ParkingException(MESSAGE_RESTRICTED)
         }
     }
 
-    override fun calculateTotalForVehicle(parkingEntranceExit: ParkingEntranceExit): Int {
-        totalValueParking = parkingEntranceExit.calculateTotalValueParking(PRICE_DAY_MOTORCYCLE, PRICE_HOUR_MOTORCYCLE)
+    override fun assignCalculateValueParking(parkingEntranceExit: ParkingEntranceExit): Int {
+        var totalValueParking = parkingEntranceExit.calculateTotalValueParking(PRICE_DAY_MOTORCYCLE, PRICE_HOUR_MOTORCYCLE)
 
         if (cylinderCapacity > CYLINDER_CAPACITY_LIMIT) {
             totalValueParking += SURPLUS_MOTORCYCLE
