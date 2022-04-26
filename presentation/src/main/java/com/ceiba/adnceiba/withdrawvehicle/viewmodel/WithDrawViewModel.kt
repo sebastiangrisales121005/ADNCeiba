@@ -26,20 +26,17 @@ class WithDrawViewModel: ViewModel() {
 
     fun calculateAmount(licensePlate: String, endTime: String) {
         try {
-            val time = Time(null, endTime, null)
 
             CoroutineScope(Dispatchers.Main).launch {
-                val parkingUpdate =  time.endDateTime?.let { endTime ->
-                    getCalculateAmount(licensePlate, endTime)
-                }
+                val parkingUpdate = getCalculateAmount(licensePlate, endTime)
+
                 showCalculateParkingLiveData.value = parkingUpdate
 
-                parkingUpdate?.let {
-                    val stateVehicle = outVehicle(it)
-                    if (stateVehicle == 1) {
-                        outVehicleLiveData.value  = stateVehicle
-                    }
+                val stateVehicle = outVehicle(parkingUpdate)
+                if (stateVehicle == 1) {
+                    outVehicleLiveData.value  = stateVehicle
                 }
+
             }
         } catch (e: ParkingException) {
             showMessageLiveData.value = e.message
@@ -47,7 +44,7 @@ class WithDrawViewModel: ViewModel() {
 
     }
 
-    private suspend fun getCalculateAmount(licensePlate: String, endTime: String): ParkingEntranceExit? {
+    private suspend fun getCalculateAmount(licensePlate: String, endTime: String): ParkingEntranceExit {
         return withContext(Dispatchers.IO){
             parkingEntranceExitServiceApplication.calculateAmountParking(licensePlate, endTime)
         }

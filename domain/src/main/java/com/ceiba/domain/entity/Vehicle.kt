@@ -4,7 +4,7 @@ import com.ceiba.domain.aggregate.ParkingEntranceExit
 import com.ceiba.domain.exception.ParkingException
 
 abstract class Vehicle(val licensePlate: String) {
-    private var totalValueParking: Int = 0
+    var totalValueParking: Int = 0
 
     init {
         validateData()
