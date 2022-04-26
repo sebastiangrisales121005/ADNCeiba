@@ -3,6 +3,7 @@ package com.ceiba.adnceiba.withdrawvehicle.viewmodel
 import android.text.InputFilter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.ceiba.application.dto.ParkingApplicationDto
 import com.ceiba.application.service.ParkingEntranceExitServiceApplication
 import com.ceiba.domain.aggregate.ParkingEntranceExit
 import com.ceiba.domain.exception.ParkingException
@@ -16,7 +17,7 @@ class WithDrawViewModel: ViewModel() {
 
     lateinit var parkingEntranceExitServiceApplication: ParkingEntranceExitServiceApplication
 
-    val showCalculateParkingLiveData = MutableLiveData<ParkingEntranceExit>()
+    val showCalculateParkingLiveData = MutableLiveData<ParkingApplicationDto>()
 
     val outVehicleLiveData = MutableLiveData<Int>()
 
@@ -44,7 +45,7 @@ class WithDrawViewModel: ViewModel() {
 
     }
 
-    private suspend fun getCalculateAmount(licensePlate: String, endTime: String): ParkingEntranceExit {
+    private suspend fun getCalculateAmount(licensePlate: String, endTime: String): ParkingApplicationDto {
         return withContext(Dispatchers.IO){
             parkingEntranceExitServiceApplication.calculateAmountParking(licensePlate, endTime)
         }

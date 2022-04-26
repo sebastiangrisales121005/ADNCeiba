@@ -4,7 +4,7 @@ import com.ceiba.domain.aggregate.ParkingEntranceExit
 import com.ceiba.domain.exception.ParkingException
 
 abstract class Vehicle(val licensePlate: String) {
-    var totalValueParking: Int = 0
+    private var totalValueParking: Int = 0
 
     init {
         validateData()
@@ -25,8 +25,10 @@ abstract class Vehicle(val licensePlate: String) {
 
     protected abstract fun assignCalculateValueParking(parkingEntranceExit: ParkingEntranceExit): Int
 
-    fun calculateTotalForVehicle(parkingEntranceExit: ParkingEntranceExit){
+    fun calculateTotalForVehicle(parkingEntranceExit: ParkingEntranceExit): Int{
         totalValueParking = assignCalculateValueParking(parkingEntranceExit)
+
+        return totalValueParking
     }
 
     companion object {

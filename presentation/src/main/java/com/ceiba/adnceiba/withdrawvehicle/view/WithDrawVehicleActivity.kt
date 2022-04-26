@@ -76,9 +76,9 @@ class WithDrawVehicleActivity : AppCompatActivity() {
         viewModel?.showCalculateParkingLiveData?.observe(this) {
             mActivityWithDrawVehicleBinding?.containerPaymentVehicle?.visibility = View.VISIBLE
 
-            mActivityWithDrawVehicleBinding?.countDayVehicle?.text = it.time.numberDays.toString()
-            mActivityWithDrawVehicleBinding?.countHourVehicle?.text = it.time.numberHours.toString()
-            mActivityWithDrawVehicleBinding?.paymentVehicle?.text = it.vehicle.totalValueParking.toString()
+            mActivityWithDrawVehicleBinding?.countDayVehicle?.text = it.numberDays
+            mActivityWithDrawVehicleBinding?.countHourVehicle?.text = it.numberHours
+            mActivityWithDrawVehicleBinding?.paymentVehicle?.text = it.totalValueParking
         }
 
         viewModel?.outVehicleLiveData?.observe(this) {

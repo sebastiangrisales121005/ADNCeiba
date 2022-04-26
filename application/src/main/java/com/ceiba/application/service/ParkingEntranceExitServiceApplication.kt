@@ -1,5 +1,7 @@
 package com.ceiba.application.service
 
+import com.ceiba.application.anticorruption.ParkingApplicationTranslator
+import com.ceiba.application.dto.ParkingApplicationDto
 import com.ceiba.domain.aggregate.ParkingEntranceExit
 import com.ceiba.domain.service.ParkingEntranceExitService
 import javax.inject.Inject
@@ -17,7 +19,8 @@ class ParkingEntranceExitServiceApplication @Inject constructor() {
         return parkingService.outVehicle(parking)
     }
 
-    suspend fun calculateAmountParking(licensePlate: String, endTime: String): ParkingEntranceExit {
-        return parkingService.calculateAmountParking(licensePlate, endTime)
+    suspend fun calculateAmountParking(licensePlate: String, endTime: String): ParkingApplicationDto {
+        return ParkingApplicationTranslator.fromDomainToApplication(parkingService.calculateAmountParking(licensePlate, endTime))
+
     }
 }
