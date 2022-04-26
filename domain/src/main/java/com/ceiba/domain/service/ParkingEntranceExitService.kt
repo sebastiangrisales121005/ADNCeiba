@@ -16,8 +16,8 @@ class ParkingEntranceExitService @Inject constructor(private val parkingReposito
         return parkingRepository.enterVehicle(parking)
     }
 
-    suspend fun deleteVehicle(parking: ParkingEntranceExit): Int? {
-        return parkingRepository.deleteVehicle(parking)
+    suspend fun outVehicle(parking: ParkingEntranceExit): Int? {
+        return parkingRepository.outVehicle(parking)
     }
 
     suspend fun calculateAmountParking(licensePlate: String, endTime: String): ParkingEntranceExit? {

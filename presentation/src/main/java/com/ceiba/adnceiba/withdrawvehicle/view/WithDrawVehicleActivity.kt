@@ -81,7 +81,7 @@ class WithDrawVehicleActivity : AppCompatActivity() {
             mActivityWithDrawVehicleBinding?.paymentVehicle?.text = it.vehicle.totalValueParking.toString()
         }
 
-        viewModel?.deleteVehicleLiveData?.observe(this) {
+        viewModel?.outVehicleLiveData?.observe(this) {
             it?.let {
                 showToast(getString(R.string.retiro_correcto))
             } ?: kotlin.run {

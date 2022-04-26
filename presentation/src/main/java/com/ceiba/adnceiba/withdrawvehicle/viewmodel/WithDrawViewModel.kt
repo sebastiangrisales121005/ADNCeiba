@@ -18,7 +18,7 @@ class WithDrawViewModel: ViewModel() {
 
     val showCalculateParkingLiveData = MutableLiveData<ParkingEntranceExit>()
 
-    val deleteVehicleLiveData = MutableLiveData<Int>()
+    val outVehicleLiveData = MutableLiveData<Int>()
 
     val validateEnterEmojiLiveData = MutableLiveData<InputFilter>()
 
@@ -34,7 +34,7 @@ class WithDrawViewModel: ViewModel() {
                 }
                 showCalculateParkingLiveData.value = parkingUpdate
 
-                deleteVehicleLiveData.value = parkingUpdate?.let { deleteVehicle(it) }
+                outVehicleLiveData.value = parkingUpdate?.let { outVehicle(it) }
             }
         } catch (e: ParkingException) {
             showMessageLiveData.value = e.message
@@ -48,9 +48,9 @@ class WithDrawViewModel: ViewModel() {
         }
     }
 
-    private suspend fun deleteVehicle(parkingEntranceExit: ParkingEntranceExit): Int? {
+    private suspend fun outVehicle(parkingEntranceExit: ParkingEntranceExit): Int? {
         return withContext(Dispatchers.IO) {
-            parkingServiceApplication.deleteVehicle(parkingEntranceExit)
+            parkingServiceApplication.outVehicle(parkingEntranceExit)
         }
     }
 
