@@ -33,10 +33,10 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
         return id
     }
 
-    override suspend fun outVehicle(parking: ParkingEntranceExit): Int? {
-        parkingDbRoomImpl.parkingDao().outVehicle(1, parking.vehicle.licensePlate)
+    override suspend fun outVehicle(licensePlate: String): Int? {
+        parkingDbRoomImpl.parkingDao().outVehicle(1, licensePlate)
         return parkingDbRoomImpl.parkingDao()
-            .validateVehicleExist(parking.vehicle.licensePlate)[0].stateVehicle
+            .validateVehicleExist(licensePlate)[0].stateVehicle
 
     }
 

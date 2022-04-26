@@ -15,8 +15,8 @@ class ParkingEntranceExitServiceApplication @Inject constructor() {
         return parkingService.enterVehicle(parking)
     }
 
-    suspend fun outVehicle(parking: ParkingEntranceExit): Int? {
-        return parkingService.outVehicle(parking)
+    suspend fun outVehicle(licensePlate: String): Int? {
+        return parkingService.outVehicle(licensePlate)
     }
 
     suspend fun calculateAmountParking(licensePlate: String, endTime: String): ParkingApplicationDto {

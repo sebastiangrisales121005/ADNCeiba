@@ -5,7 +5,7 @@ import com.ceiba.domain.aggregate.ParkingEntranceExit
 interface ParkingEntranceExitRepository {
     suspend fun enterVehicle(parking: ParkingEntranceExit): Long?
 
-    suspend fun outVehicle(parking: ParkingEntranceExit): Int?
+    suspend fun outVehicle(licensePlate: String): Int?
 
     suspend fun calculateAmountParking(licensePlate: String, endTime: String): ParkingEntranceExit?
 

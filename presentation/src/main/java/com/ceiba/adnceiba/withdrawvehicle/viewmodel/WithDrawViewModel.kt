@@ -33,7 +33,7 @@ class WithDrawViewModel: ViewModel() {
 
                 showCalculateParkingLiveData.value = parkingUpdate
 
-                val stateVehicle = outVehicle(parkingUpdate)
+                val stateVehicle = outVehicle(licensePlate)
                 if (stateVehicle == 1) {
                     outVehicleLiveData.value  = stateVehicle
                 }
@@ -51,9 +51,9 @@ class WithDrawViewModel: ViewModel() {
         }
     }
 
-    private suspend fun outVehicle(parkingEntranceExit: ParkingEntranceExit): Int? {
+    private suspend fun outVehicle(licensePlate: String): Int? {
         return withContext(Dispatchers.IO) {
-            parkingEntranceExitServiceApplication.outVehicle(parkingEntranceExit)
+            parkingEntranceExitServiceApplication.outVehicle(licensePlate)
         }
     }
 
