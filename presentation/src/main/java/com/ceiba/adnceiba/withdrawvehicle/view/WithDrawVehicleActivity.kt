@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.ceiba.adnceiba.R
 import com.ceiba.adnceiba.databinding.ActivityWithDrawVehicleBinding
 import com.ceiba.adnceiba.withdrawvehicle.viewmodel.WithDrawViewModel
-import com.ceiba.application.service.ParkingServiceApplication
+import com.ceiba.application.service.ParkingEntranceExitServiceApplication
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
@@ -20,7 +20,7 @@ import javax.inject.Inject
 class WithDrawVehicleActivity : AppCompatActivity() {
 
     @Inject
-    lateinit var parkingServiceApplication: ParkingServiceApplication
+    lateinit var parkingEntranceExitServiceApplication: ParkingEntranceExitServiceApplication
 
     private val mCalendar = Calendar.getInstance()
 
@@ -61,7 +61,7 @@ class WithDrawVehicleActivity : AppCompatActivity() {
         }
 
         viewModel = ViewModelProvider(this)[WithDrawViewModel::class.java]
-        viewModel?.parkingServiceApplication = parkingServiceApplication
+        viewModel?.parkingEntranceExitServiceApplication = parkingEntranceExitServiceApplication
         viewModel?.disableEmoji()
 
         mActivityWithDrawVehicleBinding?.buttonDeleteVehicle?.setOnClickListener {

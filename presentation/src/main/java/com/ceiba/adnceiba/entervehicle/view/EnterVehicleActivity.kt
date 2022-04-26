@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.ceiba.adnceiba.R
 import com.ceiba.adnceiba.databinding.ActivityEnterVehicleBinding
 import com.ceiba.adnceiba.entervehicle.viewmodel.EnterVehicleViewModel
-import com.ceiba.application.service.ParkingServiceApplication
+import com.ceiba.application.service.ParkingEntranceExitServiceApplication
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
@@ -24,7 +24,7 @@ import javax.inject.Inject
 class EnterVehicleActivity : AppCompatActivity() {
 
     @Inject
-    lateinit var parkingServiceApplication: ParkingServiceApplication
+    lateinit var parkingEntranceExitServiceApplication: ParkingEntranceExitServiceApplication
 
     private val mCalendar = Calendar.getInstance()
 
@@ -77,7 +77,7 @@ class EnterVehicleActivity : AppCompatActivity() {
 
 
         viewModel = ViewModelProvider(this)[EnterVehicleViewModel::class.java]
-        viewModel?.parkingServiceApplication = parkingServiceApplication
+        viewModel?.parkingEntranceExitServiceApplication = parkingEntranceExitServiceApplication
 
         viewModel?.disableEmoji()
 

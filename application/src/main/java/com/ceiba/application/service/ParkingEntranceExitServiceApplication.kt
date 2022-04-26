@@ -4,7 +4,7 @@ import com.ceiba.domain.aggregate.ParkingEntranceExit
 import com.ceiba.domain.service.ParkingEntranceExitService
 import javax.inject.Inject
 
-class ParkingServiceApplication @Inject constructor() {
+class ParkingEntranceExitServiceApplication @Inject constructor() {
 
     @Inject
     lateinit var parkingService: ParkingEntranceExitService
