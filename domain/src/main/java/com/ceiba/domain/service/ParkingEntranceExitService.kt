@@ -24,12 +24,17 @@ class ParkingEntranceExitService @Inject constructor(private val parkingReposito
         val parkingUpdate = parkingRepository.calculateAmountParking(licensePlate, endTime)
         parkingUpdate?.vehicle?.calculateTotalForVehicle(parkingUpdate)
         parkingUpdate?.let { return it }
-            ?: kotlin.run { throw ParkingException("Error en el cálculo") }
+            ?: kotlin.run { throw ParkingException(CALCULATE_ERROR) }
 
     }
 
     private suspend fun validateCountVehicle(parking: ParkingEntranceExit) {
         parking.vehicle.validate(parkingRepository.getCountVehicleParking(parking.vehicle.javaClass.simpleName))
+    }
+
+
+    companion object {
+        const val CALCULATE_ERROR = "Error en el cálculo"
     }
 
 }

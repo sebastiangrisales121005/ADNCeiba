@@ -9,6 +9,7 @@ class ParkingTranslator {
 
             licensePlate = parking.vehicle.licensePlate
             vehicleType = parking.vehicle.javaClass.simpleName
+            cylinderCapacity = 0
 
             startDateTime = parking.time.startDateTime
             endDateTime = parking.time.endDateTime
