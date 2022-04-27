@@ -19,8 +19,7 @@ class ParkingEntranceExitServiceApplication @Inject constructor() {
         return parkingService.outVehicle(licensePlate)
     }
 
-    suspend fun calculateAmountParking(licensePlate: String, endTime: String): ParkingApplicationDto {
-        return ParkingApplicationTranslator.fromDomainToApplication(parkingService.calculateAmountParking(licensePlate, endTime))
-
+    suspend fun calculateAmountParking(licensePlate: String, endTime: String): ParkingApplicationDto = ParkingApplicationDto().apply {
+        ParkingApplicationTranslator.fromDomainToApplication(parkingService.calculateAmountParking(licensePlate, endTime))
     }
 }
