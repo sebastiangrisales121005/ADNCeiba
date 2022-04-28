@@ -15,12 +15,13 @@ import java.lang.Exception
 import javax.inject.Inject
 
 class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Context): ParkingEntranceExitRepository {
-
-    private val parkingDbRoomImpl: ParkingDbRoomImpl = Room.databaseBuilder(context, ParkingDbRoomImpl::class.java, DB_NAME).build()
+    
+    @Inject
+    lateinit var parkingDbRoomImpl: ParkingServiceRoom
 
     override suspend fun enterVehicle(parking: ParkingEntranceExit): Long? {
         var id: Long? = null
-        val vehicleExist = parkingDbRoomImpl.parkingDao().validateVehicleExist(parking.vehicle.licensePlate)
+        val vehicleExist = parkingDbRoomImpl.validateVehicleExist(parking.vehicle.licensePlate)
         if (vehicleExist.isEmpty()) {
             val parkingEntity = ParkingTranslator.fromDomainToEntity(parking)
             enterCylinderCapacity(parking, parkingEntity)
@@ -28,7 +29,7 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
             id = executeInsertVehicle(parkingEntity)
         }
         else if (vehicleExist[0].stateVehicle?.equals(1) == true) {
-            id = parkingDbRoomImpl.parkingDao().outVehicle(0, parking.vehicle.licensePlate)?.toLong()
+            id = parkingDbRoomImpl.outVehicle(0, parking.vehicle.licensePlate)?.toLong()
 
         }
 
@@ -36,8 +37,8 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
     }
 
     override suspend fun outVehicle(licensePlate: String): Int? {
-        parkingDbRoomImpl.parkingDao().outVehicle(1, licensePlate)
-        return parkingDbRoomImpl.parkingDao()
+        parkingDbRoomImpl.outVehicle(1, licensePlate)
+        return parkingDbRoomImpl
             .validateVehicleExist(licensePlate)[0].stateVehicle
 
     }
@@ -53,7 +54,7 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
 
     private suspend fun getVehiclesParkingDb(licensePlate: String, endTime: String): ParkingEntranceExit? {
         updateWithDrawVehicle(licensePlate, endTime)
-        val parkingDB = parkingDbRoomImpl.parkingDao().validateVehicleExist(licensePlate)[0]
+        val parkingDB = parkingDbRoomImpl.validateVehicleExist(licensePlate)[0]
 
         val vehicle = parkingDB.vehicleType?.let { vehicleType ->
             parkingDB.cylinderCapacity?.let { cylinder ->
@@ -74,15 +75,15 @@ class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Con
     }
 
     private suspend fun updateWithDrawVehicle(licensePlate: String, endTime: String) {
-        parkingDbRoomImpl.parkingDao().update(licensePlate, endTime)
+        parkingDbRoomImpl.update(licensePlate, endTime)
     }
 
     private suspend fun getCountVehicle(vehicleType: String): Int {
-        return parkingDbRoomImpl.parkingDao().getCountVehicle(vehicleType)
+        return parkingDbRoomImpl.getCountVehicle(vehicleType)
     }
 
     private suspend fun executeInsertVehicle(parkingEntity: ParkingEntity): Long {
-        return parkingDbRoomImpl.parkingDao().insertVehicle(parkingEntity)
+        return parkingDbRoomImpl.insertVehicle(parkingEntity)
 
     }
 
