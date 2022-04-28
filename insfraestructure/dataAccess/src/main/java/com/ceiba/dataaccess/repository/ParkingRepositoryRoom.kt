@@ -53,17 +53,7 @@ class ParkingRepositoryRoom @Inject constructor(): ParkingEntranceExitRepository
             updateWithDrawVehicle(licensePlate, endTime)
             val parkingDB = parkingDbRoomImpl.validateVehicleExist(licensePlate)[0]
 
-            val vehicle = parkingDB.vehicleType?.let { vehicleType ->
-                parkingDB.cylinderCapacity?.let { cylinder ->
-                    VehicleFactory.build(
-                        parkingDB.licensePlate, vehicleType,
-                        cylinder
-                    )
-                }
-            }
-            val time = Time(parkingDB.startDateTime, parkingDB.endDateTime, parkingDB.day)
-
-            parking = vehicle?.let { ParkingEntranceExit(it, time) }
+            parking = ParkingTranslator.fromEntityToDomain(parkingDB)
         }
 
         return parking?.let {return it}
