@@ -1,7 +1,6 @@
 package com.ceiba.domain
 
 import com.ceiba.domain.core.TimeBuilder
-import com.ceiba.domain.valueobject.Time
 import org.junit.Assert
 import org.junit.Test
 

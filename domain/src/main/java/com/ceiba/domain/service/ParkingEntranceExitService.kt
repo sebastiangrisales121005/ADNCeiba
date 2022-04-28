@@ -1,8 +1,6 @@
 package com.ceiba.domain.service
 
 import com.ceiba.domain.aggregate.ParkingEntranceExit
-import com.ceiba.domain.entity.Car
-import com.ceiba.domain.entity.Motorcycle
 import com.ceiba.domain.exception.ParkingException
 import com.ceiba.domain.repository.ParkingEntranceExitRepository
 import javax.inject.Inject

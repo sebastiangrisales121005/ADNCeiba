@@ -2,7 +2,7 @@ package com.ceiba.domain.core
 
 import com.ceiba.domain.valueobject.Time
 
-class TimeBuilder() {
+class TimeBuilder {
     var startDateTime: String? = null
     var endDateTime: String? = null
     var day: String? = null

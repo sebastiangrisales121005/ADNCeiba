@@ -3,7 +3,6 @@ package com.ceiba.dataaccess.anticorruption
 import com.ceiba.application.service.factory.VehicleFactory
 import com.ceiba.dataaccess.dto.ParkingEntity
 import com.ceiba.domain.aggregate.ParkingEntranceExit
-import com.ceiba.domain.entity.Vehicle
 import com.ceiba.domain.valueobject.Time
 
 class ParkingTranslator {

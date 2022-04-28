@@ -37,7 +37,7 @@ class EnterVehicleActivityTest {
 
         onView(withId(R.id.input_cylinder_capacity_enter_vehicle)).perform(typeText(cylinderCapacity))
 
-        onView(withId(R.id.input_cylinder_capacity_enter_vehicle)).perform(closeSoftKeyboard());
+        onView(withId(R.id.input_cylinder_capacity_enter_vehicle)).perform(closeSoftKeyboard())
 
         onView(withId(R.id.button_save_vehicle)).perform(click())
 

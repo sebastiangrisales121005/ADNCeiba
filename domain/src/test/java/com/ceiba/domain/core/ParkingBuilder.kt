@@ -4,7 +4,7 @@ import com.ceiba.domain.aggregate.ParkingEntranceExit
 import com.ceiba.domain.entity.Vehicle
 import com.ceiba.domain.valueobject.Time
 
-class ParkingBuilder() {
+class ParkingBuilder {
     var vehicle: Vehicle? = null
     var time: Time? = null
 
