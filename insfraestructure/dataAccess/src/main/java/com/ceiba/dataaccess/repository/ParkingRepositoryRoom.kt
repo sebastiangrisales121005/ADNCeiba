@@ -5,6 +5,8 @@ import com.ceiba.dataaccess.anticorruption.ParkingTranslator
 import com.ceiba.dataaccess.dto.ParkingEntity
 import com.ceiba.domain.aggregate.ParkingEntranceExit
 import com.ceiba.domain.entity.Motorcycle
+import com.ceiba.domain.entity.Vehicle
+import com.ceiba.domain.exception.ParkingException
 import com.ceiba.domain.repository.ParkingEntranceExitRepository
 import com.ceiba.domain.valueobject.Time
 import javax.inject.Inject
@@ -46,24 +48,27 @@ class ParkingRepositoryRoom @Inject constructor(): ParkingEntranceExitRepository
     override suspend fun getCountVehicleParking(vehicleType: String): Int = getCountVehicle(vehicleType)
 
     private suspend fun getVehiclesParkingDb(licensePlate: String, endTime: String): ParkingEntranceExit? {
-        updateWithDrawVehicle(licensePlate, endTime)
-        val parkingDB = parkingDbRoomImpl.validateVehicleExist(licensePlate)[0]
+        var parking: ParkingEntranceExit? = null
+        val vehicleExist = parkingDbRoomImpl.validateVehicleExist(licensePlate)
+        if (vehicleExist.isNotEmpty()) {
+            updateWithDrawVehicle(licensePlate, endTime)
+            val parkingDB = parkingDbRoomImpl.validateVehicleExist(licensePlate)[0]
 
-        val vehicle = parkingDB.vehicleType?.let { vehicleType ->
-            parkingDB.cylinderCapacity?.let { cylinder ->
-                VehicleFactory.build(
-                    parkingDB.licensePlate, vehicleType,
-                    cylinder
-                )
+            val vehicle = parkingDB.vehicleType?.let { vehicleType ->
+                parkingDB.cylinderCapacity?.let { cylinder ->
+                    VehicleFactory.build(
+                        parkingDB.licensePlate, vehicleType,
+                        cylinder
+                    )
+                }
             }
+            val time = Time(parkingDB.startDateTime, parkingDB.endDateTime, parkingDB.day)
+
+            parking = vehicle?.let { ParkingEntranceExit(it, time) }
         }
 
-        return vehicle?.let {
-            ParkingEntranceExit(
-                it,
-                Time(parkingDB.startDateTime, parkingDB.endDateTime, parkingDB.day)
-            )
-        }
+        return parking?.let {return it}
+            ?: kotlin.run { throw ParkingException(MESSAGE_GET_VEHICLE) }
 
     }
 
@@ -85,5 +90,6 @@ class ParkingRepositoryRoom @Inject constructor(): ParkingEntranceExitRepository
 
     companion object {
         const val DB_NAME = "PARKING"
+        const val MESSAGE_GET_VEHICLE = "Error encontrando el vehículo solictado"
     }
 }
