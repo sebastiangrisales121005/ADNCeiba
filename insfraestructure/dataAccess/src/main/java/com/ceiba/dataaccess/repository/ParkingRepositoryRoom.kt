@@ -5,7 +5,6 @@ import com.ceiba.dataaccess.anticorruption.ParkingTranslator
 import com.ceiba.dataaccess.dto.ParkingEntity
 import com.ceiba.domain.aggregate.ParkingEntranceExit
 import com.ceiba.domain.entity.Motorcycle
-import com.ceiba.domain.entity.Vehicle
 import com.ceiba.domain.exception.ParkingException
 import com.ceiba.domain.repository.ParkingEntranceExitRepository
 import com.ceiba.domain.valueobject.Time
@@ -47,7 +46,7 @@ class ParkingRepositoryRoom @Inject constructor(): ParkingEntranceExitRepository
 
     override suspend fun getCountVehicleParking(vehicleType: String): Int = getCountVehicle(vehicleType)
 
-    private suspend fun getVehiclesParkingDb(licensePlate: String, endTime: String): ParkingEntranceExit? {
+    private suspend fun getVehiclesParkingDb(licensePlate: String, endTime: String): ParkingEntranceExit {
         var parking: ParkingEntranceExit? = null
         val vehicleExist = parkingDbRoomImpl.validateVehicleExist(licensePlate)
         if (vehicleExist.isNotEmpty()) {

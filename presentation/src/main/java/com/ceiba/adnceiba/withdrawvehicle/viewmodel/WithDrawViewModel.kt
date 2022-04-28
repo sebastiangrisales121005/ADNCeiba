@@ -26,22 +26,22 @@ class WithDrawViewModel: ViewModel() {
     val showMessageLiveData = MutableLiveData<String>()
 
     fun calculateAmount(licensePlate: String, endTime: String) {
-        try {
 
             CoroutineScope(Dispatchers.Main).launch {
-                val parkingUpdate = getCalculateAmount(licensePlate, endTime)
+                try {
+                    val parkingUpdate = getCalculateAmount(licensePlate, endTime)
 
-                showCalculateParkingLiveData.value = parkingUpdate
+                    showCalculateParkingLiveData.value = parkingUpdate
 
-                val stateVehicle = outVehicle(licensePlate)
-                if (stateVehicle == 1) {
-                    outVehicleLiveData.value  = stateVehicle
+                    val stateVehicle = outVehicle(licensePlate)
+                    if (stateVehicle == 1) {
+                        outVehicleLiveData.value = stateVehicle
+                    }
+
+                } catch (e: ParkingException) {
+                    showMessageLiveData.value = e.message
                 }
-
             }
-        } catch (e: ParkingException) {
-            showMessageLiveData.value = e.message
-        }
 
     }
 
