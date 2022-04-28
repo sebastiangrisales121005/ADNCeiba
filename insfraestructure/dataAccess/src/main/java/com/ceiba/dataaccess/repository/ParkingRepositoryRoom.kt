@@ -1,20 +1,15 @@
 package com.ceiba.dataaccess.repository
 
-import android.content.Context
-import androidx.room.Room
 import com.ceiba.application.service.factory.VehicleFactory
 import com.ceiba.dataaccess.anticorruption.ParkingTranslator
 import com.ceiba.dataaccess.dto.ParkingEntity
 import com.ceiba.domain.aggregate.ParkingEntranceExit
 import com.ceiba.domain.entity.Motorcycle
-import com.ceiba.domain.exception.ParkingException
 import com.ceiba.domain.repository.ParkingEntranceExitRepository
 import com.ceiba.domain.valueobject.Time
-import dagger.hilt.android.qualifiers.ApplicationContext
-import java.lang.Exception
 import javax.inject.Inject
 
-class ParkingRepositoryRoom @Inject constructor(@ApplicationContext context: Context): ParkingEntranceExitRepository {
+class ParkingRepositoryRoom @Inject constructor(): ParkingEntranceExitRepository {
     
     @Inject
     lateinit var parkingDbRoomImpl: ParkingServiceRoom
