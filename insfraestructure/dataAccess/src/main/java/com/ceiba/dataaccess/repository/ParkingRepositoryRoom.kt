@@ -1,13 +1,11 @@
 package com.ceiba.dataaccess.repository
 
-import com.ceiba.application.service.factory.VehicleFactory
 import com.ceiba.dataaccess.anticorruption.ParkingTranslator
 import com.ceiba.dataaccess.dto.ParkingEntity
 import com.ceiba.domain.aggregate.ParkingEntranceExit
 import com.ceiba.domain.entity.Motorcycle
 import com.ceiba.domain.exception.ParkingException
 import com.ceiba.domain.repository.ParkingEntranceExitRepository
-import com.ceiba.domain.valueobject.Time
 import javax.inject.Inject
 
 class ParkingRepositoryRoom @Inject constructor(): ParkingEntranceExitRepository {
@@ -39,7 +37,7 @@ class ParkingRepositoryRoom @Inject constructor(): ParkingEntranceExitRepository
 
     }
 
-    override suspend fun calculateAmountParking(licensePlate: String, endTime: String): ParkingEntranceExit? =
+    override suspend fun calculateAmountParking(licensePlate: String, endTime: String): ParkingEntranceExit =
         getVehiclesParkingDb(licensePlate, endTime)
 
 
