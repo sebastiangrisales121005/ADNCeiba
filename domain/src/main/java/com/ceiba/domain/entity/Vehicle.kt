@@ -7,7 +7,8 @@ abstract class Vehicle(val licensePlate: String) {
     private var totalValueParking: Int = 0
 
     init {
-        validateData()
+        validateDataEmpty()
+        validateLength()
     }
 
     fun validate(amountVehicles: Int) {
@@ -15,9 +16,15 @@ abstract class Vehicle(val licensePlate: String) {
 
     }
 
-    private fun validateData() {
+    private fun validateDataEmpty() {
         if (licensePlate.isEmpty()){
             throw ParkingException(MESSAGE_EMPTY)
+        }
+    }
+
+    private fun validateLength() {
+        if (licensePlate.length > 6) {
+            throw ParkingException(MESSAGE_LENGTH)
         }
     }
 
@@ -33,6 +40,7 @@ abstract class Vehicle(val licensePlate: String) {
 
     companion object {
         const val MESSAGE_EMPTY = "Los campos no pueden estar vacíos"
+        const val MESSAGE_LENGTH = "La placa no debe ser mayor de 6 caracteres"
     }
 
 
