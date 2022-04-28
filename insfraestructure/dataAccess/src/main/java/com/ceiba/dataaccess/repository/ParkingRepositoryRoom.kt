@@ -38,14 +38,12 @@ class ParkingRepositoryRoom @Inject constructor(): ParkingEntranceExitRepository
 
     }
 
-    override suspend fun calculateAmountParking(licensePlate: String, endTime: String): ParkingEntranceExit? {
-        return getVehiclesParkingDb(licensePlate, endTime)
+    override suspend fun calculateAmountParking(licensePlate: String, endTime: String): ParkingEntranceExit? =
+        getVehiclesParkingDb(licensePlate, endTime)
 
-    }
 
-    override suspend fun getCountVehicleParking(vehicleType: String): Int {
-        return getCountVehicle(vehicleType)
-    }
+
+    override suspend fun getCountVehicleParking(vehicleType: String): Int = getCountVehicle(vehicleType)
 
     private suspend fun getVehiclesParkingDb(licensePlate: String, endTime: String): ParkingEntranceExit? {
         updateWithDrawVehicle(licensePlate, endTime)
@@ -73,14 +71,10 @@ class ParkingRepositoryRoom @Inject constructor(): ParkingEntranceExitRepository
         parkingDbRoomImpl.update(licensePlate, endTime)
     }
 
-    private suspend fun getCountVehicle(vehicleType: String): Int {
-        return parkingDbRoomImpl.getCountVehicle(vehicleType)
-    }
+    private suspend fun getCountVehicle(vehicleType: String): Int = parkingDbRoomImpl.getCountVehicle(vehicleType)
 
-    private suspend fun executeInsertVehicle(parkingEntity: ParkingEntity): Long {
-        return parkingDbRoomImpl.insertVehicle(parkingEntity)
+    private suspend fun executeInsertVehicle(parkingEntity: ParkingEntity): Long = parkingDbRoomImpl.insertVehicle(parkingEntity)
 
-    }
 
     private fun enterCylinderCapacity(parking: ParkingEntranceExit, parkingEntity: ParkingEntity) {
         if (parking.vehicle is Motorcycle) {
