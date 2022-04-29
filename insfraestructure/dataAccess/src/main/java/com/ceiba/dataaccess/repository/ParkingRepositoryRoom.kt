@@ -22,19 +22,14 @@ class ParkingRepositoryRoom @Inject constructor(): ParkingEntranceExitRepository
         if (vehicleExist.isEmpty()) {
             val parkingEntity = ParkingTranslator.fromDomainToEntity(parking)
             enterCylinderCapacity(parking, parkingEntity)
-
             id = executeInsertVehicle(parkingEntity)
-        }
-        else if (vehicleExist[0].stateVehicle?.equals(1) == true) {
-            id = parkingDbRoomImpl.outVehicle(0, parking.vehicle.licensePlate)?.toLong()
-
         }
 
         return id
     }
 
     override suspend fun outVehicle(licensePlate: String): Int? {
-        parkingDbRoomImpl.outVehicle(1, licensePlate)
+        parkingDbRoomImpl.outVehicle(OUT_STATE, licensePlate)
         return parkingDbRoomImpl
             .validateVehicleExist(licensePlate)[0].stateVehicle
 
@@ -46,6 +41,14 @@ class ParkingRepositoryRoom @Inject constructor(): ParkingEntranceExitRepository
 
 
     override suspend fun getCountVehicleParking(vehicleType: String): Int = getCountVehicle(vehicleType)
+
+    override suspend fun getVehicleExistState(licensePlate: String): Int? {
+        if (parkingDbRoomImpl.validateVehicleExist(licensePlate).isNotEmpty()) {
+            return parkingDbRoomImpl.validateVehicleExist(licensePlate)[0].stateVehicle
+        }
+
+        return null
+    }
 
     private suspend fun getVehiclesParkingDb(licensePlate: String, endTime: String): ParkingEntranceExit {
         var parking: ParkingEntranceExit? = null
@@ -78,12 +81,13 @@ class ParkingRepositoryRoom @Inject constructor(): ParkingEntranceExitRepository
         }
     }
 
+    override fun enterCylinderCapacityMotorCycle(cylinderCapacity: Int) {
+        cylinderCapacityVehicle = cylinderCapacity
+    }
+
     companion object {
         const val DB_NAME = "PARKING"
         const val MESSAGE_GET_VEHICLE = "Error encontrando el vehículo solictado"
-    }
-
-    override fun enterCylinderCapacityMotorCycle(cylinderCapacity: Int) {
-        cylinderCapacityVehicle = cylinderCapacity
+        const val OUT_STATE = 1
     }
 }

@@ -10,8 +10,9 @@ class ParkingEntranceExitService @Inject constructor(private val parkingReposito
     suspend fun enterVehicle(parking: ParkingEntranceExit): Long? {
         parking.validateEnterLicensePlate()
         validateCountVehicle(parking)
+        val id = validateVehicleState(parking.vehicle.licensePlate)
 
-        return parkingRepository.enterVehicle(parking)
+        return id?.let { return it } ?: kotlin.run { return parkingRepository.enterVehicle(parking) }
     }
 
     suspend fun outVehicle(licensePlate: String): Int? = parkingRepository.outVehicle(licensePlate)
@@ -29,9 +30,20 @@ class ParkingEntranceExitService @Inject constructor(private val parkingReposito
         parking.vehicle.validate(parkingRepository.getCountVehicleParking(parking.vehicle.javaClass.simpleName))
     }
 
+    private suspend fun validateVehicleState(licensePlate: String): Long? {
+        var id: Long? = null
+        if (parkingRepository.getVehicleExistState(licensePlate)?.equals(OUT_STATE) == true) {
+            id = parkingRepository.outVehicle(licensePlate)?.toLong()
+        }
+
+        return id
+
+    }
+
 
     companion object {
         const val CALCULATE_ERROR = "Error en el cálculo"
+        const val OUT_STATE = 1
     }
 
 }
