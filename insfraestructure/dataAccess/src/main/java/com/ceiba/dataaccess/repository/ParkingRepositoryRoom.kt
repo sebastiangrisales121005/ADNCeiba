@@ -21,6 +21,7 @@ class ParkingRepositoryRoom @Inject constructor(): ParkingEntranceExitRepository
         val vehicleExist = parkingDbRoomImpl.validateVehicleExist(parking.vehicle.licensePlate)
         if (vehicleExist.isEmpty()) {
             val parkingEntity = ParkingTranslator.fromDomainToEntity(parking)
+
             enterCylinderCapacity(parking, parkingEntity)
             id = executeInsertVehicle(parkingEntity)
         }
@@ -36,7 +37,7 @@ class ParkingRepositoryRoom @Inject constructor(): ParkingEntranceExitRepository
     }
 
     override suspend fun calculateAmountParking(licensePlate: String, endTime: String): ParkingEntranceExit =
-        getVehiclesParkingDb(licensePlate, endTime)
+        updateEndTimeVehicleParkingDb(licensePlate, endTime)
 
 
 
@@ -50,7 +51,7 @@ class ParkingRepositoryRoom @Inject constructor(): ParkingEntranceExitRepository
         return null
     }
 
-    private suspend fun getVehiclesParkingDb(licensePlate: String, endTime: String): ParkingEntranceExit {
+    private suspend fun updateEndTimeVehicleParkingDb(licensePlate: String, endTime: String): ParkingEntranceExit {
         var parking: ParkingEntranceExit? = null
         val vehicleExist = parkingDbRoomImpl.validateVehicleExist(licensePlate)
         if (vehicleExist.isNotEmpty()) {
@@ -81,13 +82,14 @@ class ParkingRepositoryRoom @Inject constructor(): ParkingEntranceExitRepository
         }
     }
 
-    override fun enterCylinderCapacityMotorCycle(cylinderCapacity: Int) {
-        cylinderCapacityVehicle = cylinderCapacity
-    }
 
     companion object {
         const val DB_NAME = "PARKING"
         const val MESSAGE_GET_VEHICLE = "Error encontrando el vehículo solictado"
         const val OUT_STATE = 1
+    }
+
+    override fun enterCylinderCapacityMotorCycle(cylinderCapacity: Int) {
+        cylinderCapacityVehicle = cylinderCapacity
     }
 }

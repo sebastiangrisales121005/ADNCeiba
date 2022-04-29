@@ -39,8 +39,6 @@ class EnterVehiclePageObject {
             Espresso.onView(ViewMatchers.withId(R.id.input_cylinder_capacity_enter_vehicle))
                 .perform(ViewActions.closeSoftKeyboard())
 
-            Espresso.onView(ViewMatchers.withId(R.id.button_save_vehicle))
-                .perform(ViewActions.click())
         }
 
     }

@@ -4,6 +4,7 @@ import android.content.Context
 import com.ceiba.dataaccess.repository.ParkingRepositoryRoom
 import com.ceiba.dataaccess.repository.ParkingServiceRoom
 import com.ceiba.dataaccess.repository.RoomInstance
+import com.ceiba.domain.entity.Motorcycle
 import com.ceiba.domain.repository.MotorcycleEnterRepository
 import com.ceiba.domain.repository.ParkingEntranceExitRepository
 import dagger.Binds
