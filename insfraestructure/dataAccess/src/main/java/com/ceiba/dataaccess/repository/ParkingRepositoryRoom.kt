@@ -5,13 +5,16 @@ import com.ceiba.dataaccess.dto.ParkingEntity
 import com.ceiba.domain.aggregate.ParkingEntranceExit
 import com.ceiba.domain.entity.Motorcycle
 import com.ceiba.domain.exception.ParkingException
+import com.ceiba.domain.repository.MotorcycleEnterRepository
 import com.ceiba.domain.repository.ParkingEntranceExitRepository
 import javax.inject.Inject
 
-class ParkingRepositoryRoom @Inject constructor(): ParkingEntranceExitRepository {
+class ParkingRepositoryRoom @Inject constructor(): ParkingEntranceExitRepository, MotorcycleEnterRepository {
     
     @Inject
     lateinit var parkingDbRoomImpl: ParkingServiceRoom
+
+    var cylinderCapacityVehicle: Int? = null
 
     override suspend fun enterVehicle(parking: ParkingEntranceExit): Long? {
         var id: Long? = null
@@ -78,5 +81,9 @@ class ParkingRepositoryRoom @Inject constructor(): ParkingEntranceExitRepository
     companion object {
         const val DB_NAME = "PARKING"
         const val MESSAGE_GET_VEHICLE = "Error encontrando el vehículo solictado"
+    }
+
+    override fun enterCylinderCapacityMotorCycle(cylinderCapacity: Int) {
+        cylinderCapacityVehicle = cylinderCapacity
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import com.ceiba.dataaccess.repository.ParkingRepositoryRoom
 import com.ceiba.dataaccess.repository.ParkingServiceRoom
 import com.ceiba.dataaccess.repository.RoomInstance
+import com.ceiba.domain.repository.MotorcycleEnterRepository
 import com.ceiba.domain.repository.ParkingEntranceExitRepository
 import dagger.Binds
 import dagger.Module
@@ -17,6 +18,8 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 abstract class ParkingModule {
 
     @Binds abstract fun bindRepository(parkingRepositoryRoom: ParkingRepositoryRoom): ParkingEntranceExitRepository
+
+    @Binds abstract fun bindRepositoryMotorcycle(parkingRepositoryRoom: ParkingRepositoryRoom): MotorcycleEnterRepository
 
     companion object {
         @Provides

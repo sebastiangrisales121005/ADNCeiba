@@ -11,6 +11,7 @@ import androidx.test.espresso.contrib.PickerActions.setTime
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.ceiba.adnceiba.R
+import com.ceiba.adnceiba.withdrawvehicle.view.pageobject.WithDrawVehiclePageObject
 import org.junit.Rule
 import org.junit.Test
 
@@ -22,21 +23,7 @@ class WithDrawVehicleActivityTest {
 
     @Test
     fun clickWithDrawVehicle_isCorrect() {
-        onView(withId(R.id.input_license_plate_withdraw_vehicle))
-            .perform(typeText(licensePlate))
-
-        onView(withId(R.id.input_date_withdraw_vehicle))
-            .perform(click())
-
-        onView(isAssignableFrom(DatePicker::class.java)).perform(
-            setDate(2022, 3, 14))
-        onView(withId(android.R.id.button1)).perform(click())
-
-        onView(isAssignableFrom(TimePicker::class.java)).perform(
-            setTime(7, 0))
-        onView(withId(android.R.id.button1)).perform(click())
-
-        onView(withId(R.id.button_delete_vehicle)).perform(click())
+        WithDrawVehiclePageObject.sendFormOutVehicle(licensePlate)
 
         onView(withId(R.id.container_payment_vehicle)).check(matches(isDisplayed()))
     }
