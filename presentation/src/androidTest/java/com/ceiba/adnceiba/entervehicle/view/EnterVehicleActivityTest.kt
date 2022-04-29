@@ -14,6 +14,6 @@ class EnterVehicleActivityTest {
 
     @Test
     fun clickEnterVehicleButton_isCorrect() {
-        EnterVehiclePageObject.sendVehicleToParking(licensePlate, cylinderCapacity)
+        EnterVehiclePageObject.sendFormEnterVehicleToParking(licensePlate, cylinderCapacity)
     }
 }

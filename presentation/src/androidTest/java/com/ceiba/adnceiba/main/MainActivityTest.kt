@@ -1,4 +1,4 @@
-package com.ceiba.adnceiba
+package com.ceiba.adnceiba.main
 
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
@@ -7,6 +7,9 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.ceiba.adnceiba.MainActivity
+import com.ceiba.adnceiba.R
+import com.ceiba.adnceiba.main.pageobject.MainPageObject
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -20,24 +23,13 @@ class MainActivityTest {
 
     @Test
     fun clickEnterVehicleButton_openEnterUI() {
-        onView(withId(R.id.button_enter_vehicle)).check(matches(isDisplayed()))
-
-        onView(withId(R.id.button_enter_vehicle)).perform(click())
-
-        onView(withId(R.id.button_save_vehicle)).check(matches(isDisplayed()))
-        onView(withId(R.id.input_license_plate_enter_vehicle)).check(matches(isDisplayed()))
-        onView(withId(R.id.input_date_enter_vehicle)).check(matches(isDisplayed()))
-        onView(withId(R.id.input_cylinder_capacity_enter_vehicle)).check(matches(isDisplayed()))
+        MainPageObject.goToEnterVehicle()
         onView(withId(R.id.spinner_vehicle_type_enter)).check(matches(isDisplayed()))
     }
 
     @Test
     fun clickWithDrawVehicleButton_openWithDrawUI() {
-        onView(withId(R.id.button_withdraw_vehicle)).check(matches(isDisplayed()))
-
-        onView(withId(R.id.button_withdraw_vehicle)).perform(click())
-
-        onView(withId(R.id.input_date_withdraw_vehicle)).check(matches(isDisplayed()))
+        MainPageObject.goToWithDrawVehicle()
         onView(withId(R.id.button_delete_vehicle)).check(matches(isDisplayed()))
 
     }

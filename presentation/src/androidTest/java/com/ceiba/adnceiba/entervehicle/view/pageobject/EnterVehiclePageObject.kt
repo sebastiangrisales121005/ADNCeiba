@@ -11,7 +11,7 @@ import com.ceiba.adnceiba.R
 class EnterVehiclePageObject {
 
     companion object {
-        fun sendVehicleToParking(licensePlate: String, cylinderCapacity: String) {
+        fun sendFormEnterVehicleToParking(licensePlate: String, cylinderCapacity: String) {
             Espresso.onView(ViewMatchers.withId(R.id.input_license_plate_enter_vehicle))
                 .perform(ViewActions.typeText(licensePlate))
             Espresso.onView(ViewMatchers.withId(R.id.input_date_enter_vehicle))
