@@ -1,11 +1,8 @@
 package com.ceiba.adnceiba.dimodule
 
 import android.content.Context
-import com.ceiba.dataaccess.repository.ParkingRepositoryRoom
-import com.ceiba.dataaccess.repository.ParkingServiceRoom
-import com.ceiba.dataaccess.repository.RoomInstance
-import com.ceiba.domain.entity.Motorcycle
-import com.ceiba.domain.repository.MotorcycleEnterRepository
+import com.ceiba.dataaccess.repository.*
+import com.ceiba.domain.repository.VehicleEnterRepository
 import com.ceiba.domain.repository.ParkingEntranceExitRepository
 import dagger.Binds
 import dagger.Module
@@ -20,7 +17,8 @@ abstract class ParkingModule {
 
     @Binds abstract fun bindRepository(parkingRepositoryRoom: ParkingRepositoryRoom): ParkingEntranceExitRepository
 
-    @Binds abstract fun bindRepositoryMotorcycle(parkingRepositoryRoom: ParkingRepositoryRoom): MotorcycleEnterRepository
+    @Binds abstract fun bindRepositoryVehicle(motorcycleEnterRepository: MotorcycleEnterRepository): VehicleEnterRepository
+
 
     companion object {
         @Provides

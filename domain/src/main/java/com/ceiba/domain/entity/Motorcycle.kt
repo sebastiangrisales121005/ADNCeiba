@@ -2,13 +2,8 @@ package com.ceiba.domain.entity
 
 import com.ceiba.domain.aggregate.ParkingEntranceExit
 import com.ceiba.domain.exception.ParkingException
-import com.ceiba.domain.repository.MotorcycleEnterRepository
-import javax.inject.Inject
 
-class Motorcycle @Inject constructor(licensePlate: String, val cylinderCapacity: Int) : Vehicle(licensePlate) {
-
-    @Inject
-    lateinit var motorcycleEnterRepository: MotorcycleEnterRepository
+class Motorcycle(licensePlate: String, val cylinderCapacity: Int) : Vehicle(licensePlate) {
 
     override fun validateAmountVehicle(amountVehicles: Int) {
         if (amountVehicles >= MOTORCYCLE_LIMIT_PARKING) {

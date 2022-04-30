@@ -11,7 +11,8 @@ class ParkingEntranceExitServiceApplication @Inject constructor() {
     @Inject
     lateinit var parkingService: ParkingEntranceExitService
 
-    suspend fun enterVehicle(parking: ParkingEntranceExit): Long? = parkingService.enterVehicle(parking)
+    suspend fun enterVehicle(parking: ParkingEntranceExit): Long? =
+        parkingService.enterVehicle(parking)
 
 
     suspend fun outVehicle(licensePlate: String): Int?  = parkingService.outVehicle(licensePlate)

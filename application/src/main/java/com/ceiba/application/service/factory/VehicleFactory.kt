@@ -6,10 +6,10 @@ import com.ceiba.domain.entity.Vehicle
 
 class VehicleFactory {
     companion object {
-        private const val MOTORCYCLE_ES = "Moto"
-        private const val MOTORCYCLE_EN = "Motorcycle"
-        private const val CAR_ES = "Carro"
-        private const val CAR_EN = "Car"
+        const val MOTORCYCLE_ES = "Moto"
+        const val MOTORCYCLE_EN = "Motorcycle"
+        const val CAR_ES = "Carro"
+        const val CAR_EN = "Car"
 
         fun build(licensePlate: String, vehicleType: String?, cylinderCapacity: Int): Vehicle? {
             var vehicle: Vehicle? = null

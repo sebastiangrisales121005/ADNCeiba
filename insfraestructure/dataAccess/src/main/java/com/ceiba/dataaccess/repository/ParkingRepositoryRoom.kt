@@ -3,20 +3,17 @@ package com.ceiba.dataaccess.repository
 import com.ceiba.dataaccess.anticorruption.ParkingTranslator
 import com.ceiba.dataaccess.dto.ParkingEntity
 import com.ceiba.domain.aggregate.ParkingEntranceExit
-import com.ceiba.domain.entity.Motorcycle
 import com.ceiba.domain.exception.ParkingException
-import com.ceiba.domain.repository.MotorcycleEnterRepository
 import com.ceiba.domain.repository.ParkingEntranceExitRepository
 import javax.inject.Inject
 
-class ParkingRepositoryRoom @Inject constructor(): ParkingEntranceExitRepository, MotorcycleEnterRepository {
+class ParkingRepositoryRoom @Inject constructor(): ParkingEntranceExitRepository {
     
     @Inject
     lateinit var parkingDbRoomImpl: ParkingServiceRoom
 
-    var cylinderCapacityVehicle: Int? = null
 
-    override suspend fun enterVehicle(parking: ParkingEntranceExit): Long? {
+    /*override suspend fun enterVehicle(parking: ParkingEntranceExit): Long? {
         var id: Long? = null
         val vehicleExist = parkingDbRoomImpl.validateVehicleExist(parking.vehicle.licensePlate)
         if (vehicleExist.isEmpty()) {
@@ -27,7 +24,7 @@ class ParkingRepositoryRoom @Inject constructor(): ParkingEntranceExitRepository
         }
 
         return id
-    }
+    }*/
 
     override suspend fun outVehicle(licensePlate: String): Int? {
         parkingDbRoomImpl.outVehicle(OUT_STATE, licensePlate)
@@ -72,15 +69,8 @@ class ParkingRepositoryRoom @Inject constructor(): ParkingEntranceExitRepository
 
     private suspend fun getCountVehicle(vehicleType: String): Int = parkingDbRoomImpl.getCountVehicle(vehicleType)
 
-    private suspend fun executeInsertVehicle(parkingEntity: ParkingEntity): Long = parkingDbRoomImpl.insertVehicle(parkingEntity)
+    suspend fun executeInsertVehicle(parkingEntity: ParkingEntity): Long = parkingDbRoomImpl.insertVehicle(parkingEntity)
 
-
-    private fun enterCylinderCapacity(parking: ParkingEntranceExit, parkingEntity: ParkingEntity) {
-        if (parking.vehicle is Motorcycle) {
-            val motorcycle = parking.vehicle as Motorcycle
-            parkingEntity.cylinderCapacity = motorcycle.cylinderCapacity
-        }
-    }
 
 
     companion object {
@@ -89,7 +79,4 @@ class ParkingRepositoryRoom @Inject constructor(): ParkingEntranceExitRepository
         const val OUT_STATE = 1
     }
 
-    override fun enterCylinderCapacityMotorCycle(cylinderCapacity: Int) {
-        cylinderCapacityVehicle = cylinderCapacity
-    }
 }

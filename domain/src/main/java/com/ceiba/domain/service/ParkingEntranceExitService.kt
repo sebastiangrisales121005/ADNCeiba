@@ -3,16 +3,18 @@ package com.ceiba.domain.service
 import com.ceiba.domain.aggregate.ParkingEntranceExit
 import com.ceiba.domain.exception.ParkingException
 import com.ceiba.domain.repository.ParkingEntranceExitRepository
+import com.ceiba.domain.repository.VehicleEnterRepository
 import javax.inject.Inject
 
-class ParkingEntranceExitService @Inject constructor(private val parkingRepository: ParkingEntranceExitRepository) {
+class ParkingEntranceExitService @Inject constructor(private val parkingRepository: ParkingEntranceExitRepository,
+                            private val vehicleEnterRepository: VehicleEnterRepository) {
 
     suspend fun enterVehicle(parking: ParkingEntranceExit): Long? {
         parking.validateEnterLicensePlate()
         validateCountVehicle(parking)
         val id = validateVehicleState(parking.vehicle.licensePlate)
 
-        return id?.let { return it } ?: kotlin.run { return parkingRepository.enterVehicle(parking) }
+        return id?.let { return it } ?: kotlin.run { return vehicleEnterRepository.enterVehicle(parking) }
     }
 
     suspend fun outVehicle(licensePlate: String): Int? = parkingRepository.outVehicle(licensePlate)
