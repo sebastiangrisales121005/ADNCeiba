@@ -16,7 +16,7 @@ class CarEnterRepository @Inject constructor(): ParkingRepositoryRoom(), Vehicle
             val vehicleExist = parkingDbRoomImpl.validateVehicleExist(motorcycle.licensePlate)
             if (vehicleExist.isEmpty()) {
                 val parkingEntity = ParkingTranslator.fromDomainToEntity(parkingEntranceExit)
-                parkingEntity.cylinderCapacity = 0
+                parkingEntity.cylinderCapacity = EMPTY_CYLINDER_CAPACITY
 
                 id = executeInsertVehicle(parkingEntity)
             }
@@ -25,6 +25,10 @@ class CarEnterRepository @Inject constructor(): ParkingRepositoryRoom(), Vehicle
         }
 
         return null
+    }
+
+    companion object {
+        const val EMPTY_CYLINDER_CAPACITY = 0
     }
 
 

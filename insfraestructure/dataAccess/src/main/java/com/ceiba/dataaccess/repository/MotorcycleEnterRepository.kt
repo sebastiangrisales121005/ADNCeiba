@@ -8,21 +8,14 @@ import javax.inject.Inject
 
 class MotorcycleEnterRepository @Inject constructor(): ParkingRepositoryRoom(), VehicleEnterRepository {
 
-
     override suspend fun enterVehicle(parkingEntranceExit: ParkingEntranceExit): Long? {
         if (parkingEntranceExit.vehicle is Motorcycle) {
             val motorcycle = parkingEntranceExit.vehicle as Motorcycle
+            val parkingEntity = ParkingTranslator.fromDomainToEntity(parkingEntranceExit)
+            parkingEntity.cylinderCapacity = motorcycle.cylinderCapacity
 
-            var id: Long? = null
-            val vehicleExist = parkingDbRoomImpl.validateVehicleExist(motorcycle.licensePlate)
-            if (vehicleExist.isEmpty()) {
-                val parkingEntity = ParkingTranslator.fromDomainToEntity(parkingEntranceExit)
-                parkingEntity.cylinderCapacity = motorcycle.cylinderCapacity
+            return enterVehicleParking(parkingEntity, motorcycle.licensePlate)
 
-                id = executeInsertVehicle(parkingEntity)
-            }
-
-            return id
         }
 
         return null

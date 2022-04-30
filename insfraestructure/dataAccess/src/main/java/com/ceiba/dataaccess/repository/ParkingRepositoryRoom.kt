@@ -12,6 +12,15 @@ open class ParkingRepositoryRoom @Inject constructor(): ParkingEntranceExitRepos
     @Inject
     lateinit var parkingDbRoomImpl: ParkingServiceRoom
 
+    suspend fun enterVehicleParking(parkingEntity: ParkingEntity, licensePlate: String): Long? {
+        val vehicleExist = parkingDbRoomImpl.validateVehicleExist(licensePlate)
+        if (vehicleExist.isEmpty()) {
+            return executeInsertVehicle(parkingEntity)
+        }
+
+        return null
+    }
+
     override suspend fun outVehicle(licensePlate: String): Int? {
         parkingDbRoomImpl.outVehicle(OUT_STATE, licensePlate)
         return parkingDbRoomImpl
