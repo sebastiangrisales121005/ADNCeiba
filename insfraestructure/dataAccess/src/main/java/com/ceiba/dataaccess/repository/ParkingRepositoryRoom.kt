@@ -7,24 +7,10 @@ import com.ceiba.domain.exception.ParkingException
 import com.ceiba.domain.repository.ParkingEntranceExitRepository
 import javax.inject.Inject
 
-class ParkingRepositoryRoom @Inject constructor(): ParkingEntranceExitRepository {
+open class ParkingRepositoryRoom @Inject constructor(): ParkingEntranceExitRepository {
     
     @Inject
     lateinit var parkingDbRoomImpl: ParkingServiceRoom
-
-
-    /*override suspend fun enterVehicle(parking: ParkingEntranceExit): Long? {
-        var id: Long? = null
-        val vehicleExist = parkingDbRoomImpl.validateVehicleExist(parking.vehicle.licensePlate)
-        if (vehicleExist.isEmpty()) {
-            val parkingEntity = ParkingTranslator.fromDomainToEntity(parking)
-
-            enterCylinderCapacity(parking, parkingEntity)
-            id = executeInsertVehicle(parkingEntity)
-        }
-
-        return id
-    }*/
 
     override suspend fun outVehicle(licensePlate: String): Int? {
         parkingDbRoomImpl.outVehicle(OUT_STATE, licensePlate)

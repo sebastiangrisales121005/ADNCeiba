@@ -3,7 +3,6 @@ package com.ceiba.domain.repository
 import com.ceiba.domain.aggregate.ParkingEntranceExit
 
 interface ParkingEntranceExitRepository {
-    //suspend fun enterVehicle(parking: ParkingEntranceExit): Long?
 
     suspend fun outVehicle(licensePlate: String): Int?
 

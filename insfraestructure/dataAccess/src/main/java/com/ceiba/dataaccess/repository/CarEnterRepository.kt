@@ -1,15 +1,12 @@
 package com.ceiba.dataaccess.repository
 
 import com.ceiba.dataaccess.anticorruption.ParkingTranslator
-import com.ceiba.dataaccess.dto.ParkingEntity
 import com.ceiba.domain.aggregate.ParkingEntranceExit
 import com.ceiba.domain.entity.Car
 import com.ceiba.domain.repository.VehicleEnterRepository
 import javax.inject.Inject
 
-class CarEnterRepository @Inject constructor(): VehicleEnterRepository {
-    @Inject
-    lateinit var parkingDbRoomImpl: ParkingServiceRoom
+class CarEnterRepository @Inject constructor(): ParkingRepositoryRoom(), VehicleEnterRepository {
 
     override suspend fun enterVehicle(parkingEntranceExit: ParkingEntranceExit): Long? {
         if (parkingEntranceExit.vehicle is Car) {
@@ -29,8 +26,6 @@ class CarEnterRepository @Inject constructor(): VehicleEnterRepository {
 
         return null
     }
-
-    suspend fun executeInsertVehicle(parkingEntity: ParkingEntity): Long = parkingDbRoomImpl.insertVehicle(parkingEntity)
 
 
 }

@@ -5,10 +5,9 @@ import android.text.InputFilter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ceiba.application.service.ParkingEntranceExitServiceApplication
-import com.ceiba.dataaccess.factory.EnterVehicleFactory
+import com.ceiba.application.service.factory.VehicleFactory
 import com.ceiba.domain.aggregate.ParkingEntranceExit
 import com.ceiba.domain.exception.ParkingException
-import com.ceiba.application.service.factory.VehicleFactory
 import com.ceiba.domain.valueobject.Time
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -29,7 +28,6 @@ class EnterVehicleViewModel: ViewModel() {
             val time = Time(startTime, null, day)
 
             val parking = vehicle?.let { ParkingEntranceExit(it, time) }
-            val repository = EnterVehicleFactory.build(selectedVehicle)
 
             CoroutineScope(Dispatchers.Main).launch {
                 try {
