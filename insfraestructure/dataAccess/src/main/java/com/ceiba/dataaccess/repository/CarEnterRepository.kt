@@ -2,6 +2,7 @@ package com.ceiba.dataaccess.repository
 
 import com.ceiba.domain.aggregate.ParkingEntranceExit
 import com.ceiba.domain.entity.Car
+import com.ceiba.domain.exception.ParkingException
 import com.ceiba.domain.repository.VehicleEnterRepository
 
 class CarEnterRepository: VehicleEnterRepository {
@@ -11,7 +12,7 @@ class CarEnterRepository: VehicleEnterRepository {
             return EMPTY_CYLINDER_CAPACITY
         }
 
-        return null
+        throw ParkingException("Error en el cilindraje")
     }
 
     companion object {

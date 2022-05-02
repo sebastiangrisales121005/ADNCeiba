@@ -21,7 +21,7 @@ open class ParkingRepositoryRoom @Inject constructor(): ParkingEntranceExitRepos
             return executeInsertVehicle(parkingEntity)
         }
 
-        return null
+        throw ParkingException("")
     }
 
     override suspend fun outVehicle(licensePlate: String): Int? {
