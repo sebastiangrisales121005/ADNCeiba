@@ -5,6 +5,7 @@ import com.ceiba.dataaccess.dto.ParkingEntity
 import com.ceiba.domain.aggregate.ParkingEntranceExit
 import com.ceiba.domain.exception.ParkingException
 import com.ceiba.domain.repository.ParkingEntranceExitRepository
+import com.ceiba.domain.repository.VehicleEnterRepository
 import javax.inject.Inject
 
 open class ParkingRepositoryRoom @Inject constructor(): ParkingEntranceExitRepository {
@@ -12,9 +13,11 @@ open class ParkingRepositoryRoom @Inject constructor(): ParkingEntranceExitRepos
     @Inject
     lateinit var parkingDbRoomImpl: ParkingServiceRoom
 
-    suspend fun enterVehicleParking(parkingEntity: ParkingEntity, licensePlate: String): Long? {
-        val vehicleExist = parkingDbRoomImpl.validateVehicleExist(licensePlate)
+    override suspend fun enterVehicle(parkingEntranceExit: ParkingEntranceExit, vehicleEnterRepository: VehicleEnterRepository): Long? {
+        val vehicleExist = parkingDbRoomImpl.validateVehicleExist(parkingEntranceExit.vehicle.licensePlate)
         if (vehicleExist.isEmpty()) {
+            val parkingEntity = ParkingTranslator.fromDomainToEntity(parkingEntranceExit)
+            parkingEntity.cylinderCapacity = vehicleEnterRepository.enterVehicle(parkingEntranceExit)
             return executeInsertVehicle(parkingEntity)
         }
 
@@ -64,7 +67,7 @@ open class ParkingRepositoryRoom @Inject constructor(): ParkingEntranceExitRepos
 
     private suspend fun getCountVehicle(vehicleType: String): Int = parkingDbRoomImpl.getCountVehicle(vehicleType)
 
-    suspend fun executeInsertVehicle(parkingEntity: ParkingEntity): Long = parkingDbRoomImpl.insertVehicle(parkingEntity)
+    private suspend fun executeInsertVehicle(parkingEntity: ParkingEntity): Long = parkingDbRoomImpl.insertVehicle(parkingEntity)
 
 
 

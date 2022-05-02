@@ -6,15 +6,14 @@ import com.ceiba.domain.repository.ParkingEntranceExitRepository
 import com.ceiba.domain.repository.VehicleEnterRepository
 import javax.inject.Inject
 
-class ParkingEntranceExitService @Inject constructor(private val parkingRepository: ParkingEntranceExitRepository,
-                            private val vehicleEnterRepository: VehicleEnterRepository) {
+class ParkingEntranceExitService @Inject constructor(private val parkingRepository: ParkingEntranceExitRepository) {
 
-    suspend fun enterVehicle(parking: ParkingEntranceExit): Long? {
+    suspend fun enterVehicle(parking: ParkingEntranceExit, vehicleEnterRepository: VehicleEnterRepository): Long? {
         parking.validateEnterLicensePlate()
         validateCountVehicle(parking)
         val id = validateVehicleState(parking.vehicle.licensePlate)
 
-        return id?.let { return it } ?: kotlin.run { return vehicleEnterRepository.enterVehicle(parking) }
+        return id?.let { return it } ?: kotlin.run { return parkingRepository.enterVehicle(parking, vehicleEnterRepository) }
     }
 
     suspend fun outVehicle(licensePlate: String): Int? = parkingRepository.outVehicle(licensePlate)

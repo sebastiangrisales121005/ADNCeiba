@@ -6,8 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ceiba.application.service.ParkingEntranceExitServiceApplication
 import com.ceiba.application.service.factory.VehicleFactory
+import com.ceiba.dataaccess.factory.EnterVehicleFactory
 import com.ceiba.domain.aggregate.ParkingEntranceExit
 import com.ceiba.domain.exception.ParkingException
+import com.ceiba.domain.repository.VehicleEnterRepository
 import com.ceiba.domain.valueobject.Time
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -28,10 +30,11 @@ class EnterVehicleViewModel: ViewModel() {
             val time = Time(startTime, null, day)
 
             val parking = vehicle?.let { ParkingEntranceExit(it, time) }
+            val vehicleEnterRepository = EnterVehicleFactory.build(selectedVehicle)
 
             CoroutineScope(Dispatchers.Main).launch {
                 try {
-                    enterVehicleLiveData.value = parking?.let { getEnterVehicle(it) }
+                    enterVehicleLiveData.value = parking?.let { getEnterVehicle(it, vehicleEnterRepository) }
                 } catch (e: ParkingException) {
                     showMessageLiveData.value = e.message
                 }
@@ -43,9 +46,9 @@ class EnterVehicleViewModel: ViewModel() {
 
     }
 
-    private suspend fun getEnterVehicle(parking: ParkingEntranceExit): Long? {
+    private suspend fun getEnterVehicle(parking: ParkingEntranceExit, vehicleEnterRepository: VehicleEnterRepository): Long? {
        return withContext(Dispatchers.IO) {
-            parkingEntranceExitServiceApplication.enterVehicle(parking)
+            parkingEntranceExitServiceApplication.enterVehicle(parking, vehicleEnterRepository)
         }
     }
 
