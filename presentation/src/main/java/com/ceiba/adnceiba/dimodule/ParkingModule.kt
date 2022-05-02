@@ -17,8 +17,6 @@ abstract class ParkingModule {
 
     @Binds abstract fun bindRepository(parkingRepositoryRoom: ParkingRepositoryRoom): ParkingEntranceExitRepository
 
-    @Binds abstract fun bindRepositoryVehicle(motorcycleEnterRepository: MotorcycleEnterRepository): VehicleEnterRepository
-
 
     companion object {
         @Provides
