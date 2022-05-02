@@ -10,18 +10,11 @@ class CarEnterRepository @Inject constructor(): ParkingRepositoryRoom(), Vehicle
 
     override suspend fun enterVehicle(parkingEntranceExit: ParkingEntranceExit): Long? {
         if (parkingEntranceExit.vehicle is Car) {
-            val motorcycle = parkingEntranceExit.vehicle as Car
+            val car = parkingEntranceExit.vehicle as Car
+            val parkingEntity = ParkingTranslator.fromDomainToEntity(parkingEntranceExit)
+            parkingEntity.cylinderCapacity = EMPTY_CYLINDER_CAPACITY
 
-            var id: Long? = null
-            val vehicleExist = parkingDbRoomImpl.validateVehicleExist(motorcycle.licensePlate)
-            if (vehicleExist.isEmpty()) {
-                val parkingEntity = ParkingTranslator.fromDomainToEntity(parkingEntranceExit)
-                parkingEntity.cylinderCapacity = EMPTY_CYLINDER_CAPACITY
-
-                id = executeInsertVehicle(parkingEntity)
-            }
-
-            return id
+            return enterVehicleParking(parkingEntity, car.licensePlate)
         }
 
         return null
