@@ -5,7 +5,7 @@ import com.ceiba.domain.core.MotorcycleBuilder
 import com.ceiba.domain.core.ParkingBuilder
 import com.ceiba.domain.core.TimeBuilder
 import com.ceiba.domain.exception.ParkingException
-import com.ceiba.domain.repository.ParkingEntranceExitRepository
+import com.ceiba.domain.service.ParkingEntranceExitService
 import com.ceiba.domain.service.ParkingEntranceExitService.Companion.CALCULATE_ERROR
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
@@ -18,7 +18,7 @@ import org.mockito.junit.MockitoJUnitRunner
 class ParkingEntranceExitServiceTest {
 
     @Mock
-    lateinit var parkingEntranceExitRepository: ParkingEntranceExitRepository
+    lateinit var parkingEntranceExitService: ParkingEntranceExitService
 
     @Test
     fun vehicle_enter_isFailure() = runBlocking  {
@@ -41,7 +41,7 @@ class ParkingEntranceExitServiceTest {
         val vehicleRepository = MotorcycleEnterRepository()
 
         //Act
-        val result = parkingEntranceExitRepository.enterVehicle(parking, vehicleRepository)
+        val result = parkingEntranceExitService.enterVehicle(parking, vehicleRepository)
 
         //Assert
         Assert.assertNull(result)
@@ -66,7 +66,7 @@ class ParkingEntranceExitServiceTest {
         //Act
         try {
             timeBuilder.endDateTime?.let {
-                parkingEntranceExitRepository.calculateAmountParking(vehicleBuilder.licensePlate,
+                parkingEntranceExitService.calculateAmountParking(vehicleBuilder.licensePlate,
                     it
                 )
             }
@@ -86,7 +86,7 @@ class ParkingEntranceExitServiceTest {
             .build()
 
         //Act
-        val result = parkingEntranceExitRepository.outVehicle(vehicleBuilder.licensePlate)
+        val result = parkingEntranceExitService.outVehicle(vehicleBuilder.licensePlate)
 
         //Assert
         Assert.assertNull(result)
@@ -100,7 +100,7 @@ class ParkingEntranceExitServiceTest {
             .build()
 
         //Act
-        val result = parkingEntranceExitRepository.getVehicleExistState(vehicleBuilder.licensePlate)
+        val result = parkingEntranceExitService.validateVehicleState(vehicleBuilder.licensePlate)
 
         //Assert
         Assert.assertNull(result)

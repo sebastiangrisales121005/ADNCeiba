@@ -31,7 +31,7 @@ class ParkingEntranceExitService @Inject constructor(private val parkingReposito
         parking.vehicle.validate(parkingRepository.getCountVehicleParking(parking.vehicle.javaClass.simpleName))
     }
 
-    private suspend fun validateVehicleState(licensePlate: String): Long? {
+    suspend fun validateVehicleState(licensePlate: String): Long? {
         var id: Long? = null
         if (parkingRepository.getVehicleExistState(licensePlate)?.equals(OUT_STATE) == true) {
             id = parkingRepository.outVehicle(licensePlate)?.toLong()
