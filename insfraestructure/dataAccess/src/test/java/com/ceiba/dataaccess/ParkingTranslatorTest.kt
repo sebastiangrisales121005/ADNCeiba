@@ -31,7 +31,7 @@ class ParkingTranslatorTest {
         val parkingDomain = ParkingTranslator.fromEntityToDomain(parkingEntity)
 
         //Assert
-        Assert.assertNotNull(parkingDomain)
+        Assert.assertNull(parkingDomain)
     }
 
     @Test
