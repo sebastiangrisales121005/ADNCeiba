@@ -7,7 +7,7 @@ import com.ceiba.domain.repository.VehicleEnterRepository
 
 class CarEnterRepository: VehicleEnterRepository {
 
-    override suspend fun enterVehicle(parkingEntranceExit: ParkingEntranceExit): Int? {
+    override suspend fun enterVehicle(parkingEntranceExit: ParkingEntranceExit): Int {
         if (parkingEntranceExit.vehicle is Car) {
             return EMPTY_CYLINDER_CAPACITY
         }
