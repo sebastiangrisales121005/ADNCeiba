@@ -26,7 +26,7 @@ class ParkingTranslator {
             parkingEntity.day)
 
             return VehicleFactory.build(parkingEntity.licensePlate,
-                parkingEntity.vehicleType, parkingEntity.cylinderCapacity)
+                parkingEntity.vehicleType, parkingEntity.cylinderCapacity!!)
                 ?.let { ParkingEntranceExit(it, time) }
 
         }
