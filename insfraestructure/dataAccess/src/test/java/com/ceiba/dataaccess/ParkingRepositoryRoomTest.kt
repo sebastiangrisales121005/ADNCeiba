@@ -5,7 +5,7 @@ import com.ceiba.dataaccess.repository.ParkingRepositoryRoom
 import com.ceiba.domain.aggregate.ParkingEntranceExit
 import com.ceiba.domain.entity.Motorcycle
 import com.ceiba.domain.valueobject.Time
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -18,7 +18,7 @@ class ParkingRepositoryRoomTest {
     lateinit var parkingRepositoryRoom: ParkingRepositoryRoom
 
     @Test
-    fun vehicle_enterRoom_isFailure() = runBlockingTest {
+    fun vehicle_enterRoom_isFailure() = runBlocking {
         //Arrange
         val licensePlate = "ABC000"
         val cylinderCapacity = 150
