@@ -13,7 +13,7 @@ import org.junit.Test
 class ParkingTranslatorTest {
 
     @Test
-    fun parking_translator_isFailure() {
+    fun parking_translator_isCorrect() {
         //Arrange
         val licensePlate = "ABC000"
         val cylinderCapacity = 150
@@ -31,7 +31,7 @@ class ParkingTranslatorTest {
         val parkingDomain = ParkingTranslator.fromEntityToDomain(parkingEntity)
 
         //Assert
-        Assert.assertNull(parkingDomain)
+        Assert.assertNotNull(parkingDomain)
     }
 
     @Test
