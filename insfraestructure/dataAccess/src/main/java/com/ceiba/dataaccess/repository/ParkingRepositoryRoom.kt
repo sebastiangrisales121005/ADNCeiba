@@ -46,7 +46,7 @@ open class ParkingRepositoryRoom @Inject constructor(): ParkingEntranceExitRepos
         return null
     }
 
-    private suspend fun updateEndTimeVehicleParkingDb(licensePlate: String, endTime: String): ParkingEntranceExit {
+    suspend fun updateEndTimeVehicleParkingDb(licensePlate: String, endTime: String): ParkingEntranceExit {
         var parking: ParkingEntranceExit? = null
         val vehicleExist = parkingDbRoomImpl.validateVehicleExist(licensePlate)
         if (vehicleExist.isNotEmpty()) {
