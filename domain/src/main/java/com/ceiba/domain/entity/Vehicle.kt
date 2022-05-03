@@ -16,13 +16,13 @@ abstract class Vehicle(val licensePlate: String) {
 
     }
 
-    private fun validateDataEmpty() {
+    fun validateDataEmpty() {
         if (licensePlate.isEmpty()){
             throw ParkingException(MESSAGE_EMPTY)
         }
     }
 
-    private fun validateLength() {
+    fun validateLength() {
         if (licensePlate.length > 6) {
             throw ParkingException(MESSAGE_LENGTH)
         }

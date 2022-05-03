@@ -3,6 +3,10 @@ package com.ceiba.domain
 import com.ceiba.domain.core.CarBuilder
 import com.ceiba.domain.core.ParkingBuilder
 import com.ceiba.domain.core.TimeBuilder
+import com.ceiba.domain.entity.Car.Companion.MESSAGE_RESTRICTED
+import com.ceiba.domain.entity.Vehicle.Companion.MESSAGE_EMPTY
+import com.ceiba.domain.entity.Vehicle.Companion.MESSAGE_LENGTH
+import com.ceiba.domain.exception.ParkingException
 import org.junit.Assert
 import org.junit.Test
 
@@ -74,4 +78,46 @@ class CarTest {
         //Assert
         Assert.assertNotEquals(24000, result)
     }
+
+    @Test
+    fun parking_validateDataEmpty_isCorrect() {
+        //Arrange
+        val vehicleBuilder = CarBuilder.aCar()
+            .build()
+
+        //Act
+        val result = vehicleBuilder.validateDataEmpty()
+
+        //Assert
+        Assert.assertNotEquals(ParkingException(MESSAGE_EMPTY), result)
+    }
+
+    @Test
+    fun parking_validateDataLength_isCorrect() {
+        //Arrange
+        val vehicleBuilder = CarBuilder.aCar()
+            .build()
+
+        //Act
+        val result = vehicleBuilder.validateLength()
+
+        //Assert
+        Assert.assertNotEquals(ParkingException(MESSAGE_LENGTH), result)
+    }
+
+    @Test
+    fun parking_validateAmountVehicle_isCorrect() {
+        //Arrange
+        val vehicleBuilder = CarBuilder.aCar()
+            .build()
+
+        val amount = 11
+
+        //Act
+        val result = vehicleBuilder.validateAmountVehicle(amount)
+
+        //Assert
+        Assert.assertNotEquals(ParkingException(MESSAGE_RESTRICTED), result)
+    }
+
 }
