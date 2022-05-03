@@ -1,6 +1,8 @@
 package com.ceiba.dataaccess
 
+import com.ceiba.application.service.factory.VehicleFactory
 import com.ceiba.dataaccess.anticorruption.ParkingTranslator
+import com.ceiba.dataaccess.factory.EnterVehicleFactory
 import com.ceiba.domain.aggregate.ParkingEntranceExit
 import com.ceiba.domain.entity.Motorcycle
 import com.ceiba.domain.valueobject.Time
@@ -30,5 +32,31 @@ class ParkingTranslatorTest {
 
         //Assert
         Assert.assertNull(parkingDomain)
+    }
+
+    @Test
+    fun parking_factory_isCorrect() {
+        //Arrange
+        val licensePlate = "ABC000"
+        val cylinderCapacity = 150
+        val vehicleType = "Moto"
+
+        //Act
+        val factory = VehicleFactory.build(licensePlate, vehicleType, cylinderCapacity)
+
+        //Assert
+        Assert.assertNotNull(factory)
+    }
+
+    @Test
+    fun parking_enterVehicleFactory_isCorrect() {
+        //Arrange
+        val vehicleType = "Moto"
+
+        //Act
+        val factory = EnterVehicleFactory.build(vehicleType)
+
+        //Assert
+        Assert.assertNotNull(factory)
     }
 }

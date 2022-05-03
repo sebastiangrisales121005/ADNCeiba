@@ -13,7 +13,6 @@ abstract class Vehicle(val licensePlate: String) {
 
     fun validate(amountVehicles: Int) {
         validateAmountVehicle(amountVehicles)
-
     }
 
     fun validateDataEmpty() {
