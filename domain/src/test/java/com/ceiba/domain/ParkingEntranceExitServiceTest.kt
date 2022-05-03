@@ -5,6 +5,7 @@ import com.ceiba.domain.core.MotorcycleBuilder
 import com.ceiba.domain.core.ParkingBuilder
 import com.ceiba.domain.core.TimeBuilder
 import com.ceiba.domain.exception.ParkingException
+import com.ceiba.domain.repository.ParkingEntranceExitRepository
 import com.ceiba.domain.service.ParkingEntranceExitService
 import com.ceiba.domain.service.ParkingEntranceExitService.Companion.CALCULATE_ERROR
 import kotlinx.coroutines.runBlocking
@@ -13,12 +14,14 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
+import org.mockito.Mockito.`when`
+
 
 @RunWith(MockitoJUnitRunner::class)
 class ParkingEntranceExitServiceTest {
 
     @Mock
-    lateinit var parkingEntranceExitService: ParkingEntranceExitService
+    lateinit var parkingEntranceExitRepository: ParkingEntranceExitRepository
 
     @Test
     fun vehicle_enter_isFailure() = runBlocking  {
@@ -39,6 +42,10 @@ class ParkingEntranceExitServiceTest {
             .build()
 
         val vehicleRepository = MotorcycleEnterRepository()
+
+        val parkingEntranceExitService = ParkingEntranceExitService(parkingEntranceExitRepository)
+
+        `when`(parkingEntranceExitRepository.getCountVehicleParking(vehicleBuilder.javaClass.simpleName)).thenReturn(1)
 
         //Act
         val result = parkingEntranceExitService.enterVehicle(parking, vehicleRepository)
@@ -63,6 +70,8 @@ class ParkingEntranceExitServiceTest {
 
         val expectedMessage = CALCULATE_ERROR
 
+        val parkingEntranceExitService = ParkingEntranceExitService(parkingEntranceExitRepository)
+
         //Act
         try {
             timeBuilder.endDateTime?.let {
@@ -85,6 +94,8 @@ class ParkingEntranceExitServiceTest {
         val vehicleBuilder = MotorcycleBuilder.aMotorcycle()
             .build()
 
+        val parkingEntranceExitService = ParkingEntranceExitService(parkingEntranceExitRepository)
+
         //Act
         val result = parkingEntranceExitService.outVehicle(vehicleBuilder.licensePlate)
 
@@ -99,6 +110,7 @@ class ParkingEntranceExitServiceTest {
         val vehicleBuilder = MotorcycleBuilder.aMotorcycle()
             .build()
 
+        val parkingEntranceExitService = ParkingEntranceExitService(parkingEntranceExitRepository)
         //Act
         val result = parkingEntranceExitService.validateVehicleState(vehicleBuilder.licensePlate)
 
