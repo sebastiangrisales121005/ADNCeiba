@@ -62,7 +62,6 @@ class WithDrawVehicleActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this)[WithDrawViewModel::class.java]
         viewModel?.parkingEntranceExitServiceApplication = parkingEntranceExitServiceApplication
-        viewModel?.disableEmoji()
 
         mActivityWithDrawVehicleBinding?.buttonDeleteVehicle?.setOnClickListener {
             val valueLicensePlate = mActivityWithDrawVehicleBinding?.inputLicensePlateWithdrawVehicle?.text.toString()
