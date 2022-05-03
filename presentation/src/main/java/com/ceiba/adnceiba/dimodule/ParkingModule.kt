@@ -1,8 +1,9 @@
 package com.ceiba.adnceiba.dimodule
 
 import android.content.Context
-import com.ceiba.dataaccess.repository.*
-import com.ceiba.domain.repository.VehicleEnterRepository
+import com.ceiba.dataaccess.repository.ParkingRepositoryRoom
+import com.ceiba.dataaccess.repository.ParkingServiceRoom
+import com.ceiba.dataaccess.repository.RoomInstance
 import com.ceiba.domain.repository.ParkingEntranceExitRepository
 import dagger.Binds
 import dagger.Module

@@ -94,10 +94,12 @@ task jacocoTestReport (type: JacocoReport, dependsOn: [':domain:testDebugUnitTes
     )
 
     def executionFileForUnitTestInDomain = "$domain.buildDir/jacoco/testDebugUnitTest.exec"
+    def executionFileForUnitTestInInfrastructure = "$infrastructure.buildDir/jacoco/testDebugUnitTest.exec"
 
     def executionFiles = layout.files(
             executionFilesFromConnectedAndroidTest,
             executionFileForUnitTestInDomain,
+            executionFileForUnitTestInInfrastructure,
             executionFilesFromConnectedAndroidTestInfrastructure
     )
 
