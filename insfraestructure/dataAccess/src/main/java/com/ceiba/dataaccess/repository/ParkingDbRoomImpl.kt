@@ -6,7 +6,7 @@ import com.ceiba.dataaccess.dto.ParkingEntity
 
 @Database(
     entities = [ParkingEntity::class],
-    version = 1
+    version = 2
 )
 abstract class ParkingDbRoomImpl: RoomDatabase() {
     abstract fun parkingDao(): ParkingServiceRoom
