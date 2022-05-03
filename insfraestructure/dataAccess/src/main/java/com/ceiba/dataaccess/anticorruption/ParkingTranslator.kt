@@ -22,14 +22,17 @@ class ParkingTranslator {
             }
 
         fun fromEntityToDomain(parkingEntity: ParkingEntity): ParkingEntranceExit? {
-            val time = Time(parkingEntity.startDateTime, parkingEntity.endDateTime,
-            parkingEntity.day)
-
-            return parkingEntity.cylinderCapacity?.let {
+            val vehicle = parkingEntity.cylinderCapacity?.let {
                 VehicleFactory.build(parkingEntity.licensePlate,
                     parkingEntity.vehicleType, it
-                )?.let { vehicle -> ParkingEntranceExit(vehicle, time) }
+                )
             }
+
+            val time = Time(parkingEntity.startDateTime, parkingEntity.endDateTime,
+                parkingEntity.day)
+
+            return vehicle?.let { ParkingEntranceExit(it, time) }
+
         }
     }
 }
