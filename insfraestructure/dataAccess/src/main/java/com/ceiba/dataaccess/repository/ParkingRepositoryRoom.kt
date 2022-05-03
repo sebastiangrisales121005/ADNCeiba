@@ -43,7 +43,7 @@ open class ParkingRepositoryRoom @Inject constructor(): ParkingEntranceExitRepos
             return parkingDbRoomImpl.validateVehicleExist(licensePlate)[0].stateVehicle
         }
 
-        return null
+        throw ParkingException(MESSAGE_GET_VEHICLE)
     }
 
     suspend fun updateEndTimeVehicleParkingDb(licensePlate: String, endTime: String): ParkingEntranceExit {
@@ -67,7 +67,7 @@ open class ParkingRepositoryRoom @Inject constructor(): ParkingEntranceExitRepos
 
     private suspend fun getCountVehicle(vehicleType: String): Int = parkingDbRoomImpl.getCountVehicle(vehicleType)
 
-    private suspend fun executeInsertVehicle(parkingEntity: ParkingEntity): Long = parkingDbRoomImpl.insertVehicle(parkingEntity)
+    suspend fun executeInsertVehicle(parkingEntity: ParkingEntity): Long = parkingDbRoomImpl.insertVehicle(parkingEntity)
 
 
 

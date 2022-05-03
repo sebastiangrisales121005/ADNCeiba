@@ -162,4 +162,63 @@ class ParkingRepositoryRoomTest {
 
     }
 
+    @Test
+    fun vehicle_executeInsert_isCorrect() = runBlocking {
+        //Arrange
+        val licensePlate = "ABC000"
+        val cylinderCapacity = 150
+        val vehicle = Motorcycle(licensePlate, cylinderCapacity)
+
+        val startDateTime = "2022-04-14 08:00:00"
+        val endDateTime = "2022-04-14 10:00:00"
+        val day = "martes"
+        val time = Time(startDateTime, endDateTime, day)
+
+        val parking = ParkingEntranceExit(vehicle, time)
+
+        val parkingEntity = ParkingTranslator.fromDomainToEntity(parking)
+
+        parkingRepositoryRoom.parkingDbRoomImpl = parkingServiceRoom
+
+        `when`(parkingRepositoryRoom.parkingDbRoomImpl.insertVehicle(parkingEntity)).thenReturn(0)
+
+        //Act
+        val result = parkingRepositoryRoom.executeInsertVehicle(parkingEntity)
+
+        //Assert
+        Assert.assertEquals(0, result)
+    }
+
+    @Test
+    fun vehicle_calculateAmountParking_isFailure(): Unit = runBlocking {
+        //Arrange
+        val licensePlate = "ABC000"
+        val cylinderCapacity = 150
+        val vehicle = Motorcycle(licensePlate, cylinderCapacity)
+
+        val startDateTime = "2022-04-14 08:00:00"
+        val endDateTime = "2022-04-14 10:00:00"
+        val day = "martes"
+        val time = Time(startDateTime, endDateTime, day)
+
+        val parking = ParkingEntranceExit(vehicle, time)
+
+        val listParking = listOf(ParkingTranslator.fromDomainToEntity(parking))
+
+        parkingRepositoryRoom.parkingDbRoomImpl = parkingServiceRoom
+
+        `when`(parkingRepositoryRoom.parkingDbRoomImpl.validateVehicleExist(licensePlate)).thenReturn(listParking)
+
+        val expectedMessage = MESSAGE_GET_VEHICLE
+
+        //Act
+        try {
+            parkingRepositoryRoom.calculateAmountParking(licensePlate, endDateTime)
+        } catch (e: ParkingException) {
+            //Assert
+            Assert.assertEquals(expectedMessage, e.message)
+        }
+
+    }
+
 }
