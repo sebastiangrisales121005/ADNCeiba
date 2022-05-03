@@ -22,9 +22,6 @@ class DisableCharacters {
                         Character.OTHER_PUNCTUATION.toInt() -> {
                             return@InputFilter validateOtherPunctuation(index, source, end)
                         }
-                        Character.MATH_SYMBOL.toInt() -> {
-                            return@InputFilter validateMathSymbol(index, source, end)
-                        }
                     }
                 }
                 return@InputFilter null
@@ -58,15 +55,6 @@ class DisableCharacters {
             if (index2 < end && Character.getType(source[index2]) == Character.NON_SPACING_MARK.toInt()) {
                 return ""
             }
-            return null
-        }
-
-        fun validateMathSymbol(index: Int, source: CharSequence, end: Int): String? {
-            val index2 = index + 1
-            if (index2 < end && Character.getType(source[index2]) == Character.NON_SPACING_MARK.toInt()) {
-                return ""
-            }
-
             return null
         }
 

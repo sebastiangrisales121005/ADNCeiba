@@ -53,17 +53,4 @@ class DisableCharactersTest {
         Assert.assertNull(filter)
 
     }
-
-    @Test
-    fun character_validateMathSymbol_isFailure() {
-        //Arrange
-        val character = 0
-
-        //Act
-        val filter = DisableCharacters.validateMathSymbol(character, "", character)
-
-        //Assert
-        Assert.assertNull(filter)
-
-    }
 }
