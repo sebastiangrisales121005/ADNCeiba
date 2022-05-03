@@ -25,10 +25,11 @@ class ParkingTranslator {
             val time = Time(parkingEntity.startDateTime, parkingEntity.endDateTime,
             parkingEntity.day)
 
-            return VehicleFactory.build(parkingEntity.licensePlate,
-                parkingEntity.vehicleType, parkingEntity.cylinderCapacity!!)
-                ?.let { ParkingEntranceExit(it, time) }
-
+            return parkingEntity.cylinderCapacity?.let {
+                VehicleFactory.build(parkingEntity.licensePlate,
+                    parkingEntity.vehicleType, it
+                )?.let { vehicle -> ParkingEntranceExit(vehicle, time) }
+            }
         }
     }
 }
