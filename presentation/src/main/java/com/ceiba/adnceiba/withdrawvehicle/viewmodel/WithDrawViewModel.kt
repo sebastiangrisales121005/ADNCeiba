@@ -3,6 +3,7 @@ package com.ceiba.adnceiba.withdrawvehicle.viewmodel
 import android.text.InputFilter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.ceiba.adnceiba.utils.DisableCharacters
 import com.ceiba.application.dto.ParkingApplicationDto
 import com.ceiba.application.service.ParkingEntranceExitServiceApplication
 import com.ceiba.domain.exception.ParkingException
@@ -53,6 +54,10 @@ class WithDrawViewModel: ViewModel() {
         return withContext(Dispatchers.IO) {
             parkingEntranceExitServiceApplication.outVehicle(licensePlate)
         }
+    }
+
+    fun disableEmoji() {
+        validateEnterEmojiLiveData.value = DisableCharacters.disableEmoji()
     }
 
 
