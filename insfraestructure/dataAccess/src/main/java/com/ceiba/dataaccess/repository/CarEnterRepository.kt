@@ -12,11 +12,12 @@ class CarEnterRepository: VehicleEnterRepository {
             return EMPTY_CYLINDER_CAPACITY
         }
 
-        throw ParkingException("Error en el cilindraje")
+        throw ParkingException(CYLINDER_CAPACITY_ERROR)
     }
 
     companion object {
         const val EMPTY_CYLINDER_CAPACITY = 0
+        const val CYLINDER_CAPACITY_ERROR = "Error en el cilindraje"
     }
 
 

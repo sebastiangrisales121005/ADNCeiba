@@ -1,5 +1,6 @@
 package com.ceiba.dataaccess.repository
 
+import com.ceiba.dataaccess.repository.CarEnterRepository.Companion.CYLINDER_CAPACITY_ERROR
 import com.ceiba.domain.aggregate.ParkingEntranceExit
 import com.ceiba.domain.entity.Motorcycle
 import com.ceiba.domain.exception.ParkingException
@@ -14,7 +15,7 @@ class MotorcycleEnterRepository: VehicleEnterRepository {
 
         }
 
-        throw ParkingException("Error en el cilindraje")
+        throw ParkingException(CYLINDER_CAPACITY_ERROR)
     }
 
 }
