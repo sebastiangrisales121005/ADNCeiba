@@ -93,6 +93,23 @@ class CarTest {
     }
 
     @Test
+    fun parking_validateDataEmpty_isFailure() {
+        //Arrange
+        val vehicleBuilder = CarBuilder.aCar()
+            .withLicensePlate("")
+
+        val expectedMessage = MESSAGE_EMPTY
+
+        try {
+            //Act
+            vehicleBuilder.build()
+        } catch (e: ParkingException) {
+            //Assert
+            Assert.assertEquals(expectedMessage, e.message)
+        }
+    }
+
+    @Test
     fun parking_validateDataLength_isCorrect() {
         //Arrange
         val vehicleBuilder = CarBuilder.aCar()
@@ -137,6 +154,27 @@ class CarTest {
 
         //Assert
         Assert.assertNotEquals(ParkingException(MESSAGE_RESTRICTED), result)
+    }
+
+    @Test
+    fun parking_validateAmountVehicle_isFailure() {
+        //Arrange
+        val vehicleBuilder = CarBuilder.aCar()
+
+        val amount = 21
+        val expectedMessage = MESSAGE_RESTRICTED
+
+        try {
+            //Act
+            vehicleBuilder.build()
+        } catch (e: ParkingException) {
+            //Assert
+            Assert.assertNotEquals(expectedMessage, e.message)
+        }
+
+
+        //Assert
+
     }
 
 }
