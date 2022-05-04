@@ -106,6 +106,25 @@ class CarTest {
     }
 
     @Test
+    fun parking_validateDataLength_isFailure() {
+        //Arrange
+        val licensePlate = "ABC0000"
+        val vehicleBuilder = CarBuilder.aCar()
+            .withLicensePlate(licensePlate)
+
+        val expectedMessage = MESSAGE_LENGTH
+
+        try {
+            //Act
+            vehicleBuilder.build()
+        } catch (e: ParkingException) {
+            //Assert
+            Assert.assertEquals(expectedMessage, e.message)
+        }
+
+    }
+
+    @Test
     fun parking_validateAmountVehicle_isCorrect() {
         //Arrange
         val vehicleBuilder = CarBuilder.aCar()
