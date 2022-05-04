@@ -36,11 +36,12 @@ open class ParkingRepositoryRoom @Inject constructor(): ParkingEntranceExitRepos
     override suspend fun getCountVehicleParking(vehicleType: String): Int = getCountVehicle(vehicleType)
 
     override suspend fun getVehicleExistState(licensePlate: String): Int? {
+        var state: Int? = null
         if (parkingDbRoomImpl.validateVehicleExist(licensePlate).isNotEmpty()) {
-            return parkingDbRoomImpl.validateVehicleExist(licensePlate)[0].stateVehicle
+            state = parkingDbRoomImpl.validateVehicleExist(licensePlate)[0].stateVehicle
         }
 
-        throw ParkingException(MESSAGE_GET_VEHICLE)
+        return state
     }
 
     suspend fun updateEndTimeVehicleParkingDb(licensePlate: String, endTime: String): ParkingEntranceExit {
