@@ -38,23 +38,16 @@ class ParkingRepositoryRoomTest {
 
         val parking = ParkingEntranceExit(vehicle, time)
 
-        val listParking = listOf(ParkingTranslator.fromDomainToEntity(parking))
-
         val vehicleRepository = MotorcycleEnterRepository()
 
         parkingRepositoryRoom.parkingDbRoomImpl = parkingServiceRoom
 
-        `when`(parkingRepositoryRoom.parkingDbRoomImpl.validateVehicleExist(vehicle.licensePlate)).thenReturn(listParking)
-
-        val expectedMessage = MESSAGE_GET_VEHICLE
-
         //Act
-        try {
-            parkingRepositoryRoom.enterVehicle(parking, vehicleRepository)
-        } catch (e: ParkingException) {
-            //Assert
-            Assert.assertEquals(expectedMessage, e.message)
-        }
+        val result = parkingRepositoryRoom.enterVehicle(parking, vehicleRepository)
+
+        //Assert
+        Assert.assertNull(result)
+
     }
 
     @Test
