@@ -157,11 +157,10 @@ class CarTest {
     }
 
     @Test
-    fun parking_validateAmountVehicle_isFailure() {
+    fun parking_validateAmountVehicle_notException() {
         //Arrange
         val vehicleBuilder = CarBuilder.aCar()
 
-        val amount = 21
         val expectedMessage = MESSAGE_RESTRICTED
 
         try {
@@ -172,8 +171,25 @@ class CarTest {
             Assert.assertNotEquals(expectedMessage, e.message)
         }
 
+    }
 
-        //Assert
+    @Test
+    fun parking_validateAmountVehicle_exception() {
+        //Arrange
+        val vehicleBuilder = CarBuilder.aCar()
+            .build()
+
+        val expectedMessage = MESSAGE_RESTRICTED
+        val amount = 21
+
+        try {
+            //Act
+            vehicleBuilder.validateAmountVehicle(amount)
+        } catch (e: ParkingException) {
+            //Assert
+            Assert.assertEquals(expectedMessage, e.message)
+        }
+
 
     }
 
