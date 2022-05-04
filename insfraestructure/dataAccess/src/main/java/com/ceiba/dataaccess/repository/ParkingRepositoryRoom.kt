@@ -14,14 +14,11 @@ open class ParkingRepositoryRoom @Inject constructor(): ParkingEntranceExitRepos
     lateinit var parkingDbRoomImpl: ParkingServiceRoom
 
     override suspend fun enterVehicle(parkingEntranceExit: ParkingEntranceExit, vehicleEnterRepository: VehicleEnterRepository): Long? {
-        val vehicleExist = parkingDbRoomImpl.validateVehicleExist(parkingEntranceExit.vehicle.licensePlate)
-        if (vehicleExist.isEmpty()) {
-            val parkingEntity = ParkingTranslator.fromDomainToEntity(parkingEntranceExit)
-            parkingEntity.cylinderCapacity = vehicleEnterRepository.enterVehicle(parkingEntranceExit)
-            return executeInsertVehicle(parkingEntity)
-        }
+        val parkingEntity = ParkingTranslator.fromDomainToEntity(parkingEntranceExit)
+        parkingEntity.cylinderCapacity = vehicleEnterRepository.enterVehicle(parkingEntranceExit)
 
-        throw ParkingException(MESSAGE_GET_VEHICLE)
+        return executeInsertVehicle(parkingEntity)
+
     }
 
     override suspend fun outVehicle(licensePlate: String): Int? {
