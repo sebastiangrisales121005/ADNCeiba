@@ -17,8 +17,6 @@ import javax.inject.Inject
 @HiltViewModel
 class WithDrawViewModel @Inject constructor(val parkingEntranceExitServiceApplication: ParkingEntranceExitServiceApplication): ViewModel() {
 
-    //lateinit var parkingEntranceExitServiceApplication: ParkingEntranceExitServiceApplication
-
     val showCalculateParkingLiveData = MutableLiveData<ParkingApplicationDto>()
 
     val outVehicleLiveData = MutableLiveData<Int>()

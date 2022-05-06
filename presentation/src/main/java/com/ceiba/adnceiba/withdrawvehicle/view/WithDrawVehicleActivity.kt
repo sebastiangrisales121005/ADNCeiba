@@ -19,10 +19,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class WithDrawVehicleActivity : AppCompatActivity() {
-
-    /*@Inject
-    lateinit var parkingEntranceExitServiceApplication: ParkingEntranceExitServiceApplication*/
-
+    
     private val mCalendar = Calendar.getInstance()
 
     private val viewModel: WithDrawViewModel? by viewModels()
@@ -61,8 +58,6 @@ class WithDrawVehicleActivity : AppCompatActivity() {
                 mCalendar.get(Calendar.DAY_OF_MONTH)).show()
         }
 
-        //viewModel = ViewModelProvider(this)[WithDrawViewModel::class.java]
-        //viewModel?.parkingEntranceExitServiceApplication = parkingEntranceExitServiceApplication
         viewModel?.disableEmoji()
 
         mActivityWithDrawVehicleBinding?.buttonDeleteVehicle?.setOnClickListener {

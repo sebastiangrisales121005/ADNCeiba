@@ -24,9 +24,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class EnterVehicleActivity : AppCompatActivity() {
 
-    /*@Inject
-    lateinit var parkingEntranceExitServiceApplication: ParkingEntranceExitServiceApplication*/
-
     private val mCalendar = Calendar.getInstance()
 
     private val vehicles = arrayOf(CAR, MOTORCYCLE)
@@ -75,10 +72,6 @@ class EnterVehicleActivity : AppCompatActivity() {
         )
 
         mActivityEnterVehicleBinding?.spinnerVehicleTypeEnter?.adapter = adapterSpinnerVehicle
-
-
-        //viewModel = ViewModelProvider(this)[EnterVehicleViewModel::class.java]
-        //viewModel?.parkingEntranceExitServiceApplication = parkingEntranceExitServiceApplication
 
         viewModel?.disableEmoji()
 
