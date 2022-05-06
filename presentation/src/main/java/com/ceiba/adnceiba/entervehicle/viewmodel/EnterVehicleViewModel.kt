@@ -3,6 +3,7 @@ package com.ceiba.adnceiba.entervehicle.viewmodel
 
 import android.text.InputFilter
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.ceiba.adnceiba.utils.DisableCharacters
 import com.ceiba.application.service.ParkingEntranceExitServiceApplication
@@ -12,13 +13,16 @@ import com.ceiba.domain.aggregate.ParkingEntranceExit
 import com.ceiba.domain.exception.ParkingException
 import com.ceiba.domain.repository.VehicleEnterRepository
 import com.ceiba.domain.valueobject.Time
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class EnterVehicleViewModel: ViewModel() {
-    lateinit var parkingEntranceExitServiceApplication: ParkingEntranceExitServiceApplication
+@HiltViewModel
+class EnterVehicleViewModel @Inject constructor(val parkingEntranceExitServiceApplication: ParkingEntranceExitServiceApplication): ViewModel() {
+    //lateinit var parkingEntranceExitServiceApplication: ParkingEntranceExitServiceApplication
 
     val enterVehicleLiveData = MutableLiveData<Long>()
     val showMessageLiveData = MutableLiveData<String>()

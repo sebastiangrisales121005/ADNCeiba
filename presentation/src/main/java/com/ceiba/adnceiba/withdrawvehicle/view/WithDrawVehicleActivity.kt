@@ -5,6 +5,7 @@ import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.ceiba.adnceiba.R
@@ -19,12 +20,12 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class WithDrawVehicleActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var parkingEntranceExitServiceApplication: ParkingEntranceExitServiceApplication
+    /*@Inject
+    lateinit var parkingEntranceExitServiceApplication: ParkingEntranceExitServiceApplication*/
 
     private val mCalendar = Calendar.getInstance()
 
-    private var viewModel: WithDrawViewModel? = null
+    private val viewModel: WithDrawViewModel? by viewModels()
 
     private var mActivityWithDrawVehicleBinding: ActivityWithDrawVehicleBinding? = null
 
@@ -60,8 +61,8 @@ class WithDrawVehicleActivity : AppCompatActivity() {
                 mCalendar.get(Calendar.DAY_OF_MONTH)).show()
         }
 
-        viewModel = ViewModelProvider(this)[WithDrawViewModel::class.java]
-        viewModel?.parkingEntranceExitServiceApplication = parkingEntranceExitServiceApplication
+        //viewModel = ViewModelProvider(this)[WithDrawViewModel::class.java]
+        //viewModel?.parkingEntranceExitServiceApplication = parkingEntranceExitServiceApplication
         viewModel?.disableEmoji()
 
         mActivityWithDrawVehicleBinding?.buttonDeleteVehicle?.setOnClickListener {
