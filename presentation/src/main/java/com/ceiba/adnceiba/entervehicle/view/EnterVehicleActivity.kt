@@ -9,6 +9,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.ceiba.adnceiba.R
@@ -23,16 +24,13 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class EnterVehicleActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var parkingEntranceExitServiceApplication: ParkingEntranceExitServiceApplication
-
     private val mCalendar = Calendar.getInstance()
 
     private val vehicles = arrayOf(CAR, MOTORCYCLE)
 
     private lateinit var selectedVehicle: String
 
-    private var viewModel: EnterVehicleViewModel? = null
+    private val viewModel: EnterVehicleViewModel? by viewModels()
 
     private var mActivityEnterVehicleBinding: ActivityEnterVehicleBinding? = null
 
@@ -74,10 +72,6 @@ class EnterVehicleActivity : AppCompatActivity() {
         )
 
         mActivityEnterVehicleBinding?.spinnerVehicleTypeEnter?.adapter = adapterSpinnerVehicle
-
-
-        viewModel = ViewModelProvider(this)[EnterVehicleViewModel::class.java]
-        viewModel?.parkingEntranceExitServiceApplication = parkingEntranceExitServiceApplication
 
         viewModel?.disableEmoji()
 

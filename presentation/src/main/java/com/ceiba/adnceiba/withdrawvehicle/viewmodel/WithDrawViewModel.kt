@@ -7,14 +7,15 @@ import com.ceiba.adnceiba.utils.DisableCharacters
 import com.ceiba.application.dto.ParkingApplicationDto
 import com.ceiba.application.service.ParkingEntranceExitServiceApplication
 import com.ceiba.domain.exception.ParkingException
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class WithDrawViewModel: ViewModel() {
-
-    lateinit var parkingEntranceExitServiceApplication: ParkingEntranceExitServiceApplication
+@HiltViewModel
+class WithDrawViewModel @Inject constructor(val parkingEntranceExitServiceApplication: ParkingEntranceExitServiceApplication): ViewModel() {
 
     val showCalculateParkingLiveData = MutableLiveData<ParkingApplicationDto>()
 
