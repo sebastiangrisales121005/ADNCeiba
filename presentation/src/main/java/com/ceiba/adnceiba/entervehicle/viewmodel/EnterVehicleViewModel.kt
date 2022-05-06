@@ -5,6 +5,7 @@ import android.text.InputFilter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.ceiba.adnceiba.utils.DisableCharacters
 import com.ceiba.application.service.ParkingEntranceExitServiceApplication
 import com.ceiba.application.service.factory.VehicleFactory
@@ -36,7 +37,7 @@ class EnterVehicleViewModel @Inject constructor(val parkingEntranceExitServiceAp
             val parking = vehicle?.let { ParkingEntranceExit(it, time) }
             val vehicleEnterRepository = EnterVehicleFactory.build(selectedVehicle)
 
-            CoroutineScope(Dispatchers.Main).launch {
+            viewModelScope.launch {
                 try {
                     enterVehicleLiveData.value = parking?.let { getEnterVehicle(it, vehicleEnterRepository) }
                 } catch (e: ParkingException) {

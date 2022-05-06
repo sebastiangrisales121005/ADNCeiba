@@ -3,6 +3,7 @@ package com.ceiba.adnceiba.withdrawvehicle.viewmodel
 import android.text.InputFilter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.ceiba.adnceiba.utils.DisableCharacters
 import com.ceiba.application.dto.ParkingApplicationDto
 import com.ceiba.application.service.ParkingEntranceExitServiceApplication
@@ -27,7 +28,7 @@ class WithDrawViewModel @Inject constructor(val parkingEntranceExitServiceApplic
 
     fun calculateAmount(licensePlate: String, endTime: String) {
 
-            CoroutineScope(Dispatchers.Main).launch {
+            viewModelScope.launch {
                 try {
                     val parkingUpdate = getCalculateAmount(licensePlate, endTime)
 
