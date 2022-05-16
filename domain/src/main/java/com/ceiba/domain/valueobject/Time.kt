@@ -3,7 +3,7 @@ package com.ceiba.domain.valueobject
 import java.text.SimpleDateFormat
 import java.util.*
 
-class Time(val startDateTime: String?, val endDateTime: String?, val day: String?) {
+class Time(val startDateTime: String?, val endDateTime: String? = "", val day: String?) {
     var numberDays: Int = 0
     var numberHours: Int? = null
 

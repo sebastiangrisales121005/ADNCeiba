@@ -32,7 +32,7 @@ class EnterVehicleViewModel @Inject constructor(val parkingEntranceExitServiceAp
                     startTime: String, day: String){
         try {
             val vehicle = VehicleFactory.build(licensePlate, selectedVehicle, cylinderCapacity)
-            val time = Time(startTime, null, day)
+            val time = Time(startDateTime = startTime, day = day)
 
             val parking = vehicle?.let { ParkingEntranceExit(it, time) }
             val vehicleEnterRepository = EnterVehicleFactory.build(selectedVehicle)
